@@ -19,7 +19,6 @@ export function RunWithFile(tab1, tab2) {
                 addline(tab1, textToArray[r][0], textToArray[r][1]);
                 r++;
             }
-
             for (var i = r + 1; i < textToArray.length; i++){
                 addline(tab2, textToArray[i][0], textToArray[i][1]);
             }

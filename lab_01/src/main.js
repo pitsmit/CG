@@ -158,7 +158,13 @@ function Run() {
     var table_arr_1 = tables.GetCellValues('multi1');
     var table_arr_2 = tables.GetCellValues('multi2');
 
-    if (validation(table_arr_1) == SAME_DOTS || validation(table_arr_2) == SAME_DOTS){
+    var tmp = [];
+    for (var i = 0; i < table_arr_1.length; i++)
+        tmp.push(table_arr_1[i]);
+    for (var i = 0; i < table_arr_2.length; i++)
+        tmp.push(table_arr_2[i]);
+
+    if (validation(table_arr_1) == SAME_DOTS || validation(table_arr_2) == SAME_DOTS || validation(tmp) == SAME_DOTS){
         alert("Ошибка! В таблицы введены одинаковые точки! Проверьте правильность ввода.");
         return SAME_DOTS;
     }
