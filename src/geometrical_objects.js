@@ -9,6 +9,7 @@ export var CatGroup = new Konva.Group({
     y: height / 2,
     scaleX: 1,
     scaleY: 1,
+    rotation: 0,
 });
 
 
@@ -60,6 +61,7 @@ export function create_obj_line(points, stroke, strokeWidth){
 
     return line;
 }
+
 
 export function setka(layer) {
     for (var i = stage.height() / 2; i > -14312; i-=50){

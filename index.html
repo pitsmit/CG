@@ -14,29 +14,43 @@
         <button class="buttons" id="info">Информация об авторе</button>
         <button class="buttons" id="task">Условие задачи</button>
         <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+        <button class="buttons" id="back-button">Back</button>
 
         <form id="mover" method="dialog" autocomplete="off" name="Перенос">
-            <label for="Перенос">Перенос</label><br>
+            <label for="Перенос" style="font-weight: 900;">Перенос</label><br>
             <label for="dx">DX:</label>
-            <input type="text" name="dx"><br>
+            <input type="text" name="dx" required pattern="^(?:-?\d+(.\d+)?)$"><br>
             <label for="dy">DY:</label>
-            <input type="text" name="dy"><br>
+            <input type="text" name="dy" required pattern="^(?:-?\d+(.\d+)?)$"><br>
             <input type="submit" name="submit" value="Применить"><br><br>
         </form>
 
         <form id="scaling" method="dialog" autocomplete="off" name="Масштабирование">
-            <label for="Масштабирование">Масштабирование</label><br>
+            <label for="Масштабирование" style="font-weight: 900;">Масштабирование</label><br>
             <label>Координаты точки:</label><br>
             <label for="x">X:</label>
-            <input type="text" name="x"><br>
+            <input type="text" name="x" required pattern="^(?:-?\d+(.\d+)?)$"><br>
             <label for="y">Y:</label>
-            <input type="text" name="y"><br>
+            <input type="text" name="y" required pattern="^(?:-?\d+(.\d+)?)$"><br>
             <label>Коэффициенты масштабирования:</label><br>
             <label for="kx">KX:</label>
-            <input type="text" name="kx"><br>
+            <input type="text" name="kx" required pattern="^(?:-?\d+(.\d+)?)$"><br>
             <label for="ky">KY:</label>
-            <input type="text" name="ky"><br>
-            <input type="submit" name="submit" value="Применить">
+            <input type="text" name="ky" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <input type="submit" name="submit" value="Применить"><br><br>
+        </form>
+
+        <form id="rotator" method="dialog" autocomplete="off" name="Поворот">
+            <label for="Поворот" style="font-weight: 900;">Поворот</label><br>
+            <label>Координаты центра вращения:</label><br>
+            <label for="x">X:</label>
+            <input type="text" name="x" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="y">Y:</label>
+            <input type="text" name="y" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label>Угол поворота(в градусах)</label><br>
+            <label for="q">Q:</label>
+            <input type="text" name="q" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <input type="submit" name="submit" value="Применить"><br><br>
         </form>
     </div>
 
@@ -45,6 +59,8 @@
     <script type="module" src="./src/events.js"></script>
     <script type="module" src="./src/info-functions.js"></script>
     <script type="module" src="./src/mover.js"></script>
+    <script type="module" src="./src/scaler.js"></script>
+    <script type="module" src="./src/rotator.js"></script>
 
 </body>
 </html>
