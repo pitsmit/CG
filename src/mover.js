@@ -3,8 +3,14 @@ export function MakeMove(Group, layer, stack) {
     var dx = Number(el.dx.value);
     var dy = Number(el.dy.value);
 
-    Group.setAttr('x', dx + Group.getAttr('x'));
-    Group.setAttr('y', dy + Group.getAttr('y'));
+    var n_x = Group.getAttr('x');
+    var n_y = Group.getAttr('y');
+
+    var new_x = Module._add(dx, n_x);
+    var new_y = Module._add(dy, n_y);
+    Group.setAttr('x', new_x);
+    Group.setAttr('y', new_y);
+
     layer.draw();
 
     stack.push([

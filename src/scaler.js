@@ -10,8 +10,9 @@ export function MakeScale(Group, layer, stack){
 
     var now_x = Group.getAttr('x');
     var now_y = Group.getAttr('y');
-    var new_x = kx * (now_x - width / 2) + x * (1 - kx); /// координаты нового центра в адекватных величинах
-    var new_y = ky * (height / 2 - now_y) + y * (1 - ky);
+
+    var new_x = Module._find_new_x(kx, now_x, x, width); /// координаты нового центра в адекватных величинах
+    var new_y = Module._find_new_y(ky, now_y, y, height);
 
     Group.setAttr('x', x + width / 2); //// ставим новый центр туда относительно которой точки масштабируем
     Group.setAttr('y', height / 2 - y);
