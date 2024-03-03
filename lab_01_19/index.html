@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container" he></div>
+
+    <div class="menu">
+        <button class="buttons" id="info">Информация об авторе</button>
+        <button class="buttons" id="task">Условие задачи</button>
+        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+
+        <table class="Tables" id="multi1" contenteditable="true">
+            <caption contenteditable="false">Множество точек №1</caption>
+            <tr>
+                <th contenteditable="false">x</th>
+                <th contenteditable="false">y</th>
+            </tr>
+        </table>
+
+        <button class="buttons" id="addbutton1">Добавить точку</button>
+
+        <table class="Tables" id="multi2" contenteditable="true">
+            <caption contenteditable="false">Множество точек №2</caption>
+            <tr>
+                <th contenteditable="false">x</th>
+                <th contenteditable="false">y</th>
+            </tr>
+        </table>
+
+        <button class="buttons" id="addbutton2">Добавить точку</button>
+        <button class="buttons" id="runner">Найти окружности</button>
+
+
+        <table class="Tables" id="ResTable">
+            <caption contenteditable="false">Данные о найденных окружностях</caption>
+            <colgroup>
+                <col span="1" style="width: 20%;">
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 50%;">
+              </colgroup>
+            <tr>
+              <th>Цвет окружности</th>
+              <th>Радиус окружности</th>
+              <th>Координаты центра</th>
+            </tr>
+            <tr>
+              <td>Красный</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Зелёный</td>
+              <td></td>
+              <td></td>
+            </tr>
+        </table>
+
+        <button id="clear-button">Очистить всё</button>
+        <input type="file" id="file-button" accept="text/*">Загрузить данные из файла</input>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+
+</body>
+</html>
