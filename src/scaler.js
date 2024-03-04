@@ -1,3 +1,6 @@
+import { Module } from './c-func/info.js';
+import { StackPush } from './stack.js';
+
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -24,12 +27,5 @@ export function MakeScale(Group, layer, stack){
     Group.setAttr('y', height / 2 - new_y);
 
     layer.draw();
-
-    stack.push([
-        Group.getAttr('x'),
-        Group.getAttr('y'),
-        Group.getAttr('scaleX'),
-        Group.getAttr('scaleY'),
-        Group.getAttr('rotation'),
-    ]);
+    StackPush(stack, Group);
 }

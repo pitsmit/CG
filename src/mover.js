@@ -1,3 +1,6 @@
+import { Module } from './c-func/info.js';
+import { StackPush } from './stack.js';
+
 export function MakeMove(Group, layer, stack) {
     var el = document.getElementById('mover');
     var dx = Number(el.dx.value);
@@ -12,12 +15,5 @@ export function MakeMove(Group, layer, stack) {
     Group.setAttr('y', new_y);
 
     layer.draw();
-
-    stack.push([
-        Group.getAttr('x'),
-        Group.getAttr('y'),
-        Group.getAttr('scaleX'),
-        Group.getAttr('scaleY'),
-        Group.getAttr('rotation'),
-    ]);
+    StackPush(stack, Group);
 }

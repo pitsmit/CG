@@ -1,18 +1,22 @@
 export function Info() {
-    alert("Смирнов Пётр Ильич, ИУ7-45Б");
+    window.open(
+        'info.html',
+        '_blank'
+      );
 }
 
 
-function Task() {
-    alert("Лабораторная работа №2. Вариант №25.\nНарисовать исходный рисунок(кот), затем осуществить его перенос, масштабирование и поворот");
+export function Task() {
+    window.open(
+        'task.html',
+        '_blank'
+      );
 }
 
 
-function Instruction() {
-    alert("затычка");
+export function Instruction() {
+    window.open(
+        'instruction.html',
+        '_blank'
+      );
 }
-
-
-document.getElementById("info").addEventListener("click", Info);
-document.getElementById("task").addEventListener("click", Task);
-document.getElementById("instruction").addEventListener("click", Instruction);
