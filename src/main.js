@@ -2,6 +2,7 @@ import * as tables from './tables.js';
 import { stage, create_obj_circle, create_obj_line, refresh_graph, groupCircles, ResGroup } from './graphical_objects.js';
 import { search_centeres, search_corners, search_min_angle } from './math.js';
 import { RunWithFile } from './file.js';
+import { Info, Task, Instruction } from './info-functions.js';
 
 const SUCCESS = 0;
 const SAME_DOTS = -1;
@@ -22,6 +23,7 @@ var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 
 var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
+
 
 stage.addEventListener('click', function(e) {
     ResGroup.destroy();
@@ -257,3 +259,7 @@ document.getElementById("clear-button").addEventListener("click", ClearAll);
 document.getElementById("file-button").addEventListener("click", function(){
     RunWithFile('multi1', 'multi2');
 }, false);
+
+document.getElementById("info").addEventListener("click", Info);
+document.getElementById("task").addEventListener("click", Task);
+document.getElementById("instruction").addEventListener("click", Instruction);

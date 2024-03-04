@@ -1,3 +1,6 @@
+import * as konva from './konva.min.js';
+
+
 const width = window.innerWidth;
 const height = window.innerHeight;
 
