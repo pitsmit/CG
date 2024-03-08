@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <link rel="stylesheet" href="./src/css/styles.css" />
     <meta charset="UTF-8">
@@ -7,8 +7,8 @@
     <title>Смирнов Пётр ИУ7-45Б ЛР№2 Вариант №25</title>
 </head>
 <body>
-    <div id="container" he></div>
 
+    <div id="container" he></div>
     <div class="menu">
         <ul>
             <a href="./index.html">1. Реализация алгоритмов построения отрезков</a><br>
@@ -36,24 +36,21 @@
             <input type="radio" name="state" value="BY" required>
             <label for="BY">Алгоритм Ву</label><br>
 
-            <label>Координаты точек отрезка</label><br>
-            <label for="xn">X начала:</label>
-            <input type="text" name="xn" required pattern="^(?:-?\d+(.\d+)?)$"><br>
-            <label for="yn">Y начала:</label>
-            <input type="text" name="yn" required pattern="^(?:-?\d+(.\d+)?)$"><br>
-            <label for="xk">X конца:</label>
-            <input type="text" name="xk" required pattern="^(?:-?\d+(.\d+)?)$"><br>
-            <label for="yk">Y конца:</label>
-            <input type="text" name="yk" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="len">Длина отрезка:</label>
+            <input type="text" name="len" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="shag">Шаг изменения угла:</label>
+            <input type="text" name="shag" required pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
 
             <label for="favcolor">Выберите цвет отрезка</label>
             <input type="color" id="favcolor" name="favcolor" /><br>
             <label for="back">Выберите цвет фона</label>
             <input type="color" id="back" name="back" value="#FFFFFF"/><br>
+
             <input type="submit" name="submit" value="Применить"><br><br>
         </form>
     </div>
 
-    <script type="module" src="./src/main.js"></script>
+
+    <script type="module" src="./src/degree_research.js"></script>
 </body>
 </html>

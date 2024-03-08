@@ -17,11 +17,17 @@
         <button class="buttons" id="info">Информация об авторе</button>
         <button class="buttons" id="task">Условие задачи</button>
         <button class="buttons" id="instruction">Инструкция по работе с программой</button>
-        <button class="buttons" id="GetTimeExperiment">Получить данные о временных характеристиках</button>
-    </div>
 
+        <form id="collect-data-for-line" method="dialog" autocomplete="off" name="Данные об отрезке">
+            <label for="Данные об отрезке" style="font-weight: 900;">Данные об отрезке</label><br>
+            <label for="len">Длина отрезка исследования:</label>
+            <input type="text" name="len" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <input class="buttons" type="submit" name="submit" value="Получить данные о ступенчатых характеристиках"><br><br>
+        </form>
+    </div>
+    
     <canvas id="histogram"></canvas>
-    <script type="module" src="./src/diagram.js"></script>
+    <script type="module" src="./src/steps.js"></script>
     <div id="container" he></div>
 </body>
 </html>

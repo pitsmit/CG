@@ -1,12 +1,13 @@
-import { create_obj_line, create_obj_rect, refresh_graph } from "./geometrical_objects.js";
+import { create_obj_line, create_obj_rect, refresh_graph, layer, xAxis, yAxis, stage } from "./geometrical_objects.js";
 
-function GetUserData(form){
+export function GetUserData(form){
     var el = document.getElementById(form);
     var xn = parseFloat(el.xn.value);
     var yn = parseFloat(el.yn.value);
     var xk = parseFloat(el.xk.value);
     var yk = parseFloat(el.yk.value);
     var color = el.favcolor.value;
+    var backcolor = el.back.value;
     var options = document.getElementsByName('state');
     var option_value;
     for(var i = 0; i < options.length; i++){
@@ -16,10 +17,10 @@ function GetUserData(form){
         }
     }
 
-    return [xn, yn, xk, yk, color, option_value];
+    return [xn, yn, xk, yk, color, option_value, backcolor];
 }
 
-function CDA(xn, yn, xk, yk, color, layer){
+export function CDA(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
 
@@ -28,36 +29,44 @@ function CDA(xn, yn, xk, yk, color, layer){
 
     var l;
 
-    if (delta_x > delta_y)
+    if (Math.abs(delta_x) > Math.abs(delta_y))
         l = Math.abs(delta_x);
     else
         l = Math.abs(delta_y);
-
+    
     delta_x /= l;
     delta_y /= l;
 
-    for (var i = 0; i < l + 1; i++){
+    var count_stypenka = 0;
+    var prev_x = x;
+    var prev_y = y;
+
+    for (var i = 0; i <= l + 1; i++){
         var rect = create_obj_rect(Math.round(x + width / 2), Math.round(height / 2 - y), 1, 1, color);
         layer.add(rect);
         x += delta_x;
         y += delta_y;
+
+        if (prev_x != Math.round(x) && prev_y != Math.round(y))
+            count_stypenka++;
+        prev_x = Math.round(x);
+        prev_y = Math.round(y);
     }
+
+    return count_stypenka;
 }
 
-
-function LibraryFunction(xn, yn, xk, yk, color, layer){
+export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height){
     var line = create_obj_line([xn + width / 2, height / 2 - yn, xk + width / 2, height / 2 - yk], color, 1);
     layer.add(line);
 }
 
-function BrezReal(xn, yn, xk, yk, color, layer){
+export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
 
     var dx = xk - xn;
     var dy = yk - yn;
-
-    console.log(dx, dy);
 
     var sx;
     var sy;
@@ -93,6 +102,10 @@ function BrezReal(xn, yn, xk, yk, color, layer){
     var m = dy / dx;
     var e = m - 0.5;
 
+    var count_stypenka = 0;
+    var prev_y = y;
+    var prev_x = x;
+
     for (var i = 1; i <= dx + 1; i++){
         var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color);
         layer.add(rect);
@@ -105,17 +118,27 @@ function BrezReal(xn, yn, xk, yk, color, layer){
             }
             e -= 1;
         }
-        else {
-            if (obmen == 0)
+        if (e <= 0) {
+            if (obmen == 0){
                 x += sx;
-            else
+            }
+            else{
                 y += sy;
+            }
             e += m;
         }
+
+        if (prev_x != x && prev_y != y)
+            count_stypenka++;
+        prev_x = x;
+        prev_y = y;
+
     }
+
+    return count_stypenka;
 }
 
-function BrezInt(xn, yn, xk, yk, color, layer){
+export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
 
@@ -155,6 +178,10 @@ function BrezInt(xn, yn, xk, yk, color, layer){
 
     var e = 2 * dy - dx;
 
+    var count_stypenka = 0;
+    var prev_x = x;
+    var prev_y = y;
+
     for (var i = 1; i <= dx + 1; i++){
         var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color);
         layer.add(rect);
@@ -167,41 +194,211 @@ function BrezInt(xn, yn, xk, yk, color, layer){
             }
             e -= 2 * dx;
         }
-        else {
+        if (e <= 0) {
             if (obmen == 0)
                 x += sx;
-            else
+            else{
                 y += sy;
+            }
             e += 2 * dy;
         }
+
+        if (prev_x != x && prev_y != y)
+            count_stypenka++;
+        prev_x = x;
+        prev_y = y;
     }
+
+    return count_stypenka;
 }
 
+export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
+    var x = xn;
+    var y = yn;
+
+    var dx = xk - xn;
+    var dy = yk - yn;
+
+    var sx;
+    var sy;
+
+    if (dx == 0)
+        sx = 0;
+    else if (dx > 0)
+        sx = 1;
+    else
+        sx = -1;
+    
+    if (dy == 0)
+        sy = 0;
+    else if (dy > 0)
+        sy = 1;
+    else
+        sy = -1;
+    
+    dx = Math.abs(dx);
+    dy = Math.abs(dy);
+
+    var m = dy / dx;
+    var obmen;
+
+    if (m > 1){
+        var t = dx;
+        dx = dy;
+        dy = t;
+        obmen = 1;
+        m = 1 / m;
+    }
+    else
+        obmen = 0;
+
+    var e = 1;
+    var w = 1 - m;
+
+    var count_stypenka = 0;
+    var prev_x = x;
+    var prev_y = y;
+
+    var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
+    layer.add(rect);
+    
+    for (var i = 1; i <= dx + 1; i++){
+        if (e < w){
+            if (obmen == 0)
+                x += sx;
+            else{
+                y += sy;
+            }
+            e += m;
+        }
+        else{
+            x += sx;
+            y += sy;
+            e -= w;
+        }
+
+        if (prev_x != x && prev_y != y)
+            count_stypenka++;
+        prev_x = x;
+        prev_y = y;
+
+        rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
+        layer.add(rect);
+    }
+
+    return count_stypenka;
+}
+
+export function BY(xn, yn, xk, yk, color, layer, width, height){
+
+    var x = xn;
+    var y = yn;
+
+    var dx = xk - xn;
+    var dy = yk - yn;
+
+    var sx;
+    var sy;
+
+    if (dx == 0)
+        sx = 0;
+    else if (dx > 0)
+        sx = 1;
+    else
+        sx = -1;
+    
+    if (dy == 0)
+        sy = 0;
+    else if (dy > 0)
+        sy = 1;
+    else
+        sy = -1;
+    
+    dx = Math.abs(dx);
+    dy = Math.abs(dy);
+
+    var obmen;
+
+    if (dx > dy)
+        obmen = 0;
+    else{
+        var t = dx;
+        dx = dy;
+        dy = t;
+        obmen = 1;
+    }
+
+    var m = dy / dx;
+    var e = 0.5;
+    var w = 1;
+
+    var count_stypenka = 0;
+    var prev_x = x;
+    var prev_y = y;
+
+    for (var i = 0; i < dx + 1; i++){
+        if (obmen == 0){
+            var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, -e);
+            layer.add(rect);
+            rect = create_obj_rect(x + width / 2, height / 2 - (y + sy), 1, 1, color, e - 1);
+            layer.add(rect);
+        }
+        else{
+            var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
+            layer.add(rect);
+            rect = create_obj_rect(x + sx + width / 2, height / 2 - y, 1, 1, color, e - 1);
+            layer.add(rect);
+        }
+
+        if (e >= w - m){
+            if (obmen == 0){
+                y += sy;
+            }
+            else
+                x += sx;
+            e -= 1;
+        }
+        if (obmen == 0)
+            x += sx;
+        else{
+            y += sy;
+        }
+        e += m;
+
+        if (prev_x != x && prev_y != y)
+            count_stypenka++;
+        prev_x = x;
+        prev_y = y;
+    }
+
+    return count_stypenka;
+}
 
 
 export function SwitchAlghorithm(){
-    var [xn, yn, xk, yk, color, option_value] = GetUserData('collect-data-for-line')
+    var [xn, yn, xk, yk, color, option_value, backgroudcolor] = GetUserData('collect-data-for-line')
     layer.destroyChildren();
     refresh_graph(layer, xAxis, yAxis);
+    stage.getContainer().style.backgroundColor = backgroudcolor;
 
     switch(option_value){
         case "library-function":
-            LibraryFunction(xn, yn, xk, yk, color, layer);
+            LibraryFunction(xn, yn, xk, yk, color, layer, width, height);
             break;
         case "CDA":
-            CDA(xn, yn, xk, yk, color, layer);
+            CDA(xn, yn, xk, yk, color, layer, width, height);
             break;
         case "BrezReal":
-            BrezReal(xn, yn, xk, yk, color, layer);
+            BrezReal(xn, yn, xk, yk, color, layer, width, height);
             break;
         case "BrezInt":
-            BrezInt(xn, yn, xk, yk, color, layer);
+            BrezInt(xn, yn, xk, yk, color, layer, width, height);
             break;
         case "BrezNoSteps":
+            BrezNoSteps(xn, yn, xk, yk, color, layer, width, height);
             break;
         case "BY":
+            BY(xn, yn, xk, yk, color, layer, width, height);
             break;
     }
 }
-
-document.getElementById('collect-data-for-line').addEventListener("submit", SwitchAlghorithm);

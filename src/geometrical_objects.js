@@ -4,8 +4,6 @@ const height = window.innerHeight;
 
 
 export var layer = new Konva.Layer();
-window.layer = layer;
-
 
 export var stage = new Konva.Stage({
     container: 'container',
@@ -13,10 +11,6 @@ export var stage = new Konva.Stage({
     height: height,
     draggable: true,
 });
-window.stage = stage;
-
-stage.add(layer);
-
 
 export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
     var circle = new Konva.Circle({
@@ -32,13 +26,14 @@ export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
 }
 
 
-export function create_obj_rect(x, y, width, height, fill){
+export function create_obj_rect(x, y, width, height, fill, opacity=1){
     var rect = new Konva.Rect({
         x: x,
         y: y,
         width: width,
         height: height,
-        fill: fill
+        fill: fill,
+        opacity: opacity
     });
 
     return rect
@@ -62,11 +57,12 @@ export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth
 }
 
 
-export function create_obj_line(points, stroke, strokeWidth){
+export function create_obj_line(points, stroke, strokeWidth, opacity=1){
     var line = new Konva.Line({
         points: points,
         stroke: stroke,
-        strokeWidth: strokeWidth
+        strokeWidth: strokeWidth,
+        opacity: opacity
     });
 
     return line;
@@ -102,12 +98,5 @@ export function refresh_graph(layer, xAxis, yAxis) {
     setka(layer);
 }
 
-window.refresh_graph = refresh_graph;
-
-
-var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
-var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);
-window.xAxis = xAxis;
-window.yAxis = yAxis;
-
-refresh_graph(layer, xAxis, yAxis);
+export var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
+export var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);

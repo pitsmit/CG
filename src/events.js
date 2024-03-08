@@ -1,6 +1,3 @@
-import { Info, Task, Instruction } from './info-functions.js';
-import { SwitchAlghorithm } from './algho_runner.js';
-
 export function addWheel(stage, layer, xAxis, yAxis){
     const scaleBy = 1.05;
     stage.on('wheel', (e) => {
@@ -44,9 +41,11 @@ export function addWheel(stage, layer, xAxis, yAxis){
 }
 
 
-export function addButton(){
+export function addButton(Info="", Task="", Instruction="", SwitchAlghorithm=""){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
-    document.getElementById('collect-data-for-line').addEventListener("submit", SwitchAlghorithm);
+
+    if (SwitchAlghorithm != "")
+        document.getElementById('collect-data-for-line').addEventListener("submit", SwitchAlghorithm);
 }
