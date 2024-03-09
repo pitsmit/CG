@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-packager .",
-    "package": "electron-packager . MyApp --platform=win32 --arch=x64 --out=dist --overwrite",
     "cock": "npx webpack --mode production"
   },
   "keywords": [],
@@ -13,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "chart.js": "^4.4.2",
-    "electron-packager": "^17.1.2",
-    "electron-squirrel-startup": "^1.0.0",
     "konva": "^9.3.6",
     "moment": "^2.30.1"
   },
