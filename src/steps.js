@@ -1,13 +1,14 @@
 import * as chartt from './Chart.min.js';
+import * as konva from './konva.min.js';
 import { CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algho_runner.js';
-import { layer } from './geometrical_objects.js';
 import { addButton } from './events.js';
 import { Info, Task, Instruction } from './info-functions.js';
 
-addButton(Info, Task, Instruction, "")
+addButton(Info, Task, Instruction)
+const ctx = document.getElementById('container').getContext('2d');
 
-const ctx = document.getElementById('histogram').getContext('2d');
 function plot_lines(len){
+    var layer = new Konva.Layer();
     var color = "black";
     var shag = 10;
 
@@ -37,6 +38,8 @@ function plot_lines(len){
 
         shag += shag0;
     }
+
+    layer.destroy();
 
     return [CDA_step, BrezReal_step, BrezInt_step, BrezNoSteps_step, BY_step];
 }
@@ -107,9 +110,12 @@ run([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]);
 
-document.getElementById('collect-data-for-line').addEventListener("submit", function(){
-    var el = document.getElementById("collect-data-for-line");
-    var len = parseFloat(el.len.value);
-    var data = plot_lines(len);
-    run(data);
-});
+
+if (document.getElementById('collect-data-for-step-line')){
+    document.getElementById('collect-data-for-step-line').addEventListener("submit", function(){
+        var el = document.getElementById("collect-data-for-step-line");
+        var len = parseFloat(el.len.value);
+        var data = plot_lines(len);
+        run(data);
+    });
+}

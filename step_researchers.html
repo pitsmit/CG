@@ -7,6 +7,7 @@
     <title>Смирнов Пётр ИУ7-45Б ЛР№2 Вариант №25</title>
 </head>
 <body>
+    <canvas id="container"></canvas>
     <div class="menu">
         <ul>
             <a href="./index.html">1. Реализация алгоритмов построения отрезков</a><br>
@@ -18,16 +19,13 @@
         <button class="buttons" id="task">Условие задачи</button>
         <button class="buttons" id="instruction">Инструкция по работе с программой</button>
 
-        <form id="collect-data-for-line" method="dialog" autocomplete="off" name="Данные об отрезке">
+        <form id="collect-data-for-step-line" method="dialog" autocomplete="off" name="Данные об отрезке">
             <label for="Данные об отрезке" style="font-weight: 900;">Данные об отрезке</label><br>
             <label for="len">Длина отрезка исследования:</label>
             <input type="text" name="len" required pattern="^(?:-?\d+(.\d+)?)$"><br>
             <input class="buttons" type="submit" name="submit" value="Получить данные о ступенчатых характеристиках"><br><br>
         </form>
     </div>
-    
-    <canvas id="histogram"></canvas>
-    <script type="module" src="./src/steps.js"></script>
-    <div id="container" he></div>
+    <script src="./dist/step.js"></script>
 </body>
 </html>

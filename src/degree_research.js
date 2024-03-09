@@ -6,12 +6,10 @@ import { LibraryFunction, CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algh
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
 addWheel(stage, layer, xAxis, yAxis);
-
-window.width = window.innerWidth;
-window.height = window.innerHeight;
+addButton(Info, Task, Instruction)
 
 
-function GetUserData(form){
+function GetUserDataDegree(form){
     var el = document.getElementById(form);
     var len = parseFloat(el.len.value);
     var shag = parseFloat(el.shag.value);
@@ -32,7 +30,7 @@ function GetUserData(form){
 
 
 function plot_lines(){
-    var [len, shag, color, option_value, black] = GetUserData('collect-data-for-line')
+    var [len, shag, color, option_value, black] = GetUserDataDegree('collect-data-for-degree-line')
     layer.destroyChildren();
     refresh_graph(layer, xAxis, yAxis);
     stage.getContainer().style.backgroundColor = black;
@@ -69,4 +67,6 @@ function plot_lines(){
 }
 
 
-addButton(Info, Task, Instruction, plot_lines)
+document.getElementById('collect-data-for-degree-line').addEventListener("submit", function(){
+    plot_lines();
+});

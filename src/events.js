@@ -41,11 +41,8 @@ export function addWheel(stage, layer, xAxis, yAxis){
 }
 
 
-export function addButton(Info="", Task="", Instruction="", SwitchAlghorithm=""){
+export function addButton(Info, Task, Instruction){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
-
-    if (SwitchAlghorithm != "")
-        document.getElementById('collect-data-for-line').addEventListener("submit", SwitchAlghorithm);
 }

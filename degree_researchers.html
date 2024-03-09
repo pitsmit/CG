@@ -7,8 +7,8 @@
     <title>Смирнов Пётр ИУ7-45Б ЛР№2 Вариант №25</title>
 </head>
 <body>
+    <div id="container"></div>
 
-    <div id="container" he></div>
     <div class="menu">
         <ul>
             <a href="./index.html">1. Реализация алгоритмов построения отрезков</a><br>
@@ -20,7 +20,7 @@
         <button class="buttons" id="task">Условие задачи</button>
         <button class="buttons" id="instruction">Инструкция по работе с программой</button>
 
-        <form id="collect-data-for-line" method="dialog" autocomplete="off" name="Данные об отрезке">
+        <form id="collect-data-for-degree-line" method="dialog" autocomplete="off" name="Данные об отрезке">
             <label for="Данные об отрезке" style="font-weight: 900;">Данные об отрезке</label><br>
             <label>Выберите алгоритм построения:</label><br>
             <input type="radio" name="state" value="library-function" required>
@@ -45,12 +45,10 @@
             <input type="color" id="favcolor" name="favcolor" /><br>
             <label for="back">Выберите цвет фона</label>
             <input type="color" id="back" name="back" value="#FFFFFF"/><br>
-
             <input type="submit" name="submit" value="Применить"><br><br>
         </form>
     </div>
 
-
-    <script type="module" src="./src/degree_research.js"></script>
+    <script src="./dist/degree.js"></script>
 </body>
 </html>

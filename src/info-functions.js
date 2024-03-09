@@ -20,9 +20,3 @@ export function Instruction() {
         '_blank'
       );
 }
-
-
-
-document.getElementById("info").addEventListener("click", Info);
-document.getElementById("task").addEventListener("click", Task);
-document.getElementById("instruction").addEventListener("click", Instruction);

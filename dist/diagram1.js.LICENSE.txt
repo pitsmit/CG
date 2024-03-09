@@ -1,0 +1,22 @@
+/*
+   * Konva JavaScript Framework v9.3.3
+   * http://konvajs.org/
+   * Licensed under the MIT
+   * Date: Fri Feb 09 2024
+   *
+   * Original work Copyright (C) 2011 - 2013 by Eric Rowell (KineticJS)
+   * Modified work Copyright (C) 2014 - present by Anton Lavrenov (Konva)
+   *
+   * @license
+   */
+
+/*!
+ * Chart.js v2.9.3
+ * https://www.chartjs.org
+ * (c) 2019 Chart.js Contributors
+ * Released under the MIT License
+ */
+
+//! moment.js
+
+//! moment.js locale configuration

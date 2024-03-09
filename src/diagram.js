@@ -1,12 +1,11 @@
 import * as chartt from './Chart.min.js';
+import * as konva from './konva.min.js';
 import { LibraryFunction, CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algho_runner.js';
-import { layer } from './geometrical_objects.js';
 import { addButton } from './events.js';
 import { Info, Task, Instruction } from './info-functions.js';
 
-addButton(Info, Task, Instruction, "")
-
-const ctx = document.getElementById('histogram').getContext('2d');
+addButton(Info, Task, Instruction)
+const ctx = document.getElementById('container').getContext('2d');
 
 function add_diagramm(values){
   var chart = new Chart(ctx, {
@@ -37,27 +36,14 @@ function add_diagramm(values){
           fontSize: 16,
           padding: 20
       },
-      scales: 
-      {
-        xAxes: [{
-          display: false,
-          barPercentage: 1.3,
-          ticks: {
-            max: 6,
-          }
-        }, {
-          display: true,
-          ticks: {
-            autoSkip: false,
-            max: 5,
-          }
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
+      data: {
+        datasets: [{
+            barPercentage: 0.3,
+            barThickness: 3,
+            maxBarThickness: 6,
+            minBarLength: 2
         }]
-      }
+    }
     }
   });
 
@@ -68,7 +54,7 @@ var chart = add_diagramm([0, 0, 0, 0, 0, 0]);
 
 function TimerExperiment(){
     const count_zam = 100;
-    layer.destroyChildren();
+    var layer = new Konva.Layer();
     chart.destroy();
     var xn = 0;
     var yn = 0;
@@ -76,9 +62,6 @@ function TimerExperiment(){
     var yk = 500;
 
     var color = "black";
-
-    var width = window.innerWidth;
-    var height = window.innerHeight;
 
     var t0 = performance.now();
     for (var i = 0; i < count_zam; i++){
@@ -128,6 +111,8 @@ function TimerExperiment(){
     layer.destroyChildren();
 
     chart = add_diagramm([res1, res2, res3, res4, res5, res6]);
+
+    layer.destroy();
 
     return chart;
 }
