@@ -1,3 +1,5 @@
+import { BAD_SYMBOLS, SAME_DOTS, SUCCESS } from "./main.js";
+
 export function addRowHandlers(tab) {
     var table = document.getElementById(tab);
     var rows = table.getElementsByTagName("tr");
@@ -35,7 +37,6 @@ export function addline(tab, x, y) {
 }
 
 
-
 export function GetCellValues(tab) {
     var arr = [];
 
@@ -55,4 +56,53 @@ export function show_res_table(data){
 
     table.rows[1].cells[2].innerHTML = String(data[0][0].toFixed(4)) + "        " + String(data[0][1].toFixed(4));
     table.rows[2].cells[2].innerHTML = String(data[1][0].toFixed(4)) + "        " + String(data[1][1].toFixed(4));
+}
+
+
+export function validation(tab) {
+  var reg = /^[-+]?\d*\.?\d+$/;
+
+  for (var i = 0; i < tab.length; i++){
+      for (var j = 0; j < tab[i].length; j++){
+          if (reg.test(tab[i][j]) != true)
+              return BAD_SYMBOLS;
+      }
+  }
+
+  for (var i = 0; i < tab.length; i++){
+      for (var j = i + 1; j < tab.length; j++){
+          if (tab[i][0] == tab[j][0] && tab[i][1] == tab[j][1])
+              return SAME_DOTS;
+      }
+  }
+
+  return SUCCESS;
+}
+
+
+export function ClearAll(ResGroup, groupCircles) {
+  ResGroup.destroy();
+  groupCircles.destroy();
+
+  var table = document.getElementById('multi1');
+  var rows = table.getElementsByTagName("tr");
+  var lg = rows.length;
+  for (var i = 1; i < lg; i++) {
+    var currentRow = table.rows[1];
+    currentRow.remove();
+  }
+
+  var table = document.getElementById('multi2');
+  var rows = table.getElementsByTagName("tr");
+  lg = rows.length;
+  for (var i = 1; i < lg; i++) {
+    var currentRow = table.rows[1];
+    currentRow.remove();
+  }
+
+  var table = document.getElementById('ResTable');
+  table.rows[1].cells[1].innerHTML = "";
+  table.rows[1].cells[2].innerHTML = "";
+  table.rows[2].cells[1].innerHTML = "";
+  table.rows[2].cells[2].innerHTML = "";
 }

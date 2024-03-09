@@ -1,9 +1,9 @@
 import * as konva from './konva.min.js';
 
+window.width = window.innerWidth;
+window.height = window.innerHeight;
 
-const width = window.innerWidth;
-const height = window.innerHeight;
-
+export var layer = new Konva.Layer();
 export var groupCircles = new Konva.Group({
 });
 

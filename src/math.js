@@ -69,3 +69,31 @@ export function search_min_angle(data){
 
     return res;
 }
+
+
+export function create_circles(arr) {
+    var res = [];
+
+    for (var i = 0; i < arr.length; i++){
+        for (var j = i + 1; j < arr.length; j++){
+            for (var k = j + 1; k < arr.length; k++){
+                var p1x = arr[i][0];
+                var p1y = arr[i][1];
+                var p2x = arr[j][0];
+                var p2y = arr[j][1];
+                var p3x = arr[k][0];
+                var p3y = arr[k][1];
+                var circle = [[p1x, p1y], [p2x, p2y], [p3x, p3y]];
+                
+                if (p1x == p2x && p1x == p3x)
+                    continue;
+                else if (p1y == p2y && p1y == p3y)
+                    continue;
+                if (!((p3x - p1x) / (p2x - p1x) == (p3y - p1y) / (p2y - p1y)))
+                    res.push(circle);
+            }
+        }
+    }
+
+    return res;
+}

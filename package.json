@@ -1,20 +1,20 @@
 {
-  "name": "test_electron",
+  "name": "cg",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
-    "start": "electron .",
-    "build": "electron-packager .",
-    "package": "electron-packager . MyApp --platform=win32 --arch=x64 --out=dist --overwrite"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cock": "npx webpack --mode production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "electron-packager": "^17.1.2",
-    "electron-squirrel-startup": "^1.0.0"
-  },
   "devDependencies": {
-    "electron": "^29.1.0"
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
   }
 }
