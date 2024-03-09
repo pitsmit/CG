@@ -4,38 +4,14 @@ var config = {
 };
 
 var index = Object.assign({}, config, {
-    entry: ['./src/defaultmain.js'],
+    entry: ['./src/main.js', './src/geometrical_objects.js', './src/mover.js', './src/scaler.js', './src/rotator.js', './src/info-functions.js', './src/events.js', './src/stack.js'],
     output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-  }
-});
-
-var diagram = Object.assign({}, config,{
-    entry: ['./src/diagram.js', './src/algho_runner.js', './src/events.js', './src/info-functions.js', './src/Chart.min.js', './src/konva.min.js'],
-    output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'diagram1.js',
-  }
-});
-
-var step = Object.assign({}, config,{
-    entry: ['./src/steps.js', './src/algho_runner.js', './src/events.js', './src/info-functions.js', './src/Chart.min.js', './src/konva.min.js'],
-    output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'step.js',
-  }
-});
-
-var degree = Object.assign({}, config,{
-    entry: ['./src/degree_research.js', './src/algho_runner.js', './src/events.js', './src/info-functions.js', './src/geometrical_objects.js'],
-    output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'degree.js',
-  }
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'index.js',
+    }
 });
 
 
 module.exports = [
-  degree, index, diagram, step,
+  index
 ];
