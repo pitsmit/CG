@@ -3,4 +3,4 @@ node_modules
 webpack.config.js
 package.json
 package-lock.json
-./dist/*.LICENSE.txt
+./dist/*.js.LICENSE.txt

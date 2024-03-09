@@ -1,5 +1,4 @@
-//import { Layer, Stage, Rect, Line } from './konva.min.js';
-import * as konva from './konva.min.js';
+import { Layer, Stage, Rect, Line } from './konva.min.js';
 
 window.width = window.innerWidth;
 window.height = window.innerHeight;

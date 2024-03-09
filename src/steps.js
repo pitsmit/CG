@@ -1,5 +1,5 @@
-import * as chartt from './Chart.min.js';
-import * as konva from './konva.min.js';
+import { Chart } from './Chart.min.js';
+import { Layer } from './konva.min.js';
 import { CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algho_runner.js';
 import { addButton } from './events.js';
 import { Info, Task, Instruction } from './info-functions.js';
