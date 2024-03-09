@@ -1,20 +1,24 @@
 {
-  "name": "test_electron",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-packager .",
-    "package": "electron-packager . MyApp --platform=win32 --arch=x64 --out=dist --overwrite"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "electron-packager": "^17.1.2",
-    "electron-squirrel-startup": "^1.0.0"
-  },
-  "devDependencies": {
-    "electron": "^29.1.0"
-  }
+    "name": "test_electron",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "cock": "npx webpack --mode production"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "konva": "^9.3.6",
+        "moment": "^2.30.1"
+    },
+    "devDependencies": {
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4"
+    },
+    "browser": {
+        "fs": false,
+        "path": false,
+        "os": false
+      }
 }

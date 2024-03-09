@@ -1,14 +1,9 @@
-import * as konva from './konva.min.js';
+import { Layer, Stage, Rect, Line } from './konva.min.js';
 
 window.width = window.innerWidth;
 window.height = window.innerHeight;
 
 export var layer = new Konva.Layer();
-export var groupCircles = new Konva.Group({
-});
-
-export var ResGroup = new Konva.Group({
-});
 
 export var stage = new Konva.Stage({
     container: 'container',
@@ -18,29 +13,31 @@ export var stage = new Konva.Stage({
 });
 
 
-export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
-    var circle = new Konva.Circle({
+export function create_obj_rect(x, y, width, height, fill, opacity=1){
+    var rect = new Konva.Rect({
         x: x,
         y: y,
-        radius: radius,
+        width: width,
+        height: height,
         fill: fill,
-        stroke: stroke,
-        strokeWidth: strokeWidth,
+        opacity: opacity
     });
 
-    return circle
+    return rect
 }
 
 
-export function create_obj_line(points, stroke, strokeWidth){
+export function create_obj_line(points, stroke, strokeWidth, opacity=1){
     var line = new Konva.Line({
         points: points,
         stroke: stroke,
-        strokeWidth: strokeWidth
+        strokeWidth: strokeWidth,
+        opacity: opacity
     });
 
     return line;
 }
+
 
 export function setka(layer) {
     for (var i = stage.height() / 2; i > -14312; i-=50){
@@ -70,3 +67,7 @@ export function refresh_graph(layer, xAxis, yAxis) {
     layer.add(yAxis);
     setka(layer);
 }
+
+
+export var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
+export var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);

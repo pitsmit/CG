@@ -1,9 +1,6 @@
 import { Module } from './c-func/info.js';
 import { StackPush } from './stack.js';
 
-const width = window.innerWidth;
-const height = window.innerHeight;
-
 export function MakeScale(Group, layer, stack){
     var el = document.getElementById('scaling');
     var x = Number(el.x.value);

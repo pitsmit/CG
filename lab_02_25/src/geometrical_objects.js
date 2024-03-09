@@ -1,6 +1,8 @@
 import * as konva from './konva.min.js';
-const width = window.innerWidth;
-const height = window.innerHeight;
+//import { Layer } from './konva.min.js';
+
+window.width = window.innerWidth;
+window.height = window.innerHeight;
 
 export var CatGroup = new Konva.Group({
     stroke: 'black',
@@ -15,7 +17,6 @@ export var CatGroup = new Konva.Group({
 
 
 export var layer = new Konva.Layer();
-
 
 export var stage = new Konva.Stage({
     container: 'container',

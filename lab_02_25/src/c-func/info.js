@@ -277,7 +277,7 @@ var err = Module['printErr'] || console.error.bind(console);
 // Merge back in the overrides
 Object.assign(Module, moduleOverrides);
 // Free the object hierarchy contained in the overrides, this lets the GC
-// reclaim data used e.g. in memoryInitializerRequest, which is a large typed array.
+// reclaim data used.
 moduleOverrides = null;
 checkIncomingModuleAPI();
 
@@ -320,8 +320,8 @@ var NODEFS = 'NODEFS is no longer included by default; build with -lnodefs.js';
 
 assert(!ENVIRONMENT_IS_SHELL, 'shell environment detected but not enabled at build time.  Add `shell` to `-sENVIRONMENT` to enable.');
 
-
 // end include: shell.js
+
 // include: preamble.js
 // === Preamble library stuff ===
 
@@ -1578,7 +1578,7 @@ function asmFunc(imports) {
      break label$1;
     }
     $0_1 = $0_1 * 8988465674311579538646525.0e283;
-    $1_1 = (($1_1 | 0) < (3069 | 0) ? $1_1 : 3069) + -2046 | 0;
+    $1_1 = ($1_1 >>> 0 < 3069 >>> 0 ? $1_1 : 3069) + -2046 | 0;
     break label$1;
    }
    if (($1_1 | 0) > (-1023 | 0)) {
@@ -1593,7 +1593,7 @@ function asmFunc(imports) {
     break label$1;
    }
    $0_1 = $0_1 * 2.004168360008973e-292;
-   $1_1 = (($1_1 | 0) > (-2960 | 0) ? $1_1 : -2960) + 1938 | 0;
+   $1_1 = ($1_1 >>> 0 > -2960 >>> 0 ? $1_1 : -2960) + 1938 | 0;
   }
   $32 = $0_1;
   i64toi32_i32$0 = 0;
@@ -1918,32 +1918,6 @@ if (typeof WebAssembly != 'object') {
   abort('no native wasm support detected');
 }
 
-// include: base64Utils.js
-// Converts a string of base64 into a byte array (Uint8Array).
-function intArrayFromBase64(s) {
-  if (typeof ENVIRONMENT_IS_NODE != 'undefined' && ENVIRONMENT_IS_NODE) {
-    var buf = Buffer.from(s, 'base64');
-    return new Uint8Array(buf.buffer, buf.byteOffset, buf.length);
-  }
-
-  var decoded = atob(s);
-  var bytes = new Uint8Array(decoded.length);
-  for (var i = 0 ; i < decoded.length ; ++i) {
-    bytes[i] = decoded.charCodeAt(i);
-  }
-  return bytes;
-}
-
-// If filename is a base64 data URI, parses and returns data (Buffer on node,
-// Uint8Array otherwise). If filename is not a base64 data URI, returns undefined.
-function tryParseAsDataURI(filename) {
-  if (!isDataURI(filename)) {
-    return;
-  }
-
-  return intArrayFromBase64(filename.slice(dataURIPrefix.length));
-}
-// end include: base64Utils.js
 // Wasm globals
 
 var wasmMemory;
@@ -2002,6 +1976,7 @@ var HEAP,
 /** @type {!Float64Array} */
   HEAPF64;
 
+// include: runtime_shared.js
 function updateMemoryViews() {
   var b = wasmMemory.buffer;
   Module['HEAP8'] = HEAP8 = new Int8Array(b);
@@ -2013,7 +1988,7 @@ function updateMemoryViews() {
   Module['HEAPF32'] = HEAPF32 = new Float32Array(b);
   Module['HEAPF64'] = HEAPF64 = new Float64Array(b);
 }
-
+// end include: runtime_shared.js
 assert(!Module['STACK_SIZE'], 'STACK_SIZE can no longer be set at runtime.  Use -sSTACK_SIZE at link time')
 
 assert(typeof Int32Array != 'undefined' && typeof Float64Array !== 'undefined' && Int32Array.prototype.subarray != undefined && Int32Array.prototype.set != undefined,
@@ -2240,7 +2215,7 @@ function abort(what) {
   // allows this in the wasm spec.
 
   // Suppress closure compiler warning here. Closure compiler's builtin extern
-  // defintion for WebAssembly.RuntimeError claims it takes no arguments even
+  // definition for WebAssembly.RuntimeError claims it takes no arguments even
   // though it can.
   // TODO(https://github.com/google/closure-compiler/pull/3913): Remove if/when upstream closure gets fixed.
   /** @suppress {checkTypes} */
@@ -2310,10 +2285,6 @@ function getBinarySync(file) {
   if (file == wasmBinaryFile && wasmBinary) {
     return new Uint8Array(wasmBinary);
   }
-  var binary = tryParseAsDataURI(file);
-  if (binary) {
-    return binary;
-  }
   if (readBinary) {
     return readBinary(file);
   }
@@ -2327,7 +2298,6 @@ function getBinaryPromise(binaryFile) {
   // Cordova or Electron apps are typically loaded from a file:// url.
   // So use fetch if it is available and the url is not a file, otherwise fall back to XHR.
   if (!wasmBinary
-      && !isDataURI(binaryFile)
       && (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER)) {
     if (typeof fetch == 'function'
       && !isFileURI(binaryFile)
@@ -2475,12 +2445,12 @@ var tempDouble;
 var tempI64;
 
 // include: runtime_debug.js
-function legacyModuleProp(prop, newName, incomming=true) {
+function legacyModuleProp(prop, newName, incoming=true) {
   if (!Object.getOwnPropertyDescriptor(Module, prop)) {
     Object.defineProperty(Module, prop, {
       configurable: true,
       get() {
-        let extra = incomming ? ' (the initial value can be provided on Module, but after startup the value is only looked for on a local variable of that name)' : '';
+        let extra = incoming ? ' (the initial value can be provided on Module, but after startup the value is only looked for on a local variable of that name)' : '';
         abort(`\`Module.${prop}\` has been replaced by \`${newName}\`` + extra);
 
       }
@@ -2546,7 +2516,7 @@ function missingLibrarySymbol(sym) {
       }
     });
   }
-  // Any symbol that is not included from the JS libary is also (by definition)
+  // Any symbol that is not included from the JS library is also (by definition)
   // not exported on the Module object.
   unexportedRuntimeSymbol(sym);
 }
@@ -2574,8 +2544,8 @@ function dbg(...args) {
 }
 // end include: runtime_debug.js
 // === Body ===
-
 // end include: preamble.js
+
 
   /** @constructor */
   function ExitStatus(status) {
@@ -3073,9 +3043,6 @@ var missingLibrarySymbols = [
   'writeGLArray',
   'registerWebGlEventCallback',
   'runAndAbortIfError',
-  'SDL_unicode',
-  'SDL_ttfContext',
-  'SDL_audio',
   'ALLOC_NORMAL',
   'ALLOC_STACK',
   'allocate',
@@ -3114,8 +3081,6 @@ var unexportedSymbols = [
   'setTempRet0',
   'writeStackCookie',
   'checkStackCookie',
-  'intArrayFromBase64',
-  'tryParseAsDataURI',
   'ptrToString',
   'ENV',
   'MONTH_DAYS_REGULAR',
@@ -3292,5 +3257,5 @@ if (Module['preInit']) {
 
 run();
 
-
 // end include: postamble.js
+

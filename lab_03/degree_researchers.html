@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№3</title>
+</head>
+<body>
+    <div id="container"></div>
+
+    <div class="menu">
+        <ul>
+            <a href="./index.html">1. Реализация алгоритмов построения отрезков</a><br>
+            <a href="./degree_researchers.html">2. Сравнение отрезков во всём спектре углов</a><br>
+            <a href="./timers_diagrams.html">3.	Исследование временных характеристик алгоритмов</a><br>
+            <a href="./step_researchers.html">4. Исследование ступенчатости графиков</a><br>
+        </ul>
+        <button class="buttons" id="info">Информация об авторе</button>
+        <button class="buttons" id="task">Условие задачи</button>
+        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+
+        <form id="collect-data-for-degree-line" method="dialog" autocomplete="off" name="Данные об отрезке">
+            <label for="Данные об отрезке" style="font-weight: 900;">Данные об отрезке</label><br>
+            <label>Выберите алгоритм построения:</label><br>
+            <input type="radio" name="state" value="library-function" required>
+            <label for="library-function">Библиотечная функция</label><br>
+            <input type="radio" name="state" value="CDA" required>
+            <label for="CDA">Алгоритм ЦДА</label><br>
+            <input type="radio" name="state" value="BrezReal" required>
+            <label for="BrezReal">Алгоритм Брезенхема с действительными данными</label><br>
+            <input type="radio" name="state" value="BrezInt" required>
+            <label for="BrezInt">Алгоритм Брезенхема с целочисленными данными</label><br>
+            <input type="radio" name="state" value="BrezNoSteps" required>
+            <label for="BrezNoSteps">Алгоритм Брезенхема с устранением ступенчатости</label><br>
+            <input type="radio" name="state" value="BY" required>
+            <label for="BY">Алгоритм Ву</label><br>
+
+            <label for="len">Длина отрезка:</label>
+            <input type="text" name="len" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="shag">Шаг изменения угла:</label>
+            <input type="text" name="shag" required pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
+
+            <label for="favcolor">Выберите цвет отрезка</label>
+            <input type="color" id="favcolor" name="favcolor" /><br>
+            <label for="back">Выберите цвет фона</label>
+            <input type="color" id="back" name="back" value="#FFFFFF"/><br>
+            <input type="submit" name="submit" value="Применить"><br><br>
+        </form>
+    </div>
+
+    <script src="./dist/degree.js"></script>
+</body>
+</html>
