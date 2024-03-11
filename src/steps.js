@@ -7,6 +7,11 @@ import { Info, Task, Instruction } from './info-functions.js';
 addButton(Info, Task, Instruction)
 const ctx = document.getElementById('container').getContext('2d');
 
+/**
+ * подсчёт кол-ва ступенек для алгоритмов
+ * @param {number} len длина отрезка
+ * @returns массив с кол-вом ступенек под каждый алгоритм
+ */
 function plot_lines(len){
     var layer = new Konva.Layer();
     var color = "black";
@@ -44,6 +49,11 @@ function plot_lines(len){
     return [CDA_step, BrezReal_step, BrezInt_step, BrezNoSteps_step, BY_step];
 }
 
+
+/**
+ * создание графика
+ * @param {array of arrays of number} data массив кол-ва ступенек под каждый алгоритм
+ */
 function run(data){
     var CDA = {
         label: "ЦДА",

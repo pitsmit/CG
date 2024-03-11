@@ -1,3 +1,10 @@
+/**
+ * зумирование канваса при прокрутке колёсика
+ * @param {konva-obj} stage сцена (основа канваса)
+ * @param {konva-obj} layer сам канвас
+ * @param {konva-obj} xAxis ось х
+ * @param {konva-obj} yAxis ось у
+ */
 export function addWheel(stage, layer, xAxis, yAxis){
     const scaleBy = 1.05;
     stage.on('wheel', (e) => {
@@ -41,6 +48,12 @@ export function addWheel(stage, layer, xAxis, yAxis){
 }
 
 
+/**
+ * ставит на кнопки действия
+ * @param {function} Info информация об авторе
+ * @param {function} Task задание
+ * @param {function} Instruction инструкция
+ */
 export function addButton(Info, Task, Instruction){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
