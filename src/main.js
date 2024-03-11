@@ -4,7 +4,7 @@ import { MakeScale } from './scaler.js';
 import { MakeRotate } from './rotator.js';
 import { Info, Task, Instruction } from './info-functions.js';
 import { addWheel, addButton } from './events.js';
-import { StackPush, DelFromStack } from './stack.js';
+import { StackPush, DelFromStack, StackReset } from './stack.js';
 
 export var [xAxis, yAxis] = XY(stage);
 var stack = [];
@@ -13,4 +13,4 @@ refresh_graph(layer, xAxis, yAxis);
 addWheel(stage, layer, xAxis, yAxis);
 CatInit(CatGroup, layer);
 StackPush(stack, CatGroup);
-addButton(Info, Task, Instruction, MakeMove, MakeScale, MakeRotate, DelFromStack, CatGroup, layer, stack);
+addButton(Info, Task, Instruction, MakeMove, MakeScale, MakeRotate, DelFromStack, StackReset, CatGroup, layer, stack);

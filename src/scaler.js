@@ -1,6 +1,13 @@
 import { Module } from './c-func/info.js';
 import { StackPush } from './stack.js';
 
+
+/**
+ * масштабирование объекта
+ * @param {konva-object} Group объект
+ * @param {konva-object} layer канвас
+ * @param {array of konva-objects} stack стэк 
+ */
 export function MakeScale(Group, layer, stack){
     var el = document.getElementById('scaling');
     var x = Number(el.x.value);

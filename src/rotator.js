@@ -1,6 +1,12 @@
 import { Module } from './c-func/info.js';
 import { StackPush } from './stack.js';
 
+/**
+ * поворот объекта
+ * @param {konva-object} Group объект
+ * @param {konva-object} layer канвас
+ * @param {array of konva-objects} stack стэк  
+ */
 export function MakeRotate(Group, layer, stack){
     var el = document.getElementById('rotator');
     var x = Number(el.x.value);
