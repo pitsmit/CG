@@ -1,6 +1,12 @@
 import { Module } from './c-func/info.js';
 import { StackPush } from './stack.js';
 
+/**
+ * перемещение объекта
+ * @param {konva-object} Group объект
+ * @param {konva-object} layer канвас
+ * @param {array of konva-objects} stack стэк  
+ */
 export function MakeMove(Group, layer, stack) {
     var el = document.getElementById('mover');
     var dx = Number(el.dx.value);

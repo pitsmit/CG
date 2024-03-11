@@ -8,6 +8,12 @@ refresh_graph(layer, xAxis, yAxis);
 addWheel(stage, layer, xAxis, yAxis);
 addButton(Info, Task, Instruction);
 
+
+/**
+ * получение данных от пользователя
+ * @param {string} form id формочки 
+ * @returns x, y начала и конца отрезка, цвет отрезка и заднего фона, алгоритм
+ */
 function GetUserData(form){
     var el = document.getElementById(form);
     var xn = parseFloat(el.xn.value);
@@ -29,6 +35,10 @@ function GetUserData(form){
 }
 
 
+/**
+ * запускает алгоритм построения отрезка в зависимости от того что в формочке
+ * @param {string} form id формочки
+ */
 function SwitchAlghorithm(form){
     var [xn, yn, xk, yk, color, option_value, backgroudcolor] = GetUserData(form)
     layer.destroyChildren();

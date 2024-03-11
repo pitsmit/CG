@@ -1,5 +1,4 @@
 import * as konva from './konva.min.js';
-//import { Layer } from './konva.min.js';
 
 window.width = window.innerWidth;
 window.height = window.innerHeight;
@@ -26,6 +25,16 @@ export var stage = new Konva.Stage({
 });
 
 
+/**
+ * создание объекта круга
+ * @param {number} x 
+ * @param {number} y 
+ * @param {number} radius 
+ * @param {string} fill цвет круга
+ * @param {string} stroke цвет обводки
+ * @param {number} strokeWidth ширина обводки
+ * @returns объект круг
+ */
 export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
     var circle = new Konva.Circle({
         x: x,
@@ -40,6 +49,17 @@ export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
 }
 
 
+/**
+ * создание объекта эллипса
+ * @param {*} x_rad размер по х
+ * @param {*} y_rad размер по у
+ * @param {*} x 
+ * @param {*} y 
+ * @param {string} fill цвет круга
+ * @param {string} stroke цвет обводки
+ * @param {number} strokeWidth ширина обводки
+ * @returns объект эллипса
+ */
 export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth){
     var ellipse = new Konva.Ellipse({
         radius : {
@@ -57,6 +77,13 @@ export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth
 }
 
 
+/**
+ * создание объекта линия
+ * @param {array of number} points массив точек по которым строим
+ * @param {string} stroke цвет линии
+ * @param {number} strokeWidth жирность
+ * @returns 
+ */
 export function create_obj_line(points, stroke, strokeWidth){
     var line = new Konva.Line({
         points: points,
@@ -68,6 +95,10 @@ export function create_obj_line(points, stroke, strokeWidth){
 }
 
 
+/**
+ * рисование сетки
+ * @param {konva-object} layer канвас
+ */
 export function setka(layer) {
     for (var i = stage.height() / 2; i > -14312; i-=50){
         var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
@@ -91,6 +122,12 @@ export function setka(layer) {
 }
 
 
+/**
+ * перерисовка канваса
+ * @param {konva-object} layer канвас
+ * @param {konva-object} xAxis ось х
+ * @param {konva-object} yAxis ось у
+ */
 export function refresh_graph(layer, xAxis, yAxis) {
     layer.add(xAxis);
     layer.add(yAxis);
@@ -98,6 +135,11 @@ export function refresh_graph(layer, xAxis, yAxis) {
 }
 
 
+/**
+ * инициализация кота
+ * @param {konva-object} Group группа объектов кот
+ * @param {konva-object} layer канвас
+ */
 export function CatInit(Group, layer){
     var head = create_obj_circle(-200, 0, 100, NaN, "black", 4);
     var left_eye = create_obj_circle(head.x() - 50, head.y() - 50, 10, "black", "black", 4);
@@ -126,6 +168,11 @@ export function CatInit(Group, layer){
 }
 
 
+/**
+ * создание осей графика
+ * @param {konva-object} stage то на чём канвас находится 
+ * @returns оси x y
+ */
 export function XY(stage){
     var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
     var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);

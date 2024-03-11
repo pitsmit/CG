@@ -1,5 +1,17 @@
 import { create_obj_line, create_obj_rect } from "./geometrical_objects.js";
 
+/**
+ * алгоритм ЦДА
+ * @param {number} xn x начала
+ * @param {number} yn у начала
+ * @param {number} xk х конца
+ * @param {number} yk у конца
+ * @param {string} color цвет отрезка
+ * @param {konva-object} layer канвас где строим
+ * @param {number} width ширина экрана
+ * @param {number} height высота экрана
+ * @returns количество ступенек
+ */
 export function CDA(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
@@ -36,11 +48,35 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height){
     return count_stypenka;
 }
 
+/**
+ * алгоритм библиотечный
+ * @param {number} xn x начала
+ * @param {number} yn у начала
+ * @param {number} xk х конца
+ * @param {number} yk у конца
+ * @param {string} color цвет отрезка
+ * @param {konva-object} layer канвас где строим
+ * @param {number} width ширина экрана
+ * @param {number} height высота экрана
+ * @returns количество ступенек
+ */
 export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height){
     var line = create_obj_line([xn + width / 2, height / 2 - yn, xk + width / 2, height / 2 - yk], color, 1);
     layer.add(line);
 }
 
+/**
+ * алгоритм Брезенхема с действительными числами
+ * @param {number} xn x начала
+ * @param {number} yn у начала
+ * @param {number} xk х конца
+ * @param {number} yk у конца
+ * @param {string} color цвет отрезка
+ * @param {konva-object} layer канвас где строим
+ * @param {number} width ширина экрана
+ * @param {number} height высота экрана
+ * @returns количество ступенек
+ */
 export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
@@ -118,6 +154,18 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
     return count_stypenka;
 }
 
+/**
+ * алгоритм Брезенхема с целыми числами
+ * @param {number} xn x начала
+ * @param {number} yn у начала
+ * @param {number} xk х конца
+ * @param {number} yk у конца
+ * @param {string} color цвет отрезка
+ * @param {konva-object} layer канвас где строим
+ * @param {number} width ширина экрана
+ * @param {number} height высота экрана
+ * @returns количество ступенек
+ */
 export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
@@ -192,6 +240,18 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
     return count_stypenka;
 }
 
+/**
+ * алгоритм Брезенхема с устранением ступенчатости
+ * @param {number} xn x начала
+ * @param {number} yn у начала
+ * @param {number} xk х конца
+ * @param {number} yk у конца
+ * @param {string} color цвет отрезка
+ * @param {konva-object} layer канвас где строим
+ * @param {number} width ширина экрана
+ * @param {number} height высота экрана
+ * @returns количество ступенек
+ */
 export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
     var x = xn;
     var y = yn;
@@ -269,6 +329,18 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
     return count_stypenka;
 }
 
+/**
+ * алгоритм Ву
+ * @param {number} xn x начала
+ * @param {number} yn у начала
+ * @param {number} xk х конца
+ * @param {number} yk у конца
+ * @param {string} color цвет отрезка
+ * @param {konva-object} layer канвас где строим
+ * @param {number} width ширина экрана
+ * @param {number} height высота экрана
+ * @returns количество ступенек
+ */
 export function BY(xn, yn, xk, yk, color, layer, width, height){
 
     var x = xn;

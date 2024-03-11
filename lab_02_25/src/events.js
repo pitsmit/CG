@@ -1,3 +1,10 @@
+/**
+ * зумирование канваса при прокрутке колёсика
+ * @param {konva-obj} stage сцена (основа канваса)
+ * @param {konva-obj} layer сам канвас
+ * @param {konva-obj} xAxis ось х
+ * @param {konva-obj} yAxis ось у
+ */
 export function addWheel(stage, layer, xAxis, yAxis){
     const scaleBy = 1.05;
     stage.on('wheel', (e) => {
@@ -41,7 +48,21 @@ export function addWheel(stage, layer, xAxis, yAxis){
 }
 
 
-export function addButton(Info, Task, Instruction, MakeMove, MakeScale, MakeRotate, DelFromStack, CatGroup, layer, stack){
+/**
+ * добавление действий на кнопки
+ * @param {function} Info 
+ * @param {function} Task 
+ * @param {function} Instruction 
+ * @param {function} MakeMove 
+ * @param {function} MakeScale 
+ * @param {function} MakeRotate 
+ * @param {function} DelFromStack 
+ * @param {function} StackReset 
+ * @param {konva-object} CatGroup 
+ * @param {konva-object} layer 
+ * @param {array of konva-objects} stack 
+ */
+export function addButton(Info, Task, Instruction, MakeMove, MakeScale, MakeRotate, DelFromStack, StackReset, CatGroup, layer, stack){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
@@ -57,5 +78,8 @@ export function addButton(Info, Task, Instruction, MakeMove, MakeScale, MakeRota
     });
     document.getElementById('back-button').addEventListener("click", function(){
         DelFromStack(CatGroup, stack);
+    });
+    document.getElementById('reset-button').addEventListener("click", function(){
+        StackReset(CatGroup, stack);
     });
 }

@@ -9,6 +9,11 @@ addWheel(stage, layer, xAxis, yAxis);
 addButton(Info, Task, Instruction)
 
 
+/**
+ * чтение данных от пользователя
+ * @param {string} form id формочки 
+ * @returns длина отрезка, шаг угла, цвет отрезка, алгоритм, цвет фона
+ */
 function GetUserDataDegree(form){
     var el = document.getElementById(form);
     var len = parseFloat(el.len.value);
@@ -29,6 +34,9 @@ function GetUserDataDegree(form){
 }
 
 
+/**
+ * пострение ёжика
+ */
 function plot_lines(){
     var [len, shag, color, option_value, black] = GetUserDataDegree('collect-data-for-degree-line')
     layer.destroyChildren();

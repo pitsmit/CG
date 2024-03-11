@@ -13,6 +13,16 @@ export var stage = new Konva.Stage({
 });
 
 
+/**
+ * создание объекта прямоугольник
+ * @param {number} x координата х
+ * @param {number} y координата y
+ * @param {number} width ширина
+ * @param {number} height высота
+ * @param {string} fill заливка
+ * @param {number} opacity яркость
+ * @returns прямоугольник
+ */
 export function create_obj_rect(x, y, width, height, fill, opacity=1){
     var rect = new Konva.Rect({
         x: x,
@@ -27,6 +37,14 @@ export function create_obj_rect(x, y, width, height, fill, opacity=1){
 }
 
 
+/**
+ * создание объекта линия
+ * @param {array of number} points массив точек по которым строим
+ * @param {string} stroke цвет линии
+ * @param {number} strokeWidth жирность
+ * @param {number} opacity яркость
+ * @returns 
+ */
 export function create_obj_line(points, stroke, strokeWidth, opacity=1){
     var line = new Konva.Line({
         points: points,
@@ -39,6 +57,10 @@ export function create_obj_line(points, stroke, strokeWidth, opacity=1){
 }
 
 
+/**
+ * рисование сетки
+ * @param {konva-object} layer канвас
+ */
 export function setka(layer) {
     for (var i = stage.height() / 2; i > -14312; i-=50){
         var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
@@ -62,6 +84,12 @@ export function setka(layer) {
 }
 
 
+/**
+ * перерисовка канваса
+ * @param {konva-object} layer канвас
+ * @param {konva-object} xAxis ось х
+ * @param {konva-object} yAxis ось у
+ */
 export function refresh_graph(layer, xAxis, yAxis) {
     layer.add(xAxis);
     layer.add(yAxis);

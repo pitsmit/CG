@@ -7,6 +7,11 @@ import { Info, Task, Instruction } from './info-functions.js';
 addButton(Info, Task, Instruction)
 const ctx = document.getElementById('container').getContext('2d');
 
+/**
+ * построение гистограммы
+ * @param {array of number} values значения времени для гистограммы 
+ * @returns объект гистограммы
+ */
 function add_diagramm(values){
   var chart = new Chart(ctx, {
     type: 'bar',
@@ -52,6 +57,10 @@ function add_diagramm(values){
 
 var chart = add_diagramm([0, 0, 0, 0, 0, 0]);
 
+/**
+ * временной эксперимент
+ * @returns объект гистограммы
+ */
 function TimerExperiment(){
     const count_zam = 100;
     var layer = new Konva.Layer();
