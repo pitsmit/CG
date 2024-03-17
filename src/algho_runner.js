@@ -16,18 +16,24 @@ function DrawSymPoints(xn, x, yn, y, layer, color){
 
 
 export function LibraryFunctionCircle(x, y, color, layer, r){
+    if (r == 0)
+        return;
     var circle = create_obj_circle(x + width / 2, height / 2 - y, r, NaN, color, 1);
     layer.add(circle);
 }
 
 
 export function LibraryFunctionEllipse(x, y, color, layer, a, b){
+    if (a == 0 || b == 0)
+        return;
     var ellipse = create_obj_ellipse(a, b, x + width / 2, height / 2 - y, NaN, color, 1);
     layer.add(ellipse);
 }
 
 
 export function BrezCircle(x, y, color, layer, r){
+    if (r == 0)
+        return;
     var xn = 0;
     var yn = r;
     var delta = 2 * (1 - yn);
@@ -69,6 +75,8 @@ export function BrezCircle(x, y, color, layer, r){
 
 
 export function BrezEllipse(x, y, color, layer, a, b){
+    if (a == 0 || b == 0)
+        return;
     var xn = 0;
     var yn = b;
     var delta = b ** 2 - a ** 2 * (2 * b + 1);
@@ -110,6 +118,8 @@ export function BrezEllipse(x, y, color, layer, a, b){
 
 
 export function CanonCircle(x, y, color, layer, r){
+    if (r == 0)
+        return;
     var yn;
     var border = Math.round(x + r);
 
@@ -121,6 +131,8 @@ export function CanonCircle(x, y, color, layer, r){
 
 
 export function CanonEllipse(x, y, color, layer, a, b){
+    if (a == 0 || b == 0)
+        return;
     var Xbord = Math.round(x + a / Math.sqrt(1 + b ** 2 / a ** 2));
     var Ybord = Math.round(y + b / Math.sqrt(1 + a ** 2 / b ** 2));
 
@@ -138,6 +150,8 @@ export function CanonEllipse(x, y, color, layer, a, b){
 
 
 export function ParamCircle(x, y, color, layer, r){
+    if (r == 0)
+        return;
     var step = 1 / r;
     var xn;
     var yn;
@@ -152,6 +166,8 @@ export function ParamCircle(x, y, color, layer, r){
 
 
 export function ParamEllipse(x, y, color, layer, a, b){
+    if (a == 0 || b == 0)
+        return;
     var step = a > b ? 1 / a : 1 / b;
     var xn;
     var yn;

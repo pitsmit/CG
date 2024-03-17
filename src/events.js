@@ -54,12 +54,15 @@ export function addWheel(stage, layer, xAxis, yAxis){
  * @param {function} Task задание
  * @param {function} Instruction инструкция
  */
-export function addButton(Info, Task, Instruction){
+export function addButton(Info, Task, Instruction, onoffformname=NaN){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
 
-    var radios = document.forms["collect-data-for-figure"].elements["fig"];
+    if (!onoffformname)
+        return;
+
+    var radios = document.forms[onoffformname].elements["fig"];
 
     radios[0].addEventListener('click', () => {
         document.getElementById('collect-data-for-circle-div').style.display = "block";

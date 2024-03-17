@@ -6,7 +6,7 @@ import { LibraryFunctionCircle, LibraryFunctionEllipse, BrezCircle, BrezEllipse,
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
 addWheel(stage, layer, xAxis, yAxis);
-addButton(Info, Task, Instruction);
+addButton(Info, Task, Instruction, "collect-data-for-figure");
 
 
 /**

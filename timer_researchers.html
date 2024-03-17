@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№3</title>
+</head>
+
+<body>
+    <canvas id="container"></canvas>
+    <div class="menu">
+        <ul>
+            <a href="./index.html">1. Реализация алгоритмов построения окружностей и эллипсов</a><br>
+            <a href="./degree_researchers.html">2. Сравнение окружностей и эллипсов во всём спектре углов</a><br>
+            <a href="./timer_researchers.html">3. Исследование временных характеристик алгоритмов</a><br>
+        </ul>
+        <button class="buttons" id="info">Информация об авторе</button>
+        <button class="buttons" id="task">Условие задачи</button>
+        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+
+        <form id="collect-data-for-timer-figure" method="dialog" autocomplete="off" name="Данные об исследуемой фигуре">
+            <label for="Данные об исследуемой фигуре" style="font-weight: 900;">Данные об исследуемой фигуре</label><br>
+            <label for="radmin">Минимальный радиус:</label>
+            <input type="text" name="radmin" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="radmax">Максимальный радиус:</label>
+            <input type="text" name="radmax" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="shagrad">Шаг изменения радиуса:</label>
+            <input type="text" name="shagrad" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <input class="buttons" type="submit" name="submit" value="Получить данные о временных характеристиках"><br><br>
+        </form>
+    </div>
+    <script type="module" src="./src/timer.js"></script>
+</body>
+
+</html>
