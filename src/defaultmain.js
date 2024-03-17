@@ -1,7 +1,27 @@
-import { addWheel, addButton } from './events.js';
-import { layer, stage, xAxis, yAxis, refresh_graph } from './geometrical_objects.js';
-import { Info, Task, Instruction } from './info-functions.js';
-import { LibraryFunction, CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algho_runner.js';
+import {
+    addWheel,
+    addButton
+} from './events.js';
+import {
+    layer,
+    stage,
+    xAxis,
+    yAxis,
+    refresh_graph
+} from './geometrical_objects.js';
+import {
+    Info,
+    Task,
+    Instruction
+} from './info-functions.js';
+import {
+    LibraryFunction,
+    CDA,
+    BrezReal,
+    BrezInt,
+    BrezNoSteps,
+    BY
+} from './algho_runner.js';
 
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
@@ -14,7 +34,7 @@ addButton(Info, Task, Instruction);
  * @param {string} form id формочки 
  * @returns x, y начала и конца отрезка, цвет отрезка и заднего фона, алгоритм
  */
-function GetUserData(form){
+function GetUserData(form) {
     var el = document.getElementById(form);
     var xn = parseFloat(el.xn.value);
     var yn = parseFloat(el.yn.value);
@@ -24,8 +44,8 @@ function GetUserData(form){
     var backcolor = el.back.value;
     var options = document.getElementsByName('state');
     var option_value;
-    for(var i = 0; i < options.length; i++){
-        if(options[i].checked){
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].checked) {
             option_value = options[i].value;
             break;
         }
@@ -39,13 +59,13 @@ function GetUserData(form){
  * запускает алгоритм построения отрезка в зависимости от того что в формочке
  * @param {string} form id формочки
  */
-function SwitchAlghorithm(form){
+function SwitchAlghorithm(form) {
     var [xn, yn, xk, yk, color, option_value, backgroudcolor] = GetUserData(form)
     layer.destroyChildren();
     refresh_graph(layer, xAxis, yAxis);
     stage.getContainer().style.backgroundColor = backgroudcolor;
 
-    switch(option_value){
+    switch (option_value) {
         case "library-function":
             LibraryFunction(xn, yn, xk, yk, color, layer, width, height);
             break;
@@ -68,6 +88,6 @@ function SwitchAlghorithm(form){
 }
 
 
-document.getElementById('collect-data-for-line').addEventListener("submit", function(){
+document.getElementById('collect-data-for-line').addEventListener("submit", function() {
     SwitchAlghorithm('collect-data-for-line');
 });

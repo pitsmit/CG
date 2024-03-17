@@ -1,7 +1,27 @@
-import { addWheel, addButton } from './events.js';
-import { layer, stage, xAxis, yAxis, refresh_graph } from './geometrical_objects.js';
-import { Info, Task, Instruction } from './info-functions.js';
-import { LibraryFunction, CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algho_runner.js';
+import {
+    addWheel,
+    addButton
+} from './events.js';
+import {
+    layer,
+    stage,
+    xAxis,
+    yAxis,
+    refresh_graph
+} from './geometrical_objects.js';
+import {
+    Info,
+    Task,
+    Instruction
+} from './info-functions.js';
+import {
+    LibraryFunction,
+    CDA,
+    BrezReal,
+    BrezInt,
+    BrezNoSteps,
+    BY
+} from './algho_runner.js';
 
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
@@ -14,7 +34,7 @@ addButton(Info, Task, Instruction)
  * @param {string} form id формочки 
  * @returns длина отрезка, шаг угла, цвет отрезка, алгоритм, цвет фона
  */
-function GetUserDataDegree(form){
+function GetUserDataDegree(form) {
     var el = document.getElementById(form);
     var len = parseFloat(el.len.value);
     var shag = parseFloat(el.shag.value);
@@ -23,8 +43,8 @@ function GetUserDataDegree(form){
     var back = el.back.value;
     var options = document.getElementsByName('state');
     var option_value;
-    for(var i = 0; i < options.length; i++){
-        if(options[i].checked){
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].checked) {
             option_value = options[i].value;
             break;
         }
@@ -37,7 +57,7 @@ function GetUserDataDegree(form){
 /**
  * пострение ёжика
  */
-function plot_lines(){
+function plot_lines() {
     var [len, shag, color, option_value, black] = GetUserDataDegree('collect-data-for-degree-line')
     layer.destroyChildren();
     refresh_graph(layer, xAxis, yAxis);
@@ -45,11 +65,11 @@ function plot_lines(){
 
     var shag0 = shag;
     shag = 0;
-    while (shag < 360){
+    while (shag < 360) {
         var xk = 0 + len * Math.cos(shag * Math.PI / 180);
         var yk = 0 + len * Math.sin(shag * Math.PI / 180);
 
-        switch(option_value){
+        switch (option_value) {
             case "library-function":
                 LibraryFunction(0, 0, xk, yk, color, layer, width, height);
                 break;
@@ -75,6 +95,6 @@ function plot_lines(){
 }
 
 
-document.getElementById('collect-data-for-degree-line').addEventListener("submit", function(){
+document.getElementById('collect-data-for-degree-line').addEventListener("submit", function() {
     plot_lines();
 });

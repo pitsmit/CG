@@ -1,4 +1,7 @@
-import { create_obj_line, create_obj_rect } from "./geometrical_objects.js";
+import {
+    create_obj_line,
+    create_obj_rect
+} from "./geometrical_objects.js";
 
 /**
  * алгоритм ЦДА
@@ -12,7 +15,7 @@ import { create_obj_line, create_obj_rect } from "./geometrical_objects.js";
  * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function CDA(xn, yn, xk, yk, color, layer, width, height){
+export function CDA(xn, yn, xk, yk, color, layer, width, height) {
     var x = xn;
     var y = yn;
 
@@ -25,7 +28,7 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height){
         l = Math.abs(delta_x);
     else
         l = Math.abs(delta_y);
-    
+
     delta_x /= l;
     delta_y /= l;
 
@@ -33,7 +36,7 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height){
     var prev_x = x;
     var prev_y = y;
 
-    for (var i = 0; i <= l + 1; i++){
+    for (var i = 0; i <= l + 1; i++) {
         var rect = create_obj_rect(Math.round(x + width / 2), Math.round(height / 2 - y), 1, 1, color);
         layer.add(rect);
         x += delta_x;
@@ -60,7 +63,7 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height){
  * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height){
+export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height) {
     var line = create_obj_line([xn + width / 2, height / 2 - yn, xk + width / 2, height / 2 - yk], color, 1);
     layer.add(line);
 }
@@ -77,7 +80,7 @@ export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height){
  * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
+export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
     var x = xn;
     var y = yn;
 
@@ -93,14 +96,14 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
         sx = 1;
     else
         sx = -1;
-    
+
     if (dy == 0)
         sy = 0;
     else if (dy > 0)
         sy = 1;
     else
         sy = -1;
-    
+
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
@@ -108,7 +111,7 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
 
     if (dx > dy)
         obmen = 0;
-    else{
+    else {
         var t = dx;
         dx = dy;
         dy = t;
@@ -122,23 +125,21 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
     var prev_y = y;
     var prev_x = x;
 
-    for (var i = 1; i <= dx + 1; i++){
+    for (var i = 1; i <= dx + 1; i++) {
         var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color);
         layer.add(rect);
-        if (e >= 0){
-            if (obmen == 0){
+        if (e >= 0) {
+            if (obmen == 0) {
                 y += sy;
-            }
-            else{
+            } else {
                 x += sx;
             }
             e -= 1;
         }
         if (e <= 0) {
-            if (obmen == 0){
+            if (obmen == 0) {
                 x += sx;
-            }
-            else{
+            } else {
                 y += sy;
             }
             e += m;
@@ -166,7 +167,7 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height){
  * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
+export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
     var x = xn;
     var y = yn;
 
@@ -182,14 +183,14 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
         sx = 1;
     else
         sx = -1;
-    
+
     if (dy == 0)
         sy = 0;
     else if (dy > 0)
         sy = 1;
     else
         sy = -1;
-    
+
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
@@ -197,7 +198,7 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
 
     if (dx > dy)
         obmen = 0;
-    else{
+    else {
         var t = dx;
         dx = dy;
         dy = t;
@@ -210,14 +211,13 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
     var prev_x = x;
     var prev_y = y;
 
-    for (var i = 1; i <= dx + 1; i++){
+    for (var i = 1; i <= dx + 1; i++) {
         var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color);
         layer.add(rect);
-        if (e >= 0){
-            if (obmen == 0){
+        if (e >= 0) {
+            if (obmen == 0) {
                 y += sy;
-            }
-            else{
+            } else {
                 x += sx;
             }
             e -= 2 * dx;
@@ -225,7 +225,7 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
         if (e <= 0) {
             if (obmen == 0)
                 x += sx;
-            else{
+            else {
                 y += sy;
             }
             e += 2 * dy;
@@ -252,7 +252,7 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height){
  * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
+export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
     var x = xn;
     var y = yn;
 
@@ -268,28 +268,27 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
         sx = 1;
     else
         sx = -1;
-    
+
     if (dy == 0)
         sy = 0;
     else if (dy > 0)
         sy = 1;
     else
         sy = -1;
-    
+
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
     var m = dy / dx;
     var obmen;
 
-    if (m > 1){
+    if (m > 1) {
         var t = dx;
         dx = dy;
         dy = t;
         obmen = 1;
         m = 1 / m;
-    }
-    else
+    } else
         obmen = 0;
 
     var e = 1;
@@ -301,17 +300,16 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
 
     var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
     layer.add(rect);
-    
-    for (var i = 1; i <= dx + 1; i++){
-        if (e < w){
+
+    for (var i = 1; i <= dx + 1; i++) {
+        if (e < w) {
             if (obmen == 0)
                 x += sx;
-            else{
+            else {
                 y += sy;
             }
             e += m;
-        }
-        else{
+        } else {
             x += sx;
             y += sy;
             e -= w;
@@ -341,7 +339,7 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height){
  * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BY(xn, yn, xk, yk, color, layer, width, height){
+export function BY(xn, yn, xk, yk, color, layer, width, height) {
 
     var x = xn;
     var y = yn;
@@ -358,14 +356,14 @@ export function BY(xn, yn, xk, yk, color, layer, width, height){
         sx = 1;
     else
         sx = -1;
-    
+
     if (dy == 0)
         sy = 0;
     else if (dy > 0)
         sy = 1;
     else
         sy = -1;
-    
+
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
@@ -373,7 +371,7 @@ export function BY(xn, yn, xk, yk, color, layer, width, height){
 
     if (dx > dy)
         obmen = 0;
-    else{
+    else {
         var t = dx;
         dx = dy;
         dy = t;
@@ -388,31 +386,29 @@ export function BY(xn, yn, xk, yk, color, layer, width, height){
     var prev_x = x;
     var prev_y = y;
 
-    for (var i = 0; i < dx + 1; i++){
-        if (obmen == 0){
+    for (var i = 0; i < dx + 1; i++) {
+        if (obmen == 0) {
             var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, -e);
             layer.add(rect);
             rect = create_obj_rect(x + width / 2, height / 2 - (y + sy), 1, 1, color, e - 1);
             layer.add(rect);
-        }
-        else{
+        } else {
             var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
             layer.add(rect);
             rect = create_obj_rect(x + sx + width / 2, height / 2 - y, 1, 1, color, e - 1);
             layer.add(rect);
         }
 
-        if (e >= w - m){
-            if (obmen == 0){
+        if (e >= w - m) {
+            if (obmen == 0) {
                 y += sy;
-            }
-            else
+            } else
                 x += sx;
             e -= 1;
         }
         if (obmen == 0)
             x += sx;
-        else{
+        else {
             y += sy;
         }
         e += m;

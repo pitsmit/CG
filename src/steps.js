@@ -1,8 +1,24 @@
-import { Chart } from './Chart.min.js';
-import { Layer } from './konva.min.js';
-import { CDA, BrezReal, BrezInt, BrezNoSteps, BY } from './algho_runner.js';
-import { addButton } from './events.js';
-import { Info, Task, Instruction } from './info-functions.js';
+import {
+    Chart
+} from './Chart.min.js';
+import {
+    Layer
+} from './konva.min.js';
+import {
+    CDA,
+    BrezReal,
+    BrezInt,
+    BrezNoSteps,
+    BY
+} from './algho_runner.js';
+import {
+    addButton
+} from './events.js';
+import {
+    Info,
+    Task,
+    Instruction
+} from './info-functions.js';
 
 addButton(Info, Task, Instruction)
 const ctx = document.getElementById('container').getContext('2d');
@@ -12,7 +28,7 @@ const ctx = document.getElementById('container').getContext('2d');
  * @param {number} len длина отрезка
  * @returns массив с кол-вом ступенек под каждый алгоритм
  */
-function plot_lines(len){
+function plot_lines(len) {
     var layer = new Konva.Layer();
     var color = "black";
     var shag = 10;
@@ -30,7 +46,7 @@ function plot_lines(len){
 
     var shag0 = shag;
     shag = 0;
-    while (shag <= 90){
+    while (shag <= 90) {
         var xk = 0 + len * Math.cos(shag * Math.PI / 180);
         var yk = 0 + len * Math.sin(shag * Math.PI / 180);
 
@@ -54,7 +70,7 @@ function plot_lines(len){
  * создание графика
  * @param {array of arrays of number} data массив кол-ва ступенек под каждый алгоритм
  */
-function run(data){
+function run(data) {
     var CDA = {
         label: "ЦДА",
         data: data[0],
@@ -66,7 +82,7 @@ function run(data){
         data: data[1],
         borderColor: 'blue'
     };
-        
+
     var BrezInt = {
         label: "Брезенхем с целочисленными данными",
         data: data[2],
@@ -78,13 +94,13 @@ function run(data){
         data: data[3],
         borderColor: 'yellow'
     };
-        
+
     var BY = {
         label: "Ву",
         data: data[4],
         borderColor: 'orange'
     };
-        
+
     var speedData = {
         labels: ["0`", "10`", "20`", "30`", "40`", "50`", "60`", "70`", "80`", "90`"],
         datasets: [CDA, BrezReal, BrezInt, BrezNoSteps, BY]
@@ -92,22 +108,22 @@ function run(data){
     var lineChart = new Chart(ctx, {
         type: 'line',
         data: speedData,
-        options :{
+        options: {
             scales: {
-              yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Количество ступенек'
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Угол наклона'
-                }
-              }]
-            }     
-          }
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Количество ступенек'
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Угол наклона'
+                    }
+                }]
+            }
+        }
     });
 }
 
@@ -121,8 +137,8 @@ run([
 ]);
 
 
-if (document.getElementById('collect-data-for-step-line')){
-    document.getElementById('collect-data-for-step-line').addEventListener("submit", function(){
+if (document.getElementById('collect-data-for-step-line')) {
+    document.getElementById('collect-data-for-step-line').addEventListener("submit", function() {
         var el = document.getElementById("collect-data-for-step-line");
         var len = parseFloat(el.len.value);
         var data = plot_lines(len);

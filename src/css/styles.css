@@ -8,8 +8,8 @@
     height: 70%;
     background-color: white;
     border-radius: 10px;
-    resize:both;
-    overflow:auto;
+    resize: both;
+    overflow: auto;
 }
 
 #container {

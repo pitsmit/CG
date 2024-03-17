@@ -1,4 +1,9 @@
-import { Layer, Stage, Rect, Line } from './konva.min.js';
+import {
+    Layer,
+    Stage,
+    Rect,
+    Line
+} from './konva.min.js';
 
 window.width = window.innerWidth;
 window.height = window.innerHeight;
@@ -23,7 +28,7 @@ export var stage = new Konva.Stage({
  * @param {number} opacity яркость
  * @returns прямоугольник
  */
-export function create_obj_rect(x, y, width, height, fill, opacity=1){
+export function create_obj_rect(x, y, width, height, fill, opacity = 1) {
     var rect = new Konva.Rect({
         x: x,
         y: y,
@@ -45,7 +50,7 @@ export function create_obj_rect(x, y, width, height, fill, opacity=1){
  * @param {number} opacity яркость
  * @returns 
  */
-export function create_obj_line(points, stroke, strokeWidth, opacity=1){
+export function create_obj_line(points, stroke, strokeWidth, opacity = 1) {
     var line = new Konva.Line({
         points: points,
         stroke: stroke,
@@ -62,22 +67,22 @@ export function create_obj_line(points, stroke, strokeWidth, opacity=1){
  * @param {konva-object} layer канвас
  */
 export function setka(layer) {
-    for (var i = stage.height() / 2; i > -14312; i-=50){
+    for (var i = stage.height() / 2; i > -14312; i -= 50) {
         var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
         layer.add(line);
     }
 
-    for (var i = stage.height() / 2; i < 14312; i+=50){
+    for (var i = stage.height() / 2; i < 14312; i += 50) {
         var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
         layer.add(line);
     }
 
-    for (var i = stage.width() / 2; i > -14324; i-=50){
+    for (var i = stage.width() / 2; i > -14324; i -= 50) {
         var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
         layer.add(line);
     }
 
-    for (var i = stage.width() / 2; i < 14324; i+=50){
+    for (var i = stage.width() / 2; i < 14324; i += 50) {
         var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
         layer.add(line);
     }

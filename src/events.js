@@ -5,13 +5,13 @@
  * @param {konva-obj} xAxis ось х
  * @param {konva-obj} yAxis ось у
  */
-export function addWheel(stage, layer, xAxis, yAxis){
+export function addWheel(stage, layer, xAxis, yAxis) {
     const scaleBy = 1.05;
     stage.on('wheel', (e) => {
         e.evt.preventDefault();
 
         var oldScale = stage.scaleX();
-        
+
         var pointer = stage.getPointerPosition();
 
         var mousePointTo = {
@@ -30,7 +30,10 @@ export function addWheel(stage, layer, xAxis, yAxis){
 
         var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
 
-        stage.scale({ x: newScale, y: newScale });
+        stage.scale({
+            x: newScale,
+            y: newScale
+        });
         xAxis.points()[0] = Math.min(-stage.width() / stage.scale().x, -stage.width());
         xAxis.points()[2] = Math.max(stage.width() / stage.scale().x, stage.width());
         yAxis.points()[1] = Math.min(-stage.height() / stage.scale().y, -stage.height());
@@ -54,7 +57,7 @@ export function addWheel(stage, layer, xAxis, yAxis){
  * @param {function} Task задание
  * @param {function} Instruction инструкция
  */
-export function addButton(Info, Task, Instruction){
+export function addButton(Info, Task, Instruction) {
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
