@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <link rel="stylesheet" href="./src/css/styles.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Смирнов Пётр ИУ7-45Б ЛР№4</title>
 </head>
+
 <body>
     <div id="container"></div>
 
@@ -40,7 +42,7 @@
             <label for="favcolor">Выберите цвет фигуры</label>
             <input type="color" id="favcolor" name="favcolor" /><br>
             <label for="back">Выберите цвет фона</label>
-            <input type="color" id="back" name="back" value="#FFFFFF"/><br>
+            <input type="color" id="back" name="back" value="#FFFFFF" /><br>
 
             <label for="fig" style="font-weight: 900;">Выберите фигуру для построения:</label><br>
             <input type="radio" name="fig" value="circle" required>
@@ -51,16 +53,16 @@
             <div id='collect-data-for-circle-div'>
                 <form id='collect-data-for-circle' role="form" action="/requestFine" autocomplete="off" method="POST">
                     <label for="r">Радиус:</label>
-                    <input id="r" type="text" name="r" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+                    <input id="r" type="text" name="r" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
                 </form>
             </div>
 
             <div id='collect-data-for-ellipse-div'>
                 <form id='collect-data-for-ellipse' role="form" action="/requestFine" autocomplete="off" method="POST">
                     <label for="a">A(по горизонтали):</label>
-                    <input type="text" name="a" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+                    <input type="text" name="a" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
                     <label for="b">B(по вертикали):</label>
-                    <input type="text" name="b" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+                    <input type="text" name="b" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
                 </form>
             </div>
 
@@ -70,4 +72,5 @@
 
     <script type="module" src="./src/defaultmain.js"></script>
 </body>
+
 </html>

@@ -5,21 +5,21 @@
  * @param {konva-obj} xAxis ось х
  * @param {konva-obj} yAxis ось у
  */
-export function addWheel(stage, layer, xAxis, yAxis){
-    const scaleBy = 1.05;
+export function addWheel(stage, layer, xAxis, yAxis) {
+    const scaleBy = 1.05; //* @typedef number
     stage.on('wheel', (e) => {
         e.evt.preventDefault();
 
-        var oldScale = stage.scaleX();
-        
-        var pointer = stage.getPointerPosition();
+        var oldScale = stage.scaleX(); //* @typedef number
+
+        var pointer = stage.getPointerPosition(); //* @typedef konva-object
 
         var mousePointTo = {
             x: (pointer.x - stage.x()) / oldScale,
             y: (pointer.y - stage.y()) / oldScale,
         };
 
-        let direction = e.evt.deltaY > 0 ? -1 : 1;
+        let direction = e.evt.deltaY > 0 ? -1 : 1; //* @typedef number
 
         if (e.evt.ctrlKey) {
             direction = -direction;
@@ -28,9 +28,12 @@ export function addWheel(stage, layer, xAxis, yAxis){
         if (oldScale >= 5 && direction > 0)
             return;
 
-        var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
+        var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy; //* @typedef number
 
-        stage.scale({ x: newScale, y: newScale });
+        stage.scale({
+            x: newScale,
+            y: newScale
+        });
         xAxis.points()[0] = Math.min(-stage.width() / stage.scale().x, -stage.width());
         xAxis.points()[2] = Math.max(stage.width() / stage.scale().x, stage.width());
         yAxis.points()[1] = Math.min(-stage.height() / stage.scale().y, -stage.height());
@@ -53,8 +56,9 @@ export function addWheel(stage, layer, xAxis, yAxis){
  * @param {function} Info информация об авторе
  * @param {function} Task задание
  * @param {function} Instruction инструкция
+ * @param {string} onoffformname id формочки
  */
-export function addButton(Info, Task, Instruction, onoffformname=NaN){
+export function addButton(Info, Task, Instruction, onoffformname = NaN) {
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
@@ -62,7 +66,7 @@ export function addButton(Info, Task, Instruction, onoffformname=NaN){
     if (!onoffformname)
         return;
 
-    var radios = document.forms[onoffformname].elements["fig"];
+    var radios = document.forms[onoffformname].elements["fig"]; //* @typedef html-object
 
     radios[0].addEventListener('click', () => {
         document.getElementById('collect-data-for-circle-div').style.display = "block";

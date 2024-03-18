@@ -1,12 +1,11 @@
-//import { Layer, Stage, Rect, Line } from './konva.min.js';
 import * as konva from './konva.min.js';
 
-window.width = window.innerWidth;
-window.height = window.innerHeight;
+window.width = window.innerWidth; //* @typedef number
+window.height = window.innerHeight; //* @typedef number
 
-export var layer = new Konva.Layer();
+export var layer = new Konva.Layer(); //* @typedef konva-object
 
-export var stage = new Konva.Stage({
+export var stage = new Konva.Stage({ //* @typedef konva-object
     container: 'container',
     width: width,
     height: height,
@@ -24,8 +23,8 @@ export var stage = new Konva.Stage({
  * @param {number} opacity яркость
  * @returns прямоугольник
  */
-export function create_obj_rect(x, y, width, height, fill, opacity=1){
-    var rect = new Konva.Rect({
+export function create_obj_rect(x, y, width, height, fill, opacity = 1) {
+    var rect = new Konva.Rect({ //* @typedef konva-object
         x: x,
         y: y,
         width: width,
@@ -48,8 +47,8 @@ export function create_obj_rect(x, y, width, height, fill, opacity=1){
  * @param {number} strokeWidth ширина обводки
  * @returns объект круг
  */
-export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
-    var circle = new Konva.Circle({
+export function create_obj_circle(x, y, radius, fill, stroke = "", strokeWidth = 1) {
+    var circle = new Konva.Circle({ //* @typedef konva-object
         x: x,
         y: y,
         radius: radius,
@@ -73,19 +72,19 @@ export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
  * @param {number} strokeWidth ширина обводки
  * @returns объект эллипса
  */
-export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth){
-    var ellipse = new Konva.Ellipse({
-        radius : {
-          x : x_rad,
-          y : y_rad
+export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth) {
+    var ellipse = new Konva.Ellipse({ //* @typedef konva-object
+        radius: {
+            x: x_rad,
+            y: y_rad
         },
         fill: fill,
         x: x,
         y: y,
         stroke: stroke,
         strokeWidth: strokeWidth,
-      });
-    
+    });
+
     return ellipse;
 }
 
@@ -95,10 +94,10 @@ export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth
  * @param {array of number} points массив точек по которым строим
  * @param {string} stroke цвет линии
  * @param {number} strokeWidth жирность
- * @returns 
+ * @returns объект линии
  */
-export function create_obj_line(points, stroke, strokeWidth){
-    var line = new Konva.Line({
+export function create_obj_line(points, stroke, strokeWidth) {
+    var line = new Konva.Line({ //* @typedef konva-object
         points: points,
         stroke: stroke,
         strokeWidth: strokeWidth
@@ -114,22 +113,22 @@ export function create_obj_line(points, stroke, strokeWidth){
  * @param {konva-object} layer канвас
  */
 export function setka(layer) {
-    for (var i = stage.height() / 2; i > -14312; i-=50){
+    for (var i = stage.height() / 2; i > -14312; i -= 50) {
         var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
         layer.add(line);
     }
 
-    for (var i = stage.height() / 2; i < 14312; i+=50){
+    for (var i = stage.height() / 2; i < 14312; i += 50) {
         var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
         layer.add(line);
     }
 
-    for (var i = stage.width() / 2; i > -14324; i-=50){
+    for (var i = stage.width() / 2; i > -14324; i -= 50) {
         var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
         layer.add(line);
     }
 
-    for (var i = stage.width() / 2; i < 14324; i+=50){
+    for (var i = stage.width() / 2; i < 14324; i += 50) {
         var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
         layer.add(line);
     }
@@ -149,5 +148,5 @@ export function refresh_graph(layer, xAxis, yAxis) {
 }
 
 
-export var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
-export var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);
+export var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3); //* @typedef konva-object
+export var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3); //* @typedef konva-object

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="./src/css/styles.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Смирнов Пётр ИУ7-45Б ЛР№3</title>
 </head>
+
 <body>
     <div id="container"></div>
 
@@ -40,12 +42,12 @@
             <label for="favcolor">Выберите цвет фигуры</label>
             <input type="color" id="favcolor" name="favcolor" /><br>
             <label for="back">Выберите цвет фона</label>
-            <input type="color" id="back" name="back" value="#FFFFFF"/><br>
+            <input type="color" id="back" name="back" value="#FFFFFF" /><br>
 
             <label for="rdelta">Шаг изменения радиуса:</label>
-            <input type="text" name="rdelta" required pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
+            <input type="text" name="rdelta" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
             <label for="countfig">Количество фигур:</label>
-            <input type="text" name="countfig" required pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
+            <input type="text" name="countfig" required pattern=^(?!0)\d+$><br>
 
             <label for="fig" style="font-weight: 900;">Выберите фигуру для построения:</label><br>
             <input type="radio" name="fig" value="circle" required>
@@ -55,14 +57,14 @@
 
             <div id='collect-data-for-circle-div'>
                 <label for="r">Радиус:</label>
-                <input id="r" type="text" name="r" pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
+                <input id="r" type="text" name="r" pattern=^(0|[1-9]\d*)(.\d+)?$><br>
             </div>
-    
+
             <div id='collect-data-for-ellipse-div'>
                 <label for="a">A(по горизонтали):</label>
-                <input id="a" type="text" name="a" pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
+                <input id="a" type="text" name="a" pattern=^(0|[1-9]\d*)(.\d+)?$><br>
                 <label for="b">B(по вертикали):</label>
-                <input id="b" type="text" name="b" pattern="^(?:[1-9]\d*|0)(?:.\d+)?$"><br>
+                <input id="b" type="text" name="b" pattern=^(0|[1-9]\d*)(.\d+)?$><br>
             </div>
 
             <input type="submit" for="collect-data-for-degree-figure" name="submit" value="Применить"><br><br>
@@ -72,4 +74,5 @@
 
     <script type="module" src="./src/degree_research.js"></script>
 </body>
+
 </html>

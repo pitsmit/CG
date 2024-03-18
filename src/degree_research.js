@@ -1,7 +1,29 @@
-import { addWheel, addButton } from './events.js';
-import { layer, stage, xAxis, yAxis, refresh_graph } from './geometrical_objects.js';
-import { Info, Task, Instruction } from './info-functions.js';
-import { LibraryFunctionCircle, LibraryFunctionEllipse, BrezCircle, BrezEllipse, CanonCircle, CanonEllipse, ParamCircle, ParamEllipse } from './algho_runner.js';
+import {
+    addWheel,
+    addButton
+} from './events.js';
+import {
+    layer,
+    stage,
+    xAxis,
+    yAxis,
+    refresh_graph
+} from './geometrical_objects.js';
+import {
+    Info,
+    Task,
+    Instruction
+} from './info-functions.js';
+import {
+    LibraryFunctionCircle,
+    LibraryFunctionEllipse,
+    BrezCircle,
+    BrezEllipse,
+    CanonCircle,
+    CanonEllipse,
+    ParamCircle,
+    ParamEllipse
+} from './algho_runner.js';
 
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
@@ -14,47 +36,47 @@ addButton(Info, Task, Instruction, "collect-data-for-degree-figure");
  * @param {string} form id формочки 
  * @returns длина отрезка, шаг угла, цвет отрезка, алгоритм, цвет фона
  */
-function GetUserDataDegree(form){
-    var el = document.getElementById(form);
+function GetUserDataDegree(form) {
+    var el = document.getElementById(form); //* @typedef html-object
 
-    var x = parseFloat(el.x.value);
-    var y = parseFloat(el.y.value);
-    var color = el.favcolor.value;
-    var backcolor = el.back.value;
-    var shag_radius = parseFloat(el.rdelta.value);
-    var countfig = parseFloat(el.countfig.value);
+    var x = parseFloat(el.x.value); //* @typedef number
+    var y = parseFloat(el.y.value); //* @typedef number
+    var color = el.favcolor.value; //* @typedef string
+    var backcolor = el.back.value; //* @typedef string
+    var shag_radius = parseFloat(el.rdelta.value); //* @typedef number
+    var countfig = parseFloat(el.countfig.value); //* @typedef number
 
-    var options = document.getElementsByName('state');
-    var alg_option;
-    for(var i = 0; i < options.length; i++){
-        if(options[i].checked){
+    var options = document.getElementsByName('state'); //* @typedef html-object
+    var alg_option; //* @typedef string
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].checked) {
             alg_option = options[i].value;
             break;
         }
     }
 
-    options = document.getElementsByName('fig');
-    var fig_option;
-    for(var i = 0; i < options.length; i++){
-        if(options[i].checked){
+    options = document.getElementsByName('fig'); //* @typedef html-object
+    var fig_option; //* @typedef string
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].checked) {
             fig_option = options[i].value;
             break;
         }
     }
 
-    var r, a, b;
-    if (fig_option == "circle"){
+    var r, a, b; //* @typedef number, number, number
+    if (fig_option == "circle") {
         el = document.getElementById('r');
         r = parseFloat(el.value);
         a = NaN;
         b = NaN;
-    }
-    else if (fig_option == "ellipse"){
+    } else if (fig_option == "ellipse") {
         a = parseFloat(document.getElementById('a').value);
         b = parseFloat(document.getElementById('b').value);
         r = NaN;
     }
 
+    //* @typedef number, number, string, string, string, number, number, number, string, number, number
     return [x, y, color, backcolor, alg_option, r, a, b, fig_option, shag_radius, countfig];
 }
 
@@ -62,15 +84,16 @@ function GetUserDataDegree(form){
 /**
  * пострение кругов(как на воде когда капля падает)
  */
-function plot_figures(){
+function PlotFigures() {
+    //* @typedef number, number, string, string, string, number, number, number, string, number, number
     var [x, y, color, backcolor, alg_option, r, a, b, fig_option, shag_radius, countfig] = GetUserDataDegree('collect-data-for-degree-figure');
 
     layer.destroyChildren();
     refresh_graph(layer, xAxis, yAxis);
     stage.getContainer().style.backgroundColor = backcolor;
 
-    for (var i = 0; i < countfig; i++){
-        switch(alg_option){
+    for (var i = 0; i < countfig; i++) {
+        switch (alg_option) {
             case "library-function":
                 if (fig_option == "circle")
                     LibraryFunctionCircle(x, y, color, layer, r);
@@ -105,5 +128,5 @@ function plot_figures(){
 
 
 document.getElementById('collect-data-for-degree-figure').addEventListener("submit", function() {
-    plot_figures();
+    PlotFigures();
 });

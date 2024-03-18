@@ -8,8 +8,8 @@
     height: 70%;
     background-color: white;
     border-radius: 10px;
-    resize:both;
-    overflow:auto;
+    resize: both;
+    overflow: auto;
 }
 
 #container {
@@ -31,20 +31,20 @@
     animation-duration: 1.5s;
     animation-fill-mode: both;
     animation-name: fadeIn;
-  }
-  
-  #collect-data-for-circle-div.open {
+}
+
+#collect-data-for-circle-div.open {
     display: block;
-  }
+}
 
 
-  #collect-data-for-ellipse-div {
+#collect-data-for-ellipse-div {
     display: none;
     animation-duration: 1.5s;
     animation-fill-mode: both;
     animation-name: fadeIn;
-  }
-  
-  #collect-data-for-ellipse-div.open {
+}
+
+#collect-data-for-ellipse-div.open {
     display: block;
-  }
+}
