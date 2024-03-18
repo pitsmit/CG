@@ -1,4 +1,3 @@
-import { Module } from './c-func/info.js';
 import { StackPush } from './stack.js';
 
 /**
@@ -16,8 +15,8 @@ export function MakeRotate(Group, layer, stack){
     var now_x = Group.getAttr('x') - width / 2;
     var now_y = height / 2 - Group.getAttr('y');
 
-    var want_x = Module._find_x(x, now_x, q, y, now_y);
-    var want_y = Module._find_y(x, now_x, q, y, now_y);
+    var want_x = x + (now_x - x) * Math.cos(q * Math.PI / 180) + (now_y - y) * Math.sin(q * Math.PI / 180);
+    var want_y = y - (now_x - x) * Math.sin(q * Math.PI / 180) + (now_y - y) * Math.cos(q * Math.PI / 180);
 
     Group.setAttr('x', want_x + width / 2);
     Group.setAttr('y', height / 2 - want_y);
