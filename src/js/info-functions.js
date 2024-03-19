@@ -1,3 +1,6 @@
+/**
+ * создание окошка с информацией об авторе
+ */
 export function Info() {
     window.open(
         'info.html',
@@ -6,6 +9,9 @@ export function Info() {
 }
 
 
+/**
+ * создание окошка с заданием
+ */
 export function Task() {
     window.open(
         'task.html',
@@ -14,6 +20,9 @@ export function Task() {
 }
 
 
+/**
+ * создание окошка с инструкцией
+ */
 export function Instruction() {
     window.open(
         'instruction.html',

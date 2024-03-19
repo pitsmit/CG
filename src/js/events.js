@@ -1,5 +1,7 @@
-import { addline } from "./tables.js";
+import { addline, ClearAll } from "./tables.js";
 import { create_obj_circle } from "./graphical_objects.js";
+import { Info, Task, Instruction } from './info-functions.js';
+import { RunWithFile } from './file.js';
 
 export function AddActions(stage, layer, groupCircles, ResGroup, xAxis, yAxis){
     stage.addEventListener('click', function(e) {
@@ -68,7 +70,7 @@ export function AddActions(stage, layer, groupCircles, ResGroup, xAxis, yAxis){
 }
 
 
-export function AddButton(RunWithFile, Info, Task, Instruction, Run, ClearAll, ResGroup, groupCircles){
+export function AddButton(Run, ResGroup, groupCircles){
     document.getElementById("addbutton1").addEventListener("click", function(){
         addline('multi1', "", "");
     });

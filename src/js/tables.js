@@ -1,5 +1,3 @@
-import { BAD_SYMBOLS, SAME_DOTS, SUCCESS } from "./main.js";
-
 export function addRowHandlers(tab) {
     var table = document.getElementById(tab);
     var rows = table.getElementsByTagName("tr");
@@ -65,18 +63,18 @@ export function validation(tab) {
   for (var i = 0; i < tab.length; i++){
       for (var j = 0; j < tab[i].length; j++){
           if (reg.test(tab[i][j]) != true)
-              return BAD_SYMBOLS;
+              return -3;
       }
   }
 
   for (var i = 0; i < tab.length; i++){
       for (var j = i + 1; j < tab.length; j++){
           if (tab[i][0] == tab[j][0] && tab[i][1] == tab[j][1])
-              return SAME_DOTS;
+              return -1;
       }
   }
 
-  return SUCCESS;
+  return 0;
 }
 
 

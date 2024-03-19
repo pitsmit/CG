@@ -97,3 +97,10 @@ export function create_circles(arr) {
 
     return res;
 }
+
+
+export function make_float(arr) {
+    for (var i = 0; i < arr.length; i++)
+        for (var j = 0; j < arr[i].length; j++)
+            arr[i][j] = parseFloat(arr[i][j]);
+}
