@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "cock": "npx webpack --mode production"
+    "cock": "npx webpack --mode production",
+    "hui": "lizard ./src/defaultmain.js"
   },
   "keywords": [],
   "author": "",
@@ -11,10 +12,11 @@
   "dependencies": {
     "chart.js": "^4.4.2",
     "konva": "^9.3.6",
+    "lizard": "^1.0.0",
+    "lizard-js": "^1.0.7",
     "moment": "^2.30.1"
   },
   "devDependencies": {
-    "electron": "^29.1.0",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
   }
