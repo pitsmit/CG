@@ -3,6 +3,29 @@ import {
     create_obj_rect
 } from "./geometrical_objects.js";
 
+
+function sign(dx, dy){
+    var sx;
+    var sy;
+    
+    if (dx == 0)
+        sx = 0;
+    else if (dx > 0)
+        sx = 1;
+    else
+        sx = -1;
+
+    if (dy == 0)
+        sy = 0;
+    else if (dy > 0)
+        sy = 1;
+    else
+        sy = -1;
+
+    return [sx, sy];
+}
+
+
 /**
  * алгоритм ЦДА
  * @param {number} xn x начала
@@ -87,22 +110,7 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
     var dx = xk - xn;
     var dy = yk - yn;
 
-    var sx;
-    var sy;
-
-    if (dx == 0)
-        sx = 0;
-    else if (dx > 0)
-        sx = 1;
-    else
-        sx = -1;
-
-    if (dy == 0)
-        sy = 0;
-    else if (dy > 0)
-        sy = 1;
-    else
-        sy = -1;
+    var [sx, sy] = sign(dx, dy);
 
     dx = Math.abs(dx);
     dy = Math.abs(dy);
@@ -174,22 +182,7 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
     var dx = xk - xn;
     var dy = yk - yn;
 
-    var sx;
-    var sy;
-
-    if (dx == 0)
-        sx = 0;
-    else if (dx > 0)
-        sx = 1;
-    else
-        sx = -1;
-
-    if (dy == 0)
-        sy = 0;
-    else if (dy > 0)
-        sy = 1;
-    else
-        sy = -1;
+    var [sx, sy] = sign(dx, dy);
 
     dx = Math.abs(dx);
     dy = Math.abs(dy);
@@ -259,22 +252,7 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
     var dx = xk - xn;
     var dy = yk - yn;
 
-    var sx;
-    var sy;
-
-    if (dx == 0)
-        sx = 0;
-    else if (dx > 0)
-        sx = 1;
-    else
-        sx = -1;
-
-    if (dy == 0)
-        sy = 0;
-    else if (dy > 0)
-        sy = 1;
-    else
-        sy = -1;
+    var [sx, sy] = sign(dx, dy);
 
     dx = Math.abs(dx);
     dy = Math.abs(dy);
@@ -347,22 +325,7 @@ export function BY(xn, yn, xk, yk, color, layer, width, height) {
     var dx = xk - xn;
     var dy = yk - yn;
 
-    var sx;
-    var sy;
-
-    if (dx == 0)
-        sx = 0;
-    else if (dx > 0)
-        sx = 1;
-    else
-        sx = -1;
-
-    if (dy == 0)
-        sy = 0;
-    else if (dy > 0)
-        sy = 1;
-    else
-        sy = -1;
+    var [sx, sy] = sign(dx, dy);
 
     dx = Math.abs(dx);
     dy = Math.abs(dy);
