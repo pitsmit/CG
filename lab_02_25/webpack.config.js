@@ -4,9 +4,9 @@ var config = {
 };
 
 var index = Object.assign({}, config, {
-    entry: ['./src/main.js', './src/geometrical_objects.js', './src/mover.js', './src/scaler.js', './src/rotator.js', './src/info-functions.js', './src/events.js', './src/stack.js'],
+    entry: ['./src/js/main.js'],
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'out'),
       filename: 'index.js',
     }
 });

@@ -1,18 +1,20 @@
 {
-  "name": "cg",
+  "name": "lab_01",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cock": "npx webpack --mode production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "konva": "^9.3.6",
+    "moment": "^2.30.1"
+  },
   "devDependencies": {
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"

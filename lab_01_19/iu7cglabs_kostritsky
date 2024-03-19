@@ -1,0 +1,35 @@
+run :
+		start ./out/index.html || true
+
+format :
+		npm -g install js-beautify > tmp.txt || true
+		js-beautify -r ./src/*.js > tmp.txt || true
+		js-beautify -r *.html > tmp.txt || true
+		js-beautify -r ./src/css/*.css > tmp.txt || true
+		rm tmp.txt || true
+
+release :
+		npm install > tmp.txt  || true
+		npx webpack --mode production > tmp.txt || true
+		cp ./*.html ./out/ > tmp.txt || true
+		rm ./out/*.js.LICENSE.txt > tmp.txt || true
+		mkdir -p ./out/src/css > tmp.txt || true
+		cp ./src/css/styles.css ./out/src/css/styles.css > tmp.txt || true
+		python3 replacepath.py > tmp.txt || true
+		rm tmp.txt || true
+
+clean:
+		rm -r node_modules &> tmp.txt || true
+		rm tmp.txt || true
+
+checkall:
+		python3 lizard.exe -Eduplicate ./src/js/*.js
+
+report-unittesting-latest.txt:
+		echo "no tests now"
+
+report-functesting-latest.txt:
+		echo "no tests now"
+
+saveolds:
+		echo "no results now"

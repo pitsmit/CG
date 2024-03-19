@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№4</title>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <div class="menu">
+        <ul>
+            <a href="./index.html">1. Реализация алгоритмов построения окружностей и эллипсов</a><br>
+            <a href="./degree_researchers.html">2. Сравнение окружностей и эллипсов во всём спектре углов</a><br>
+            <a href="./timer_researchers.html">3. Исследование временных характеристик алгоритмов</a><br>
+        </ul>
+        <button class="buttons" id="info">Информация об авторе</button>
+        <button class="buttons" id="task">Условие задачи</button>
+        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+
+        <form id="collect-data-for-figure" method="dialog" autocomplete="off" name="Данные о фигуре">
+            <label for="Данные о фигуре" style="font-weight: 900;">Данные о фигуре:</label><br>
+            <label>Выберите алгоритм построения:</label><br>
+            <input type="radio" name="state" value="library-function" required>
+            <label for="library-function">Библиотечная функция</label><br>
+            <input type="radio" name="state" value="Brez" required>
+            <label for="Brez">Алгоритм Брезенхема</label><br>
+            <input type="radio" name="state" value="Canon" required>
+            <label for="Canon">По каноническому уравнению</label><br>
+            <input type="radio" name="state" value="Param" required>
+            <label for="Param">По параметрическому уравнению</label><br>
+
+            <label>Координаты центра фигуры</label><br>
+            <label for="x">X:</label>
+            <input type="text" name="x" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="y">Y:</label>
+            <input type="text" name="y" required pattern="^(?:-?\d+(.\d+)?)$"><br>
+
+            <label for="favcolor">Выберите цвет фигуры</label>
+            <input type="color" id="favcolor" name="favcolor" /><br>
+            <label for="back">Выберите цвет фона</label>
+            <input type="color" id="back" name="back" value="#FFFFFF" /><br>
+
+            <label for="fig" style="font-weight: 900;">Выберите фигуру для построения:</label><br>
+            <input type="radio" name="fig" value="circle" required>
+            <label for="circle">Окружность</label><br>
+            <input type="radio" name="fig" value="ellipse" required>
+            <label for="ellipse">Эллипс</label><br>
+
+            <div id='collect-data-for-circle-div'>
+                <form id='collect-data-for-circle' role="form" action="/requestFine" autocomplete="off" method="POST">
+                    <label for="r">Радиус:</label>
+                    <input id="r" type="text" name="r" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
+                </form>
+            </div>
+
+            <div id='collect-data-for-ellipse-div'>
+                <form id='collect-data-for-ellipse' role="form" action="/requestFine" autocomplete="off" method="POST">
+                    <label for="a">A(по горизонтали):</label>
+                    <input type="text" name="a" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
+                    <label for="b">B(по вертикали):</label>
+                    <input type="text" name="b" required pattern=^(0|[1-9]\d*)(.\d+)?$><br>
+                </form>
+            </div>
+
+            <button id="submit">Применить</button><br><br>
+        </form>
+    </div>
+
+    <script type="module" src="./src/defaultmain.js"></script>
+</body>
+
+</html>
