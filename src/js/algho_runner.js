@@ -4,6 +4,12 @@ import {
 } from "./geometrical_objects.js";
 
 
+/**
+ * изменение знака для dx dy
+ * @param {number} dx 
+ * @param {number} dy 
+ * @returns 
+ */
 function sign(dx, dy){
     var sx;
     var sy;
@@ -26,6 +32,20 @@ function sign(dx, dy){
 }
 
 
+function swap(dx, dy){
+    var obmen = 0;
+
+    if (dx <= dy){
+        var t = dx;
+        dx = dy;
+        dy = t;
+        obmen = 1;
+    }
+
+    return [obmen, dx, dy];
+}
+
+
 /**
  * алгоритм ЦДА
  * @param {number} xn x начала
@@ -45,12 +65,7 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height) {
     var delta_x = xk - xn;
     var delta_y = yk - yn;
 
-    var l;
-
-    if (Math.abs(delta_x) > Math.abs(delta_y))
-        l = Math.abs(delta_x);
-    else
-        l = Math.abs(delta_y);
+    var l = Math.abs(delta_x) > Math.abs(delta_y) ? Math.abs(delta_x) : Math.abs(delta_y);
 
     delta_x /= l;
     delta_y /= l;
@@ -74,6 +89,7 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height) {
     return count_stypenka;
 }
 
+
 /**
  * алгоритм библиотечный
  * @param {number} xn x начала
@@ -90,6 +106,7 @@ export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height) {
     var line = create_obj_line([xn + width / 2, height / 2 - yn, xk + width / 2, height / 2 - yk], color, 1);
     layer.add(line);
 }
+
 
 /**
  * алгоритм Брезенхема с действительными числами
@@ -115,16 +132,7 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
-    var obmen;
-
-    if (dx > dy)
-        obmen = 0;
-    else {
-        var t = dx;
-        dx = dy;
-        dy = t;
-        obmen = 1;
-    }
+    var [obmen, dx, dy] = swap(dx, dy);
 
     var m = dy / dx;
     var e = m - 0.5;
@@ -163,6 +171,7 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
     return count_stypenka;
 }
 
+
 /**
  * алгоритм Брезенхема с целыми числами
  * @param {number} xn x начала
@@ -187,16 +196,7 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
-    var obmen;
-
-    if (dx > dy)
-        obmen = 0;
-    else {
-        var t = dx;
-        dx = dy;
-        dy = t;
-        obmen = 1;
-    }
+    var [obmen, dx, dy] = swap(dx, dy);
 
     var e = 2 * dy - dx;
 
@@ -233,6 +233,7 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
     return count_stypenka;
 }
 
+
 /**
  * алгоритм Брезенхема с устранением ступенчатости
  * @param {number} xn x начала
@@ -258,7 +259,7 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
     dy = Math.abs(dy);
 
     var m = dy / dx;
-    var obmen;
+    var obmen = 0;
 
     if (m > 1) {
         var t = dx;
@@ -266,8 +267,7 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
         dy = t;
         obmen = 1;
         m = 1 / m;
-    } else
-        obmen = 0;
+    }
 
     var e = 1;
     var w = 1 - m;
@@ -305,6 +305,7 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
     return count_stypenka;
 }
 
+
 /**
  * алгоритм Ву
  * @param {number} xn x начала
@@ -330,16 +331,9 @@ export function BY(xn, yn, xk, yk, color, layer, width, height) {
     dx = Math.abs(dx);
     dy = Math.abs(dy);
 
-    var obmen;
+    var obmen = 0;
 
-    if (dx > dy)
-        obmen = 0;
-    else {
-        var t = dx;
-        dx = dy;
-        dy = t;
-        obmen = 1;
-    }
+    var [obmen, dx, dy] = swap(dx, dy);
 
     var m = dy / dx;
     var e = 0.5;

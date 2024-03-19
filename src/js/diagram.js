@@ -13,13 +13,8 @@ import {
 import {
     addButton
 } from './events.js';
-import {
-    Info,
-    Task,
-    Instruction
-} from './info-functions.js';
 
-addButton(Info, Task, Instruction)
+addButton();
 const ctx = document.getElementById('container').getContext('2d');
 
 /**
