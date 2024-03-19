@@ -22,6 +22,9 @@ clean:
 		rm -r node_modules &> tmp.txt || true
 		rm tmp.txt || true
 
+checkall:
+		python3 lizard.exe -Eduplicate ./src/js/*.js
+
 report-unittesting-latest.txt:
 		echo "no tests now"
 

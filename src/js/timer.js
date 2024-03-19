@@ -1,16 +1,7 @@
-import * as chartt from './Chart.min.js';
-import {
-    Layer
-} from 'konva/lib/Layer.js';
+import Chart from 'chart.js/auto';
+import Konva from 'konva';
 
-import {
-    addButton
-} from './events.js';
-import {
-    Info,
-    Task,
-    Instruction
-} from './info-functions.js';
+import {addButton} from './events.js';
 import {
     LibraryFunctionCircle,
     LibraryFunctionEllipse,
@@ -21,8 +12,9 @@ import {
     ParamCircle,
     ParamEllipse
 } from './algho_runner.js';
+import { GetUserDataTimer } from './getdata.js';
 
-addButton(Info, Task, Instruction);
+addButton(NaN);
 const ctx = document.getElementById('container').getContext('2d'); //* @typedef html-object(canvas)
 var lineChart; //* @typedef chart-object
 
@@ -86,22 +78,22 @@ function TimerExperiment(startcircle, starta, startb, shagrad, countfig) {
     var layer = new Konva.Layer(); //* @typedef konva-object
     lineChart.destroy();
     var color = "black"; //* @typedef string
-    var x = 0; //* @typedef number
-    var y = 0; //* @typedef number
+    var x = 0;        //* @typedef number
+    var y = 0;        //* @typedef number
 
-    var LibCir = []; //* @typedef array of numbers
-    var LibEl = []; //* @typedef array of numbers
+    var LibCir =  []; //* @typedef array of numbers
+    var LibEl =   []; //* @typedef array of numbers
     var BrezCir = []; //* @typedef array of numbers
-    var BrezEl = []; //* @typedef array of numbers
-    var CanCir = []; //* @typedef array of numbers
-    var CanEl = []; //* @typedef array of numbers
-    var ParCir = []; //* @typedef array of numbers
-    var ParEl = []; //* @typedef array of numbers
+    var BrezEl =  []; //* @typedef array of numbers
+    var CanCir =  []; //* @typedef array of numbers
+    var CanEl =   []; //* @typedef array of numbers
+    var ParCir =  []; //* @typedef array of numbers
+    var ParEl =   []; //* @typedef array of numbers
 
-    var labels = []; //* @typedef array of strings
+    var labels =  []; //* @typedef array of strings
 
 
-    for (var i = 0; i < countfig; i++) {
+    for (var i = 0; i < countfig; i++, starta += shagrad, startb += shagrad, startcircle += shagrad) {
         LibCir.push(GetTimeToCircle(LibraryFunctionCircle, startcircle, color, layer, x, y));
         BrezCir.push(GetTimeToCircle(BrezCircle, startcircle, color, layer, x, y));
         CanCir.push(GetTimeToCircle(CanonCircle, startcircle, color, layer, x, y));
@@ -111,10 +103,6 @@ function TimerExperiment(startcircle, starta, startb, shagrad, countfig) {
         BrezEl.push(GetTimeToEllipse(BrezEllipse, starta, startb, color, layer, x, y));
         CanEl.push(GetTimeToEllipse(CanonEllipse, starta, startb, color, layer, x, y));
         ParEl.push(GetTimeToEllipse(ParamEllipse, starta, startb, color, layer, x, y));
-
-        starta += shagrad;
-        startb += shagrad;
-        startcircle += shagrad;
 
         labels.push("+" + String(shagrad * i));
     }
@@ -210,14 +198,7 @@ PlotGraph([
 ]);
 
 
-if (document.getElementById('collect-data-for-timer-figure')) {
-    document.getElementById('collect-data-for-timer-figure').addEventListener("submit", function() {
-        var el = document.getElementById("collect-data-for-timer-figure"); //* @typedef html-object
-        var startcircle = parseFloat(el.startcircle.value); //* @typedef number
-        var starta = parseFloat(el.starta.value); //* @typedef number
-        var startb = parseFloat(el.startb.value); //* @typedef number
-        var shagrad = parseFloat(el.shagrad.value); //* @typedef number
-        var countfig = parseFloat(el.countfig.value); //* @typedef number
+document.getElementById('collect-data-for-timer-figure').addEventListener("submit", function() {
+        var [startcircle, starta, startb, shagrad, countfig] = GetUserDataTimer("collect-data-for-timer-figure");
         TimerExperiment(startcircle, starta, startb, shagrad, countfig);
-    });
-}
+});

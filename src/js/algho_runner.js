@@ -1,8 +1,4 @@
-import {
-    create_obj_ellipse,
-    create_obj_circle,
-    create_obj_rect
-} from "./geometrical_objects.js";
+import {create_obj_ellipse,create_obj_circle,create_obj_rect} from "./geometrical_objects.js";
 
 
 /**

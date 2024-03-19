@@ -4,7 +4,7 @@ var config = {
 };
 
 var index = Object.assign({}, config, {
-    entry: ['./src/defaultmain.js'],
+    entry: ['./src/js/defaultmain.js'],
     output: {
     path: path.resolve(__dirname, 'out'),
     filename: 'index.js',
@@ -12,7 +12,7 @@ var index = Object.assign({}, config, {
 });
 
 var diagram = Object.assign({}, config,{
-    entry: ['./src/timer.js'],
+    entry: ['./src/js/timer.js'],
     output: {
     path: path.resolve(__dirname, 'out'),
     filename: 'timer.js',
@@ -20,7 +20,7 @@ var diagram = Object.assign({}, config,{
 });
 
 var degree = Object.assign({}, config,{
-    entry: ['./src/degree_research.js'],
+    entry: ['./src/js/degree_research.js'],
     output: {
     path: path.resolve(__dirname, 'out'),
     filename: 'degree.js',

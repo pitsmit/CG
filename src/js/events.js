@@ -1,3 +1,5 @@
+import {Info,Task,Instruction} from './info-functions.js';
+
 /**
  * зумирование канваса при прокрутке колёсика
  * @param {konva-obj} stage сцена (основа канваса)
@@ -21,9 +23,8 @@ export function addWheel(stage, layer, xAxis, yAxis) {
 
         let direction = e.evt.deltaY > 0 ? -1 : 1; //* @typedef number
 
-        if (e.evt.ctrlKey) {
+        if (e.evt.ctrlKey)
             direction = -direction;
-        }
 
         if (oldScale >= 5 && direction > 0)
             return;
@@ -53,12 +54,9 @@ export function addWheel(stage, layer, xAxis, yAxis) {
 
 /**
  * ставит на кнопки действия
- * @param {function} Info информация об авторе
- * @param {function} Task задание
- * @param {function} Instruction инструкция
- * @param {string} onoffformname id формочки
+ * @param {string} onoffformname form id
  */
-export function addButton(Info, Task, Instruction, onoffformname = NaN) {
+export function addButton(onoffformname = NaN) {
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);

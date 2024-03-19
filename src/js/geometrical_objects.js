@@ -1,4 +1,4 @@
-import * as konva from './konva.min.js';
+import Konva from "konva";
 
 window.width = window.innerWidth; //* @typedef number
 window.height = window.innerHeight; //* @typedef number
@@ -105,7 +105,6 @@ export function create_obj_line(points, stroke, strokeWidth) {
 
     return line;
 }
-
 
 
 /**
