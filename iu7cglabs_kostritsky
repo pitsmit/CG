@@ -18,6 +18,10 @@ release :
 		python3 replacepath.py > tmp.txt || true
 		rm tmp.txt || true
 
+
+checkall:
+		python3 lizard.exe -Eduplicate ./src/js/*.js
+
 clean:
 		rm -r node_modules &> tmp.txt || true
 		rm tmp.txt || true
