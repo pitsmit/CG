@@ -6,3 +6,8 @@ node_modules
 emsdk
 out
 lizard.exe
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+results
