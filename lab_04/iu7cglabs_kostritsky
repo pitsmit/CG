@@ -26,10 +26,27 @@ checkall:
 		python3 lizard.exe -Eduplicate ./src/js/*.js
 
 report-unittesting-latest.txt:
-		echo "no tests now"
+		touch report-unittesting-latest.txt > tmp.txt || true
+		echo " 00.00 " > report-unittesting-latest.txt || true
+		rm tmp.txt || true
 
-report-functesting-latest.txt:
-		echo "no tests now"
+.PHONY: report-functesting-latest.txt
+report-functesting-latest.txt: release
+		npm install > tmp.txt || true
+		touch report-functesting-latest.txt > tmp.txt || true
+		mkdir -p results
+		echo " 00.00 " > report-functesting-latest.txt || true
+		touch func-tests/testres.txt > tmp.txt || true
+		npx playwright test > func-tests/testres.txt || true
+		python3 ./func-tests/findouttime.py
+		./func-tests/helpfunc.sh > tmp.txt || true
+		rm func-tests/testres.txt || true
+		rm -r test-results &> tmp.txt || true
+		rm -r playwright-report &> tmp.txt || true
+		rm tmp.txt || true
 
 saveolds:
-		echo "no results now"
+		touch report-functesting-old.txt || true
+		cat report-functesting-latest.txt > report-functesting-old.txt || true
+		touch report-unittesting-old.txt || true
+		cat report-unittesting-latest.txt > report-unittesting-old.txt || true

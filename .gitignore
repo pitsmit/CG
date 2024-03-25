@@ -1,2 +1,5 @@
 .vscode
 lizard.exe
+test-results
+node_modules
+
