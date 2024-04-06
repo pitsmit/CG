@@ -1,3 +1,5 @@
 lizard.exe
 *.txt
 *.exe
+node_modules
+out

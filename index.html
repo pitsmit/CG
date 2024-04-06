@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№5</title>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <div class="menu">
+        <button class="buttons" id="info">Информация об авторе</button>
+        <button class="buttons" id="task">Условие задачи</button>
+        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+        <button class="buttons" id="clear">Очистить экран</button>
+
+        <form id="collect-data" method="dialog" autocomplete="off">
+            <label for="favcolor">Выберите цвет заполнения</label>
+            <input type="color" id="favcolor" name="favcolor"/><br>
+
+            <label for="delay">Время задержки:</label>
+            <input type="text" name="delay" required pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+
+            <table class="Tables" id="tops" contenteditable="false">
+                <caption contenteditable="false">Вершины фигуры</caption>
+                <tr>
+                    <th contenteditable="false">x</th>
+                    <th contenteditable="false">y</th>
+                </tr>
+            </table>
+
+            <label>Координаты вершины:</label><br>
+            <label for="x">X:</label>
+            <input type="text" name="x" pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="y">Y:</label>
+            <input type="text" name="y" pattern="^(?:-?\d+(.\d+)?)$"><br>
+
+            <button class="buttons" id="add">Добавить точку</button>
+
+            <button id="submit">Закрасить</button><br><br>
+        </form>
+    </div>
+
+    <script type="module" src="./src/js/defaultmain.js"></script>
+</body>
+
+</html>
