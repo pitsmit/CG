@@ -89,6 +89,9 @@ function PlotLine(obj){
     obj.someObj.push(line);
 
     obj.layer.add(line);
+
+    obj.layer.draw();
+
 }
 
 
@@ -104,43 +107,57 @@ function addlayertostage(obj){
     obj.stage.add(obj.layer);
 }
 
+
+
+
 function PlotPixel(obj){
-    var pixel = create_obj_pixel(Math.round(obj.x + width / 2), Math.round(height / 2 - obj.y), obj.color);
+    var pixels = layer.getChildren(function(node){
+        return node.getClassName() === 'Rect';
+    });
+
+    var x = Math.floor(obj.x + width / 2);
+    var y = Math.floor(height / 2 - obj.y);
+
+    for (var i = 0; i < pixels.length; i++)
+        if (pixels[i].x() == x && pixels[i].y() == y){
+            pixels[i].setAttr("fill", obj.color);
+            return;
+        }
+
+    var pixel = create_obj_pixel(x, y, obj.color);
     obj.someObj.push(pixel);
 
     obj.layer.add(pixel);
-
-    /*const canvas = stage.toCanvas();
-    const context = canvas.getContext('2d');
-
-    var roundedX = Math.floor(obj.x);
-    var roundedY = Math.floor(obj.y);
-    context.fillStyle = obj.color;
-    context.fillRect(roundedX, roundedY, 1, 1);*/
-
-    
 }
 
 
 function GetColorPixel(obj){
-    /*const canvas = stage.toCanvas();
-    const context = canvas.getContext('2d');
-    const imageData = context.getImageData(obj.x, obj.y, 1, 1);
-    const pixel = imageData.data;
-    console.log(pixel[0], pixel[1], pixel[2]);*/
+    var pixels = layer.getChildren(function(node){
+        return node.getClassName() === 'Rect';
+    });
 
+    var x = Math.floor(obj.x + width / 2);
+    var y = Math.floor(height / 2 - obj.y);
+
+    for (var i = 0; i < pixels.length; i++)
+        if (pixels[i].x() == x && pixels[i].y() == y)
+            return pixels[i].fill();
+}
+
+
+function DestroyWhitePixels(){
     var pixels = layer.getChildren(function(node){
         return node.getClassName() === 'Rect';
     });
 
     for (var i = 0; i < pixels.length; i++)
-        if (pixels[i].x() == Math.round(obj.x + width / 2) && pixels[i].y() == Math.round(height / 2 - obj.y))
-            return pixels[i].fill();
+        if (pixels[i].fill() == "white")
+            pixels[i].destroy();
 }
 
 
 export function GeometricalPad(obj, FuncNumber){
-    var arrfunc = [PlotLine, refresh_graph, addlayertostage, PlotCircle, PlotPixel, GetColorPixel];
+    var arrfunc = [PlotLine, refresh_graph, addlayertostage, PlotCircle, PlotPixel, GetColorPixel, DestroyWhitePixels];
 
     return arrfunc[FuncNumber - 1](obj);
 }

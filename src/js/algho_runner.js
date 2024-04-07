@@ -51,10 +51,27 @@ function FILL(obj){
     var rc = CheckDotsLength();
     if (rc != 0)
         return;
-    PlotLastEdge(obj);
 
-    figure_fill_by_edge(obj);
-    /// здесь должен быть алгоритм...
+   // document.getElementById("loader").style.display = "block";
+
+   // PlotLastEdge(obj);
+
+   // figure_fill_by_edge(obj);
+
+    //document.getElementById("loader").style.display = "none";
+
+    const helloPromise = new Promise(function(PlotLastEdge){
+        PlotLastEdge(obj);
+    });
+
+    const worldPromise = helloPromise.then(function(figure_fill_by_edge){
+        // возвращаем новое значение
+        figure_fill_by_edge(obj);
+    });
+
+    //PlotLastEdge(obj).then(function() {
+     //   return figure_fill_by_edge(obj);
+   // });
 
     FLAG = 1
 }
@@ -85,6 +102,17 @@ function FindMinX(f){
 }
 
 
+function PlotAllEdges(f, obj){
+    for (var i = 0; i < f.length; i++){
+        obj.x1plot = f[i].startX + width / 2;
+        obj.y1plot = height / 2 - f[i].startY;
+        obj.x2plot = f[i].endX + width / 2;
+        obj.y2plot = height / 2 - f[i].endY;
+        GeometricalPad(obj, 1);
+    }
+}
+
+
 function figure_fill_by_edge(obj)
 {
     var f = []
@@ -95,8 +123,6 @@ function figure_fill_by_edge(obj)
     var vec = {startX: DOTS[0][0], startY: DOTS[0][1], endX: DOTS[DOTS.length - 1][0], endY: DOTS[DOTS.length - 1][1]};
     f.push(vec);
 
-    console.log(f);
-
     var colorrr;
     var col_fill = obj.color;
 
@@ -105,20 +131,25 @@ function figure_fill_by_edge(obj)
     var min_x = FindMinX(f);
 
     var stop;
+    var startX;
+    var startY;
+    var endX;
+    var endY;
+    var tmp;
 
     for (var i = 0; i < size; i++)
     {
-        var startX = f[i].startX;
-        var startY = f[i].startY;
-        var endX = f[i].endX;
-        var endY = f[i].endY;
+        startX = Math.floor(f[i].startX);
+        startY = Math.floor(f[i].startY);
+        endX = Math.floor(f[i].endX);
+        endY = Math.floor(f[i].endY);
 
         if (startY == endY)
             continue;
 
         if (startY > endY)
         {
-            var tmp = endX;
+            tmp = endX;
             endX = startX;
             startX = tmp;
 
@@ -127,16 +158,16 @@ function figure_fill_by_edge(obj)
             startY = tmp;
         }
 
-        console.log(startX, startY);
-
         obj.y = startY;
+
+        var s1 = startY - ((endY - startY) / (endX - startX)) * startX;
+        var s2 = ((endY - startY) / (endX - startX));
         while (obj.y < endY)
         {
-            stop = (obj.y - startY + ((endY - startY) / (endX - startX)) * startX) / ((endY - startY) / (endX - startX));
+            stop = (obj.y - s1) / s2;
 
-            for (obj.x = min_x; obj.x < stop - 1; obj.x++){
+            for (obj.x = min_x; obj.x <= stop; obj.x++){
                 colorrr = GeometricalPad(obj, 6);
-                console.log(colorrr);
                 if (colorrr == undefined)
                     obj.color = col_fill;
                 else if (colorrr == "white" || colorrr == "#FFFFFF")
@@ -148,6 +179,9 @@ function figure_fill_by_edge(obj)
             obj.y++;
         }
     }
+
+    GeometricalPad(obj, 7); // destroy white pixel
+    PlotAllEdges(f, obj);
 }
 
 
