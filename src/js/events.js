@@ -1,5 +1,5 @@
 import {Info, Task, Instruction} from './info-functions.js';
-import {GeometricalPad, stage, xAxis, yAxis, create_obj} from './geometrical_objects.js';
+import {GeometricalPad, stage, create_obj} from './geometrical_objects.js';
 import { MainPad } from './algho_runner.js';
 import { TablePad } from './tables.js';
 
@@ -37,10 +37,6 @@ function addWheel(stage, xAxis, yAxis) {
             x: newScale,
             y: newScale
         });
-        xAxis.points()[0] = Math.min(-stage.width() / stage.scale().x, -stage.width());
-        xAxis.points()[2] = Math.max(stage.width() / stage.scale().x, stage.width());
-        yAxis.points()[1] = Math.min(-stage.height() / stage.scale().y, -stage.height());
-        yAxis.points()[3] = Math.max(stage.height() / stage.scale().y, stage.height());
 
         var newPos = {
             x: pointer.x - mousePointTo.x * newScale,
@@ -64,6 +60,9 @@ function addButton(Info, Task, Instruction) {
     document.getElementById("instruction").addEventListener("click", Instruction);
     document.getElementById("submit").addEventListener("click", (function() {
         var obj = create_obj(); //* @typedef user-js-object(c-struct analog)
+
+        var el = document.getElementById('collect-data'); //* @typedef html-object
+        obj.color = el.favcolor.value
         MainPad(obj, 4);        // fill figure 
     }));
     document.getElementById("clear").addEventListener("click", (function() {
@@ -117,6 +116,6 @@ function addCircleToCanvas(stage){
  */
 export function EventsPad(){
     addButton(Info, Task, Instruction);
-    addWheel(stage, xAxis, yAxis);
+    addWheel(stage);
     addCircleToCanvas(stage);
 }

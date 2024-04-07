@@ -35,6 +35,26 @@ function create_obj_circle(x, y, radius=1, fill="red") {
 
 
 /**
+ * создание объекта пиксель
+ * @param {number} x координата х
+ * @param {number} y координата y
+ * @param {string} fill заливка
+ * @returns пиксель
+ */
+function create_obj_pixel(x, y, fill) {
+    var rect = new Konva.Rect({ //* @typedef konva-object
+        x: x,
+        y: y,
+        width: 1,
+        height: 1,
+        fill: fill,
+    });
+
+    return rect
+}
+
+
+/**
  * создание объекта линия
  * @param {array of number} points массив точек по которым строим
  * @param {string} stroke цвет линии
@@ -52,47 +72,13 @@ function create_obj_line(points, stroke, strokeWidth) {
 }
 
 
-/**
- * рисование сетки
- * @param {konva-object} layer канвас
- */
-function setka(layer) {
-    for (var i = stage.height() / 2; i > -14312; i -= 50) {
-        var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
-        layer.add(line);
-    }
-
-    for (var i = stage.height() / 2; i < 14312; i += 50) {
-        var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
-        layer.add(line);
-    }
-
-    for (var i = stage.width() / 2; i > -14324; i -= 50) {
-        var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
-        layer.add(line);
-    }
-
-    for (var i = stage.width() / 2; i < 14324; i += 50) {
-        var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
-        layer.add(line);
-    }
-}
-
-
 function refresh_graph(obj) {
     obj.layer.destroyChildren();
-    obj.layer.add(obj.xAxis);
-    obj.layer.add(obj.yAxis);
-    setka(obj.layer);
 }
-
-
-export var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3); //* @typedef konva-object
-export var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3); //* @typedef konva-object
 
 
 export function create_obj(){
-    var obj = {x: 0, y: 0, x1plot: 0, x2plot: 0, y1plot: 0, y2plot: 0, layer: layer, xAxis: xAxis, yAxis: yAxis, stage: stage, someObj: []};
+    var obj = {x: 0, y: 0, x1plot: 0, x2plot: 0, y1plot: 0, y2plot: 0, layer: layer, stage: stage, someObj: [], color: ""};
 
     return obj;
 }
@@ -118,9 +104,43 @@ function addlayertostage(obj){
     obj.stage.add(obj.layer);
 }
 
+function PlotPixel(obj){
+    var pixel = create_obj_pixel(Math.round(obj.x + width / 2), Math.round(height / 2 - obj.y), obj.color);
+    obj.someObj.push(pixel);
+
+    obj.layer.add(pixel);
+
+    /*const canvas = stage.toCanvas();
+    const context = canvas.getContext('2d');
+
+    var roundedX = Math.floor(obj.x);
+    var roundedY = Math.floor(obj.y);
+    context.fillStyle = obj.color;
+    context.fillRect(roundedX, roundedY, 1, 1);*/
+
+    
+}
+
+
+function GetColorPixel(obj){
+    /*const canvas = stage.toCanvas();
+    const context = canvas.getContext('2d');
+    const imageData = context.getImageData(obj.x, obj.y, 1, 1);
+    const pixel = imageData.data;
+    console.log(pixel[0], pixel[1], pixel[2]);*/
+
+    var pixels = layer.getChildren(function(node){
+        return node.getClassName() === 'Rect';
+    });
+
+    for (var i = 0; i < pixels.length; i++)
+        if (pixels[i].x() == Math.round(obj.x + width / 2) && pixels[i].y() == Math.round(height / 2 - obj.y))
+            return pixels[i].fill();
+}
+
 
 export function GeometricalPad(obj, FuncNumber){
-    var arrfunc = [PlotLine, refresh_graph, addlayertostage, PlotCircle];
+    var arrfunc = [PlotLine, refresh_graph, addlayertostage, PlotCircle, PlotPixel, GetColorPixel];
 
-    arrfunc[FuncNumber - 1](obj);
+    return arrfunc[FuncNumber - 1](obj);
 }
