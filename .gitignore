@@ -4,3 +4,4 @@ emsdk
 dist/*.js.LICENSE.txt
 out
 lizard.exe
+results
