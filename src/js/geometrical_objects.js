@@ -78,14 +78,14 @@ function refresh_graph(obj) {
 
 
 export function create_obj(){
-    var obj = {x: 0, y: 0, x1plot: 0, x2plot: 0, y1plot: 0, y2plot: 0, layer: layer, stage: stage, someObj: [], color: ""};
+    var obj = {x: 0, y: 0, x1plot: 0, x2plot: 0, y1plot: 0, y2plot: 0, layer: layer, stage: stage, someObj: [], color: "", delay: 0};
 
     return obj;
 }
 
 
 function PlotLine(obj){
-    var line = create_obj_line([obj.x1plot, obj.y1plot, obj.x2plot, obj.y2plot], "black", 1);
+    var line = create_obj_line([obj.x1plot, obj.y1plot, obj.x2plot, obj.y2plot], "black", 3);
     obj.someObj.push(line);
 
     obj.layer.add(line);
@@ -123,11 +123,8 @@ function PlotPixel(obj){
             pixels[i].setAttr("fill", obj.color);
             return;
         }
-
-    var pixel = create_obj_pixel(x, y, obj.color);
-    obj.someObj.push(pixel);
-
-    obj.layer.add(pixel);
+    
+    obj.layer.add(create_obj_pixel(x, y, obj.color));
 }
 
 
@@ -157,7 +154,7 @@ function DestroyWhitePixels(){
 
 
 export function GeometricalPad(obj, FuncNumber){
-    var arrfunc = [PlotLine, refresh_graph, addlayertostage, PlotCircle, PlotPixel, GetColorPixel, DestroyWhitePixels];
+    var arrfunc = [PlotLine, refresh_graph, addlayertostage, PlotCircle, PlotPixel, GetColorPixel, DestroyWhitePixels, create_obj];
 
     return arrfunc[FuncNumber - 1](obj);
 }

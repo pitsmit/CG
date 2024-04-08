@@ -6,10 +6,8 @@ import { TablePad } from './tables.js';
 /**
  * зумирование канваса при прокрутке колёсика
  * @param {konva-obj} stage сцена (основа канваса)
- * @param {konva-obj} xAxis ось х
- * @param {konva-obj} yAxis ось у
  */
-function addWheel(stage, xAxis, yAxis) {
+function addWheel(stage) {
     const scaleBy = 1.05; //* @typedef number
     stage.on('wheel', (e) => {
         e.evt.preventDefault();
@@ -29,6 +27,8 @@ function addWheel(stage, xAxis, yAxis) {
             direction = -direction;
 
         if (oldScale >= 5 && direction > 0)
+            return;
+        if (oldScale <= 1 && direction < 0)
             return;
 
         var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy; //* @typedef number
@@ -62,7 +62,8 @@ function addButton(Info, Task, Instruction) {
         var obj = create_obj(); //* @typedef user-js-object(c-struct analog)
 
         var el = document.getElementById('collect-data'); //* @typedef html-object
-        obj.color = el.favcolor.value
+        obj.color = el.favcolor.value;
+        obj.delay = parseFloat(el.delay.value);
         MainPad(obj, 4);        // fill figure 
     }));
     document.getElementById("clear").addEventListener("click", (function() {
@@ -75,8 +76,8 @@ function addButton(Info, Task, Instruction) {
         var el = document.getElementById('collect-data'); //* @typedef html-object
         var obj = create_obj(); //* @typedef user-js-object(c-struct analog)
         [obj.x, obj.y] = [parseFloat(el.x.value), parseFloat(el.y.value)];
-        if (!obj.x || !obj.y)
-            return;
+        //if (!obj.x || !obj.y)
+        //    return;
 
         TablePad(obj, 2);       // add line to table
         MainPad(obj, 1);        // push cords to cords arr
