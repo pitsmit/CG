@@ -4,10 +4,8 @@ import { StackPush } from './stack.js';
 /**
  * масштабирование объекта
  * @param {konva-object} Group объект
- * @param {konva-object} layer канвас
- * @param {array of konva-objects} stack стэк 
  */
-export function MakeScale(Group, layer, stack){
+export function MakeScale(Group){
     var el = document.getElementById('scaling');
     var x = Number(el.x.value);
     var y = Number(el.y.value);
@@ -29,6 +27,5 @@ export function MakeScale(Group, layer, stack){
     Group.setAttr('x', new_x + width / 2);
     Group.setAttr('y', height / 2 - new_y);
 
-    layer.draw();
-    StackPush(stack, Group);
+    StackPush(Group);
 }

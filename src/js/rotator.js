@@ -3,10 +3,8 @@ import { StackPush } from './stack.js';
 /**
  * поворот объекта
  * @param {konva-object} Group объект
- * @param {konva-object} layer канвас
- * @param {array of konva-objects} stack стэк  
  */
-export function MakeRotate(Group, layer, stack){
+export function MakeRotate(Group){
     var el = document.getElementById('rotator');
     var x = Number(el.x.value);
     var y = Number(el.y.value);
@@ -22,6 +20,5 @@ export function MakeRotate(Group, layer, stack){
     Group.setAttr('y', height / 2 - want_y);
     Group.setAttr('rotation', q + Group.getAttr('rotation'));
 
-    layer.draw();
-    StackPush(stack, Group);
+    StackPush(Group);
 }

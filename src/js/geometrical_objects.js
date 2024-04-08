@@ -1,4 +1,5 @@
-import Konva from "konva";
+//import Konva from "konva";
+import * as konva from "../libs/konva.min.js"
 
 window.width = window.innerWidth;
 window.height = window.innerHeight;
@@ -14,10 +15,9 @@ export var CatGroup = new Konva.Group({
     rotation: 0,
 });
 
+var layer = new Konva.Layer();
 
-export var layer = new Konva.Layer();
-
-export var stage = new Konva.Stage({
+var stage = new Konva.Stage({
     container: 'container',
     width: width,
     height: height,
@@ -35,7 +35,7 @@ export var stage = new Konva.Stage({
  * @param {number} strokeWidth ширина обводки
  * @returns объект круг
  */
-export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
+function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
     var circle = new Konva.Circle({
         x: x,
         y: y,
@@ -60,7 +60,7 @@ export function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
  * @param {number} strokeWidth ширина обводки
  * @returns объект эллипса
  */
-export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth){
+function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth){
     var ellipse = new Konva.Ellipse({
         radius : {
           x : x_rad,
@@ -84,7 +84,7 @@ export function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth
  * @param {number} strokeWidth жирность
  * @returns 
  */
-export function create_obj_line(points, stroke, strokeWidth){
+function create_obj_line(points, stroke, strokeWidth){
     var line = new Konva.Line({
         points: points,
         stroke: stroke,
@@ -93,6 +93,12 @@ export function create_obj_line(points, stroke, strokeWidth){
 
     return line;
 }
+
+
+var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
+var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);
+
+export var obj = {layer: layer, stage: stage, xAxis: xAxis, yAxis: yAxis};
 
 
 /**
@@ -124,14 +130,11 @@ export function setka(layer) {
 
 /**
  * перерисовка канваса
- * @param {konva-object} layer канвас
- * @param {konva-object} xAxis ось х
- * @param {konva-object} yAxis ось у
  */
-export function refresh_graph(layer, xAxis, yAxis) {
-    layer.add(xAxis);
-    layer.add(yAxis);
-    setka(layer);
+function refresh_graph(obj) {
+    obj.layer.add(obj.xAxis);
+    obj.layer.add(obj.yAxis);
+    setka(obj.layer);
 }
 
 
@@ -140,7 +143,7 @@ export function refresh_graph(layer, xAxis, yAxis) {
  * @param {konva-object} Group группа объектов кот
  * @param {konva-object} layer канвас
  */
-export function CatInit(Group, layer){
+export function CatInit(){
     var head = create_obj_circle(-200, 0, 100, NaN, "black", 4);
     var left_eye = create_obj_circle(head.x() - 50, head.y() - 50, 10, "black", "black", 4);
     var right_eye = create_obj_circle(head.x() + 50, head.y() - 50, 10, "black", "black", 4);
@@ -153,29 +156,28 @@ export function CatInit(Group, layer){
     var right_leg_high = create_obj_line([left_leg_high.points()[0] + 80, left_leg_high.points()[1], left_leg_high.points()[0] + 80, left_leg_high.points()[3]], 'black', 4);
     var right_leg_low = create_obj_line([right_leg_high.points()[2] + 30, left_leg_high.points()[1], right_leg_high.points()[2], left_leg_high.points()[1]], 'black', 4);
 
-    Group.add(head);
-    Group.add(body);
-    Group.add(left_leg_high);
-    Group.add(right_leg_high);
-    Group.add(left_leg_low);
-    Group.add(right_leg_low);
-    Group.add(left_eye);
-    Group.add(right_eye);
-    Group.add(mustache_1);
-    Group.add(mustache_2);
-    Group.add(mustache_3);
-    layer.add(Group);
+    CatGroup.add(head);
+    CatGroup.add(body);
+    CatGroup.add(left_leg_high);
+    CatGroup.add(right_leg_high);
+    CatGroup.add(left_leg_low);
+    CatGroup.add(right_leg_low);
+    CatGroup.add(left_eye);
+    CatGroup.add(right_eye);
+    CatGroup.add(mustache_1);
+    CatGroup.add(mustache_2);
+    CatGroup.add(mustache_3);
+    layer.add(CatGroup);
 }
 
 
-/**
- * создание осей графика
- * @param {konva-object} stage то на чём канвас находится 
- * @returns оси x y
- */
-export function XY(stage){
-    var xAxis = create_obj_line([-stage.width() / stage.scale().x, stage.height() / 2, stage.width() / stage.scale().x, stage.height() / 2], 'black', 3);
-    var yAxis = create_obj_line([stage.width() / 2, -stage.height() / stage.scale().y, stage.width() / 2, stage.height() / stage.scale().y], 'black', 3);
+function addlayertostage(obj){
+    obj.stage.add(obj.layer);
+}
 
-    return [xAxis, yAxis];
+
+export function GeometricalPad(FuncNumber){
+    var arrfunc = [refresh_graph, addlayertostage];
+
+    return arrfunc[FuncNumber - 1](obj);
 }
