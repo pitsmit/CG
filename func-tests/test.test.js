@@ -1,10 +1,9 @@
-import { test, expect } from 'playwright-test-coverage';
+import { test, expect } from '@playwright/test';
 
 test('lib-circle', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.coverage.startJSCoverage();
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/index.html');
+  await page.goto(`file://${__dirname}/../out/index.html`);
   await page.locator('input[name="state"]').first().check();
   await page.locator('input[name="x"]').click();
   await page.locator('input[name="x"]').fill('0');
@@ -18,8 +17,6 @@ test('lib-circle', async ({ page }) => {
   await page.getByRole('button', { name: 'Применить' }).click();
 
   await page.screenshot({ path: './results/1.png', fullPage: true});
-  const jscov = await page.coverage.stopJSCoverage();
-  console.log(jscov.length);
 
   var t1 = performance.now();
   console.log(t1 - t0);
@@ -29,7 +26,7 @@ test('lib-circle', async ({ page }) => {
 test('brez-ellipse-degree', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input[name="state"]').nth(1).check();
   await page.locator('input[name="x"]').click();
   await page.locator('input[name="x"]').fill('0');
@@ -59,7 +56,7 @@ test('brez-ellipse-degree', async ({ page }) => {
 test('param-ellipse-degree', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input[name="state"]').nth(3).check();
   await page.locator('input[name="x"]').click();
   await page.locator('input[name="x"]').fill('0');
@@ -88,7 +85,7 @@ test('param-ellipse-degree', async ({ page }) => {
 test('canon-circle-degree', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/index.html');
+  await page.goto(`file://${__dirname}/../out/index.html`);
   await page.getByRole('link', { name: '2' }).click();
   await page.locator('input[name="state"]').nth(2).check();
   await page.locator('input[name="x"]').click();
