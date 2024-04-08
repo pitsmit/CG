@@ -1,5 +1,4 @@
-//import Konva from "konva";
-import * as konva from "../libs/konva.min.js"
+import Konva from "konva";
 
 window.width = window.innerWidth;
 window.height = window.innerHeight;
