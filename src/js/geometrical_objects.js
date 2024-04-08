@@ -55,18 +55,16 @@ function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
  * @param {*} y_rad размер по у
  * @param {*} x 
  * @param {*} y 
- * @param {string} fill цвет круга
  * @param {string} stroke цвет обводки
  * @param {number} strokeWidth ширина обводки
  * @returns объект эллипса
  */
-function create_obj_ellipse(x_rad, y_rad, x, y, fill, stroke, strokeWidth){
+function create_obj_ellipse(x_rad, y_rad, x, y, stroke, strokeWidth){
     var ellipse = new Konva.Ellipse({
         radius : {
           x : x_rad,
           y : y_rad
         },
-        fill: fill,
         x: x,
         y: y,
         stroke: stroke,
@@ -150,7 +148,7 @@ export function CatInit(){
     var mustache_1 = create_obj_line([head.x() - 10, head.y() - 20, head.x() + 10, head.y() + 20], 'black', 4);
     var mustache_2 = create_obj_line([head.x() - 20, head.y(), head.x() + 20, head.y()], 'black', 4);
     var mustache_3 = create_obj_line([head.x() - 10, head.y() + 20, head.x() + 10, head.y() - 20], 'black', 4);
-    var body = create_obj_ellipse(head.radius() * 2, head.radius() + 10, head.x() + head.radius() * 3, head.y(), NaN, 'black', 4);
+    var body = create_obj_ellipse(head.radius() * 2, head.radius() + 10, head.x() + head.radius() * 3, head.y(), 'black', 4);
     var left_leg_high = create_obj_line([body.x() - 40, body.y() + 200, body.x() - 40, body.y() + 110], 'black', 4);
     var left_leg_low = create_obj_line([left_leg_high.points()[0], left_leg_high.points()[1], left_leg_high.points()[0] - 30, left_leg_high.points()[1]], 'black', 4);
     var right_leg_high = create_obj_line([left_leg_high.points()[0] + 80, left_leg_high.points()[1], left_leg_high.points()[0] + 80, left_leg_high.points()[3]], 'black', 4);

@@ -1,6 +1,5 @@
 import { StackPush } from './stack.js';
 
-
 /**
  * масштабирование объекта
  * @param {konva-object} Group объект
