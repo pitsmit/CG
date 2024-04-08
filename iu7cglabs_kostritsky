@@ -30,6 +30,7 @@ report-unittesting-latest.txt:
 
 .PHONY: report-functesting-latest.txt
 report-functesting-latest.txt:
+		npx playwright install > tmp.txt || true
 		npm install > tmp.txt || true
 		touch report-functesting-latest.txt > tmp.txt || true
 		mkdir -p results

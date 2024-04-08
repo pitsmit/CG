@@ -3,11 +3,10 @@ import {Info,Task,Instruction} from './info-functions.js';
 /**
  * зумирование канваса при прокрутке колёсика
  * @param {konva-obj} stage сцена (основа канваса)
- * @param {konva-obj} layer сам канвас
  * @param {konva-obj} xAxis ось х
  * @param {konva-obj} yAxis ось у
  */
-export function addWheel(stage, layer, xAxis, yAxis) {
+export function addWheel(stage, xAxis, yAxis) {
     const scaleBy = 1.05;
     stage.on('wheel', (e) => {
         e.evt.preventDefault();
@@ -39,8 +38,6 @@ export function addWheel(stage, layer, xAxis, yAxis) {
         xAxis.points()[2] = Math.max(stage.width() / stage.scale().x, stage.width());
         yAxis.points()[1] = Math.min(-stage.height() / stage.scale().y, -stage.height());
         yAxis.points()[3] = Math.max(stage.height() / stage.scale().y, stage.height());
-        layer.add(xAxis);
-        layer.add(yAxis);
 
         var newPos = {
             x: pointer.x - mousePointTo.x * newScale,

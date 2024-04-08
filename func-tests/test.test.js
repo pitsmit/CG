@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('библиотечная функция построения', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/index.html');
+  await page.goto(`file://${__dirname}/../out/index.html`);
   await page.getByRole('link', { name: '2' }).click();
   await page.locator('input').first().check();
   await page.locator('input[name="len"]').click();
@@ -26,7 +26,7 @@ test('библиотечная функция построения', async ({ pa
 test('Алгоритм ЦДА', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input:nth-child(8)').check();
   await page.locator('input[name="len"]').click();
   await page.locator('input[name="len"]').fill('200');
@@ -48,7 +48,7 @@ test('Алгоритм ЦДА', async ({ page }) => {
 test('Брезенхем с действительными числами', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input:nth-child(11)').check();
   await page.locator('input[name="len"]').click();
   await page.locator('input[name="len"]').fill('200');
@@ -70,7 +70,7 @@ test('Брезенхем с действительными числами', asyn
 test('Брезенхем с целыми числами', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input:nth-child(14)').check();
   await page.locator('input[name="len"]').click();
   await page.locator('input[name="len"]').fill('200');
@@ -92,7 +92,7 @@ test('Брезенхем с целыми числами', async ({ page }) => {
 test('Брезенхем с устранением ступенчатости', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input:nth-child(17)').check();
   await page.locator('input[name="len"]').click();
   await page.locator('input[name="len"]').fill('200');
@@ -114,7 +114,7 @@ test('Брезенхем с устранением ступенчатости', 
 test('Алгоритм ВУ', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/degree_researchers.html');
+  await page.goto(`file://${__dirname}/../out/degree_researchers.html`);
   await page.locator('input:nth-child(20)').check();
   await page.locator('input[name="len"]').click();
   await page.locator('input[name="len"]').fill('200');
@@ -136,7 +136,7 @@ test('Алгоритм ВУ', async ({ page }) => {
 test('Исследование временных характеристик', async ({ page }) => {
   var t0 = performance.now();
 
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/timers_diagrams.html');
+  await page.goto(`file://${__dirname}/../out/timers_diagrams.html`);
   await page.getByRole('button', { name: 'Получить данные о временных характеристиках' }).click();
   
 
@@ -149,8 +149,8 @@ test('Исследование временных характеристик', a
 
 test('Исследование ступенчатых характеристик', async ({ page }) => {
   var t0 = performance.now();
-
-  await page.goto('file:///C:/Users/User/Desktop/uni/CG/out/step_researchers.html');
+  
+  await page.goto(`file://${__dirname}/../out/step_researchers.html`);
   await page.getByRole('textbox').click();
   await page.getByRole('textbox').fill('30');
   await page.getByRole('button', { name: 'Получить данные о ступенчатых характеристиках' }).click();

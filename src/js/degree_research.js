@@ -14,7 +14,7 @@ import { GetUserDataDegree } from './getdata.js';
 
 stage.add(layer);
 refresh_graph(layer, xAxis, yAxis);
-addWheel(stage, layer, xAxis, yAxis);
+addWheel(stage, xAxis, yAxis);
 addButton();
 
 
