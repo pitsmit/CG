@@ -1,22 +1,24 @@
+import { MakeMove } from './mover.js';
+import { MakeScale } from './scaler.js';
+import { MakeRotate } from './rotator.js';
+import { Info, Task, Instruction } from './info-functions.js';
+import { obj } from './geometrical_objects.js';
+
 /**
  * зумирование канваса при прокрутке колёсика
- * @param {konva-obj} stage сцена (основа канваса)
- * @param {konva-obj} layer сам канвас
- * @param {konva-obj} xAxis ось х
- * @param {konva-obj} yAxis ось у
  */
-export function addWheel(stage, layer, xAxis, yAxis){
+export function addWheel(){
     const scaleBy = 1.05;
-    stage.on('wheel', (e) => {
+    obj.stage.on('wheel', (e) => {
         e.evt.preventDefault();
 
-        var oldScale = stage.scaleX();
+        var oldScale = obj.stage.scaleX();
         
-        var pointer = stage.getPointerPosition();
+        var pointer = obj.stage.getPointerPosition();
 
         var mousePointTo = {
-            x: (pointer.x - stage.x()) / oldScale,
-            y: (pointer.y - stage.y()) / oldScale,
+            x: (pointer.x - obj.stage.x()) / oldScale,
+            y: (pointer.y - obj.stage.y()) / oldScale,
         };
 
         let direction = e.evt.deltaY > 0 ? -1 : 1;
@@ -30,56 +32,46 @@ export function addWheel(stage, layer, xAxis, yAxis){
 
         var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
 
-        stage.scale({ x: newScale, y: newScale });
-        xAxis.points()[0] = Math.min(-stage.width() / stage.scale().x, -stage.width());
-        xAxis.points()[2] = Math.max(stage.width() / stage.scale().x, stage.width());
-        yAxis.points()[1] = Math.min(-stage.height() / stage.scale().y, -stage.height());
-        yAxis.points()[3] = Math.max(stage.height() / stage.scale().y, stage.height());
-        layer.add(xAxis);
-        layer.add(yAxis);
+        obj.stage.scale({ x: newScale, y: newScale });
+        obj.xAxis.points()[0] = Math.min(-obj.stage.width() / obj.stage.scale().x, -obj.stage.width());
+        obj.xAxis.points()[2] = Math.max(obj.stage.width() / obj.stage.scale().x, obj.stage.width());
+        obj.yAxis.points()[1] = Math.min(-obj.stage.height() / obj.stage.scale().y, -obj.stage.height());
+        obj.yAxis.points()[3] = Math.max(obj.stage.height() / obj.stage.scale().y, obj.stage.height());
 
         var newPos = {
             x: pointer.x - mousePointTo.x * newScale,
             y: pointer.y - mousePointTo.y * newScale,
         };
-        stage.position(newPos);
-        stage.batchDraw();
+        obj.stage.position(newPos);
+        obj.stage.batchDraw();
     });
 }
 
 
 /**
  * добавление действий на кнопки
- * @param {function} Info 
- * @param {function} Task 
- * @param {function} Instruction 
- * @param {function} MakeMove 
- * @param {function} MakeScale 
- * @param {function} MakeRotate 
  * @param {function} DelFromStack 
  * @param {function} StackReset 
  * @param {konva-object} CatGroup 
- * @param {konva-object} layer 
- * @param {array of konva-objects} stack 
  */
-export function addButton(Info, Task, Instruction, MakeMove, MakeScale, MakeRotate, DelFromStack, StackReset, CatGroup, layer, stack){
+export function addButton(DelFromStack, StackReset, CatGroup){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
 
     document.getElementById('mover').addEventListener("submit", function(){
-        MakeMove(CatGroup, layer, stack);
+        MakeMove(CatGroup);
     });
     document.getElementById('scaling').addEventListener("submit", function(){
-        MakeScale(CatGroup, layer, stack);
+        MakeScale(CatGroup);
     });
     document.getElementById('rotator').addEventListener("submit", function(){
-        MakeRotate(CatGroup, layer, stack);
+        MakeRotate(CatGroup);
     });
     document.getElementById('back-button').addEventListener("click", function(){
-        DelFromStack(CatGroup, stack);
+        DelFromStack(CatGroup);
     });
     document.getElementById('reset-button').addEventListener("click", function(){
-        StackReset(CatGroup, stack);
+        StackReset(CatGroup);
     });
 }

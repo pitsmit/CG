@@ -7,7 +7,7 @@
     <title>Смирнов Пётр ИУ7-45Б ЛР№1</title>
 </head>
 <body>
-    <div id="container" he></div>
+    <div id="container"></div>
     <div class="menu">
         <button class="buttons" id="info">Информация об авторе</button>
         <button class="buttons" id="task">Условие задачи</button>
@@ -21,6 +21,11 @@
             </tr>
         </table>
 
+        <label for="x1">X:</label>
+        <input type="text" name="x1" id="x1" pattern="^(?:-?\d+(.\d+)?)$"><br>
+        <label for="y1">Y:</label>
+        <input type="text" name="y1" id="y1" pattern="^(?:-?\d+(.\d+)?)$"><br>
+
         <button class="buttons" id="addbutton1">Добавить точку</button>
 
         <table class="Tables" id="multi2" contenteditable="true">
@@ -30,6 +35,11 @@
                 <th contenteditable="false">y</th>
             </tr>
         </table>
+
+        <label for="x2">X:</label>
+        <input type="text" name="x2" id="x2" pattern="^(?:-?\d+(.\d+)?)$"><br>
+        <label for="y2">Y:</label>
+        <input type="text" name="y2" id="y2" pattern="^(?:-?\d+(.\d+)?)$"><br>
 
         <button class="buttons" id="addbutton2">Добавить точку</button>
         <button class="buttons" id="runner">Найти окружности</button>
@@ -62,6 +72,6 @@
         <button id="clear-button">Очистить всё</button>
         <input type="file" id="file-button" accept="text/*">Загрузить данные из файла</input>
     </div>
-    <script src="./dist/index.js"></script>
+    <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>

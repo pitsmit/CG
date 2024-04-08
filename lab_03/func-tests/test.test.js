@@ -149,7 +149,7 @@ test('Исследование временных характеристик', a
 
 test('Исследование ступенчатых характеристик', async ({ page }) => {
   var t0 = performance.now();
-
+  
   await page.goto(`file://${__dirname}/../out/step_researchers.html`);
   await page.getByRole('textbox').click();
   await page.getByRole('textbox').fill('30');

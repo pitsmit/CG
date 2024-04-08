@@ -1,87 +1,75 @@
-export function addRowHandlers(tab) {
-    var table = document.getElementById(tab);
-    var rows = table.getElementsByTagName("tr");
-    for (var i = 1; i < rows.length; i++) {
-      var currentRow = table.rows[i];
-
-      var createClickHandler1 = function(row) {
-        return function() {
-          row.remove();
-        };
-      };
-
-      currentRow.ondblclick = createClickHandler1(currentRow);
-    }
-}
-
-
 /**
- * добавление строки в таблицу
- * @param {id таблицы} tab 
- * @param {значение первой ячейки} x 
- * @param {значение второй ячейки} y 
+ * проверка на случай повторного добавления той же точки в таблицу
+ * @param {user-js-object} obj моя структура с нужными данными 
+ * @returns код завершения функции
  */
-export function addline(tab, x, y) {
-    var table = document.getElementById(tab);
-    var totalRowCount = table.rows.length; 
-    var row = table.insertRow(totalRowCount);
-    addRowHandlers(tab);
-
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = x;
-    cell2.innerHTML = y;
-    cell1.height = 20;
-}
-
-
-export function GetCellValues(tab) {
-    var arr = [];
-
-    var table = document.getElementById(tab);
-    for (var r = 1; r < table.rows.length; r++)
-        arr.push([table.rows[r].cells[0].innerHTML, table.rows[r].cells[1].innerHTML])
-
-    return arr;
-}
-
-
-export function show_res_table(data){
-    var table = document.getElementById('ResTable');
-
-    table.rows[1].cells[1].innerHTML = data[0][2].toFixed(4);
-    table.rows[2].cells[1].innerHTML = data[1][2].toFixed(4);
-
-    table.rows[1].cells[2].innerHTML = String(data[0][0].toFixed(4)) + "        " + String(data[0][1].toFixed(4));
-    table.rows[2].cells[2].innerHTML = String(data[1][0].toFixed(4)) + "        " + String(data[1][1].toFixed(4));
-}
-
-
-export function validation(tab) {
-  var reg = /^[-+]?\d*\.?\d+$/;
-
-  for (var i = 0; i < tab.length; i++){
-      for (var j = 0; j < tab[i].length; j++){
-          if (reg.test(tab[i][j]) != true)
-              return -3;
-      }
+function CheckIfAlsoInTable(obj) {
+  var table = document.getElementById("multi1"); //* @typedef table-object
+  if (table.rows.length == 1)
+      return 0;
+  for (var r = 1; r < table.rows.length; r++){
+      var x = parseFloat(table.rows[r].cells[0].innerHTML); //* @typedef number
+      var y = parseFloat(table.rows[r].cells[1].innerHTML); //* @typedef number
+      if (x == obj.x && y == obj.y)
+          return -1;
   }
-
-  for (var i = 0; i < tab.length; i++){
-      for (var j = i + 1; j < tab.length; j++){
-          if (tab[i][0] == tab[j][0] && tab[i][1] == tab[j][1])
-              return -1;
-      }
+  table = document.getElementById("multi2"); //* @typedef table-object
+  if (table.rows.length == 1)
+      return 0;
+  for (var r = 1; r < table.rows.length; r++){
+      var x = parseFloat(table.rows[r].cells[0].innerHTML); //* @typedef number
+      var y = parseFloat(table.rows[r].cells[1].innerHTML); //* @typedef number
+      if (x == obj.x && y == obj.y)
+          return -1;
   }
 
   return 0;
 }
 
 
-export function ClearAll(ResGroup, groupCircles) {
-  ResGroup.destroy();
-  groupCircles.destroy();
+/**
+ * добавление строки в таблицу
+ */
+export function addline(obj) {
+    if (CheckIfAlsoInTable(obj) != 0){
+      alert("Ошибка! Такая точка уже есть в таблице!");
+      return;
+    }
+    var table = document.getElementById(obj.tableId);
+    var totalRowCount = table.rows.length; 
+    var row = table.insertRow(totalRowCount);
 
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = obj.x;
+    cell2.innerHTML = obj.y;
+    cell1.height = 20;
+}
+
+
+function GetCellValues(obj) {
+    var arr = [];
+
+    var table = document.getElementById(obj.tableId);
+    for (var r = 1; r < table.rows.length; r++)
+        arr.push([parseFloat(table.rows[r].cells[0].innerHTML), parseFloat(table.rows[r].cells[1].innerHTML)])
+
+    return arr;
+}
+
+
+function ShowResTable(obj){
+    var table = document.getElementById('ResTable');
+
+    table.rows[1].cells[1].innerHTML = obj.data[0][2].toFixed(4);
+    table.rows[2].cells[1].innerHTML = obj.data[1][2].toFixed(4);
+
+    table.rows[1].cells[2].innerHTML = String(obj.data[0][0].toFixed(4)) + "        " + String(obj.data[0][1].toFixed(4));
+    table.rows[2].cells[2].innerHTML = String(obj.data[1][0].toFixed(4)) + "        " + String(obj.data[1][1].toFixed(4));
+}
+
+
+function ClearAll() {
   var table = document.getElementById('multi1');
   var rows = table.getElementsByTagName("tr");
   var lg = rows.length;
@@ -103,4 +91,16 @@ export function ClearAll(ResGroup, groupCircles) {
   table.rows[1].cells[2].innerHTML = "";
   table.rows[2].cells[1].innerHTML = "";
   table.rows[2].cells[2].innerHTML = "";
+}
+
+
+/**
+ * 
+ * @param {user-js-object} obj моя структура с нужными данными 
+ * @param {*} FuncNumber номер функции для вызова
+ */
+export function TablePad(obj, FuncNumber){
+  var arrfunc = [ClearAll, addline, ShowResTable, GetCellValues]; //* @typedef array of function-pointers
+
+  return arrfunc[FuncNumber - 1](obj);
 }

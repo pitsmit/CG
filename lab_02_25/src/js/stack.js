@@ -1,9 +1,10 @@
+var stack = [];
+
 /**
  * добавление состояния в стек состояний
- * @param {array of konva-objects} stack стэк 
  * @param {konva-object} Group объект
  */
-export function StackPush(stack, Group){
+export function StackPush(Group){
     stack.push([
         Group.getAttr('x'),
         Group.getAttr('y'),
@@ -17,18 +18,17 @@ export function StackPush(stack, Group){
 /**
  * удаление последнего состояния из стека(отмена последнего действия)
  * @param {konva-object} Group объект
- * @param {array of konva-objects} st стэк 
  */
-export function DelFromStack(Group, st){
-    if (st.length == 1){
-        Group.setAttr('x', st[0][0]);
-        Group.setAttr('y', st[0][1]);
-        Group.setAttr('scaleX', st[0][2]);
-        Group.setAttr('scaleY', st[0][3]);
-        Group.setAttr('rotation', st[0][4]);
+export function DelFromStack(Group){
+    if (stack.length == 1){
+        Group.setAttr('x', stack[0][0]);
+        Group.setAttr('y', stack[0][1]);
+        Group.setAttr('scaleX', stack[0][2]);
+        Group.setAttr('scaleY', stack[0][3]);
+        Group.setAttr('rotation', stack[0][4]);
         return;
     }
-    var res = st.pop();
+    var res = stack.pop();
     Group.setAttr('x', res[0]);
     Group.setAttr('y', res[1]);
     Group.setAttr('scaleX', res[2]);
@@ -40,15 +40,14 @@ export function DelFromStack(Group, st){
 /**
  * очистка стэка и возврат к исходному состоянию объекта
  * @param {konva-object} Group объект
- * @param {array of konva-objects} st стэк
  */
-export function StackReset(Group, st){
-    while(st.length != 1)
-        st.pop();
+export function StackReset(Group){
+    while(stack.length != 1)
+        stack.pop();
 
-    Group.setAttr('x', st[0][0]);
-    Group.setAttr('y', st[0][1]);
-    Group.setAttr('scaleX', st[0][2]);
-    Group.setAttr('scaleY', st[0][3]);
-    Group.setAttr('rotation', st[0][4]);
+    Group.setAttr('x', stack[0][0]);
+    Group.setAttr('y', stack[0][1]);
+    Group.setAttr('scaleX', stack[0][2]);
+    Group.setAttr('scaleY', stack[0][3]);
+    Group.setAttr('rotation', stack[0][4]);
 }

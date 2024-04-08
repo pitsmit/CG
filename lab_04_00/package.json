@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "cock": "npx webpack --mode production",
-    "aa": "python3 lizard.exe -Eduplicate ./src/js/*.js",
+    "lizard": "python3 lizard.exe -Eduplicate ",
     "test": "jest"
   },
   "keywords": [],
@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "chart.js": "^4.4.2",
-    "fs": "^0.0.1-security",
     "konva": "^9.3.6",
     "moment": "^2.30.1"
   },

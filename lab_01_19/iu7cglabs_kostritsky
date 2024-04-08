@@ -28,8 +28,5 @@ checkall:
 report-unittesting-latest.txt:
 		echo "no tests now"
 
-report-functesting-latest.txt:
-		echo "no tests now"
-
 saveolds:
 		echo "no results now"
