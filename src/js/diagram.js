@@ -68,13 +68,12 @@ function add_diagramm(values) {
 var chart = add_diagramm([0, 0, 0, 0, 0, 0]);
 
 
-function GetTime(func, xn, yn, xk, yk, color, layer, width, height) {
+function GetTime(func, xn, yn, xk, yk, color, layer) {
     const count_zam = 100;
 
     var t0 = performance.now();
-    for (var i = 0; i < count_zam; i++) {
-        func(xn, yn, xk, yk, color, layer, width, height);
-    }
+    for (var i = 0; i < count_zam; i++)
+        func(xn, yn, xk, yk, color, layer);
     var t1 = performance.now();
     const res = (t1 - t0) / count_zam;
     layer.destroyChildren();
@@ -95,12 +94,12 @@ function TimerExperiment() {
     var yk = 500;
     var color = "black";
 
-    const res1 = GetTime(LibraryFunction, xn, yn, xk, yk, color, layer, width, height);
-    const res2 = GetTime(CDA, xn, yn, xk, yk, color, layer, width, height);
-    const res3 = GetTime(BrezInt, xn, yn, xk, yk, color, layer, width, height);
-    const res4 = GetTime(BrezReal, xn, yn, xk, yk, color, layer, width, height);
-    const res5 = GetTime(BrezNoSteps, xn, yn, xk, yk, color, layer, width, height);
-    const res6 = GetTime(BY, xn, yn, xk, yk, color, layer, width, height);
+    const res1 = GetTime(LibraryFunction, xn, yn, xk, yk, color, layer);
+    const res2 = GetTime(CDA, xn, yn, xk, yk, color, layer);
+    const res3 = GetTime(BrezInt, xn, yn, xk, yk, color, layer);
+    const res4 = GetTime(BrezReal, xn, yn, xk, yk, color, layer);
+    const res5 = GetTime(BrezNoSteps, xn, yn, xk, yk, color, layer);
+    const res6 = GetTime(BY, xn, yn, xk, yk, color, layer);
 
     chart = add_diagramm([res1, res2, res3, res4, res5, res6]);
 

@@ -37,7 +37,7 @@ function PlotLines(len, shag, color, option_value, black) {
         var xk = 0 + len * Math.cos(shag * Math.PI / 180);
         var yk = 0 + len * Math.sin(shag * Math.PI / 180);
 
-        SwitchAlgorithm(option_value, 0, 0, xk, yk, color, layer, width, height);
+        SwitchAlgorithm(option_value, 0, 0, xk, yk, color, layer);
 
         shag += shag0;
     }

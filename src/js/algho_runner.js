@@ -4,6 +4,12 @@ import {
 } from "./geometrical_objects.js";
 
 
+function SetRect(layer, color, x, y, e){
+    var rect = create_obj_rect(Math.round(x + width / 2), Math.round(height / 2 - y), 1, 1, color, e);
+    layer.add(rect);
+}
+
+
 /**
  * изменение знака для dx dy
  * @param {number} dx 
@@ -32,6 +38,12 @@ function sign(dx, dy){
 }
 
 
+/**
+ * перемена переменных местами
+ * @param {number} dx 
+ * @param {number} dy 
+ * @returns array of numbers
+ */
 function swap(dx, dy){
     var obmen = 0;
 
@@ -54,11 +66,9 @@ function swap(dx, dy){
  * @param {number} yk у конца
  * @param {string} color цвет отрезка
  * @param {konva-object} layer канвас где строим
- * @param {number} width ширина экрана
- * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function CDA(xn, yn, xk, yk, color, layer, width, height) {
+export function CDA(xn, yn, xk, yk, color, layer) {
     var x = xn;
     var y = yn;
 
@@ -75,8 +85,7 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height) {
     var prev_y = y;
 
     for (var i = 0; i <= l + 1; i++) {
-        var rect = create_obj_rect(Math.round(x + width / 2), Math.round(height / 2 - y), 1, 1, color);
-        layer.add(rect);
+        SetRect(layer, color, x, y);
         x += delta_x;
         y += delta_y;
 
@@ -98,11 +107,9 @@ export function CDA(xn, yn, xk, yk, color, layer, width, height) {
  * @param {number} yk у конца
  * @param {string} color цвет отрезка
  * @param {konva-object} layer канвас где строим
- * @param {number} width ширина экрана
- * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height) {
+export function LibraryFunction(xn, yn, xk, yk, color, layer) {
     var line = create_obj_line([xn + width / 2, height / 2 - yn, xk + width / 2, height / 2 - yk], color, 1);
     layer.add(line);
 }
@@ -116,11 +123,9 @@ export function LibraryFunction(xn, yn, xk, yk, color, layer, width, height) {
  * @param {number} yk у конца
  * @param {string} color цвет отрезка
  * @param {konva-object} layer канвас где строим
- * @param {number} width ширина экрана
- * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
+export function BrezReal(xn, yn, xk, yk, color, layer) {
     var x = xn;
     var y = yn;
 
@@ -142,22 +147,19 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
     var prev_x = x;
 
     for (var i = 1; i <= dx + 1; i++) {
-        var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color);
-        layer.add(rect);
+        SetRect(layer, color, x, y);
         if (e >= 0) {
-            if (obmen == 0) {
+            if (obmen == 0)
                 y += sy;
-            } else {
+            else
                 x += sx;
-            }
             e -= 1;
         }
         if (e <= 0) {
-            if (obmen == 0) {
+            if (obmen == 0)
                 x += sx;
-            } else {
+            else
                 y += sy;
-            }
             e += m;
         }
 
@@ -180,11 +182,9 @@ export function BrezReal(xn, yn, xk, yk, color, layer, width, height) {
  * @param {number} yk у конца
  * @param {string} color цвет отрезка
  * @param {konva-object} layer канвас где строим
- * @param {number} width ширина экрана
- * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
+export function BrezInt(xn, yn, xk, yk, color, layer) {
     var x = xn;
     var y = yn;
 
@@ -205,22 +205,19 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
     var prev_y = y;
 
     for (var i = 1; i <= dx + 1; i++) {
-        var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color);
-        layer.add(rect);
+        SetRect(layer, color, x, y);
         if (e >= 0) {
-            if (obmen == 0) {
+            if (obmen == 0)
                 y += sy;
-            } else {
+            else
                 x += sx;
-            }
             e -= 2 * dx;
         }
         if (e <= 0) {
             if (obmen == 0)
                 x += sx;
-            else {
+            else
                 y += sy;
-            }
             e += 2 * dy;
         }
 
@@ -242,11 +239,9 @@ export function BrezInt(xn, yn, xk, yk, color, layer, width, height) {
  * @param {number} yk у конца
  * @param {string} color цвет отрезка
  * @param {konva-object} layer канвас где строим
- * @param {number} width ширина экрана
- * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
+export function BrezNoSteps(xn, yn, xk, yk, color, layer) {
     var x = xn;
     var y = yn;
 
@@ -276,16 +271,14 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
     var prev_x = x;
     var prev_y = y;
 
-    var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
-    layer.add(rect);
+    SetRect(layer, color, x, y, e);
 
     for (var i = 1; i <= dx + 1; i++) {
         if (e < w) {
             if (obmen == 0)
                 x += sx;
-            else {
+            else
                 y += sy;
-            }
             e += m;
         } else {
             x += sx;
@@ -298,8 +291,7 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
         prev_x = x;
         prev_y = y;
 
-        rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
-        layer.add(rect);
+        SetRect(layer, color, x, y, e);
     }
 
     return count_stypenka;
@@ -314,11 +306,9 @@ export function BrezNoSteps(xn, yn, xk, yk, color, layer, width, height) {
  * @param {number} yk у конца
  * @param {string} color цвет отрезка
  * @param {konva-object} layer канвас где строим
- * @param {number} width ширина экрана
- * @param {number} height высота экрана
  * @returns количество ступенек
  */
-export function BY(xn, yn, xk, yk, color, layer, width, height) {
+export function BY(xn, yn, xk, yk, color, layer) {
 
     var x = xn;
     var y = yn;
@@ -345,15 +335,11 @@ export function BY(xn, yn, xk, yk, color, layer, width, height) {
 
     for (var i = 0; i < dx + 1; i++) {
         if (obmen == 0) {
-            var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, -e);
-            layer.add(rect);
-            rect = create_obj_rect(x + width / 2, height / 2 - (y + sy), 1, 1, color, e - 1);
-            layer.add(rect);
+            SetRect(layer, color, x, y, -e);
+            SetRect(layer, color, x, y + sy, e - 1);
         } else {
-            var rect = create_obj_rect(x + width / 2, height / 2 - y, 1, 1, color, e);
-            layer.add(rect);
-            rect = create_obj_rect(x + sx + width / 2, height / 2 - y, 1, 1, color, e - 1);
-            layer.add(rect);
+            SetRect(layer, color, x, y, e);
+            SetRect(layer, color, x + sx, y + sy, e - 1);
         }
 
         if (e >= w - m) {
@@ -365,9 +351,8 @@ export function BY(xn, yn, xk, yk, color, layer, width, height) {
         }
         if (obmen == 0)
             x += sx;
-        else {
+        else
             y += sy;
-        }
         e += m;
 
         if (prev_x != x && prev_y != y)

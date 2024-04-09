@@ -25,31 +25,36 @@ function add_graph(data) {
     var CDA = {
         label: "ЦДА",
         data: data[0],
-        borderColor: 'red'
+        borderColor: 'red',
+        tension: 0.4
     };
 
     var BrezReal = {
         label: "Брезенхем с действительными данными",
         data: data[1],
-        borderColor: 'blue'
+        borderColor: 'blue',
+        tension: 0.4
     };
 
     var BrezInt = {
         label: "Брезенхем с целочисленными данными",
         data: data[2],
-        borderColor: 'black'
+        borderColor: 'black',
+        tension: 0.4
     };
 
     var BrezNoSteps = {
         label: "Брезенхем с устранением ступенчатости",
         data: data[3],
-        borderColor: 'yellow'
+        borderColor: 'yellow',
+        tension: 0.4
     };
 
     var BY = {
         label: "Ву",
         data: data[4],
-        borderColor: 'orange'
+        borderColor: 'orange',
+        tension: 0.4
     };
 
     var speedData = {
@@ -110,11 +115,11 @@ function plot_lines(len) {
         var xk = 0 + len * Math.cos(shag * Math.PI / 180);
         var yk = 0 + len * Math.sin(shag * Math.PI / 180);
 
-        CDA_step.push(CDA(0, 0, xk, yk, color, layer, width, height));
-        BrezReal_step.push(BrezReal(0, 0, xk, yk, color, layer, width, height));
-        BrezInt_step.push(BrezInt(0, 0, xk, yk, color, layer, width, height));
-        BrezNoSteps_step.push(BrezNoSteps(0, 0, xk, yk, color, layer, width, height));
-        BY_step.push(BY(0, 0, xk, yk, color, layer, width, height));
+        CDA_step.push(CDA(0, 0, xk, yk, color, layer));
+        BrezReal_step.push(BrezReal(0, 0, xk, yk, color, layer));
+        BrezInt_step.push(BrezInt(0, 0, xk, yk, color, layer));
+        BrezNoSteps_step.push(BrezNoSteps(0, 0, xk, yk, color, layer));
+        BY_step.push(BY(0, 0, xk, yk, color, layer));
         layer.destroyChildren();
 
         shag += shag0;

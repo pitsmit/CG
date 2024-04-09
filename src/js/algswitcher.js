@@ -8,25 +8,25 @@ import {
 } from './algho_runner.js';
 
 
-export function SwitchAlgorithm(option_value, xn, yn, xk, yk, color, layer, width, height){
+export function SwitchAlgorithm(option_value, xn, yn, xk, yk, color, layer){
     switch (option_value) {
         case "library-function":
-            LibraryFunction(xn, yn, xk, yk, color, layer, width, height);
+            LibraryFunction(xn, yn, xk, yk, color, layer);
             break;
         case "CDA":
-            CDA(xn, yn, xk, yk, color, layer, width, height);
+            CDA(xn, yn, xk, yk, color, layer);
             break;
         case "BrezReal":
-            BrezReal(xn, yn, xk, yk, color, layer, width, height);
+            BrezReal(xn, yn, xk, yk, color, layer);
             break;
         case "BrezInt":
-            BrezInt(xn, yn, xk, yk, color, layer, width, height);
+            BrezInt(xn, yn, xk, yk, color, layer);
             break;
         case "BrezNoSteps":
-            BrezNoSteps(xn, yn, xk, yk, color, layer, width, height);
+            BrezNoSteps(xn, yn, xk, yk, color, layer);
             break;
         case "BY":
-            BY(xn, yn, xk, yk, color, layer, width, height);
+            BY(xn, yn, xk, yk, color, layer);
             break;
     }
 }
