@@ -1,11 +1,6 @@
-import { CatGroup, CatInit, GeometricalPad } from './geometrical_objects.js';
-import { addWheel, addButton } from './events.js';
-import { StackPush, DelFromStack, StackReset } from './stack.js';
+import { GeometricalPad } from './geometrical_objects.js';
+import { EventsPad } from './events.js';
 
-GeometricalPad(1);
-GeometricalPad(2);
-
-addWheel();
-CatInit();
-StackPush(CatGroup);
-addButton(DelFromStack, StackReset, CatGroup);
+GeometricalPad(2); // прикрепление канваса к сцене
+GeometricalPad(3); // отрисовка канваса и кота
+EventsPad();       // добавление действий на кнопки
