@@ -121,49 +121,57 @@ function PlotGraph(data) {
     var LibCir = { //* @typedef chart-object
         label: "Библиотечный для окружности",
         data: data[0],
-        borderColor: 'red'
+        borderColor: 'red',
+        tension: 0.4
     };
 
     var BrezCir = { //* @typedef chart-object
         label: "Брезенхем для окружности",
         data: data[1],
-        borderColor: 'blue'
+        borderColor: 'blue',
+        tension: 0.4
     };
 
     var CanCir = { //* @typedef chart-object
         label: "Каноническое уравнение для окружности",
         data: data[2],
-        borderColor: 'black'
+        borderColor: 'black',
+        tension: 0.4
     };
 
     var ParCir = { //* @typedef chart-object
         label: "Параметрическое уравнение для окружности",
         data: data[3],
-        borderColor: 'yellow'
+        borderColor: 'yellow',
+        tension: 0.4
     };
 
     var LibEl = { //* @typedef chart-object
         label: "Библиотечный для эллипса",
         data: data[4],
-        borderColor: 'green'
+        borderColor: 'green',
+        tension: 0.4
     };
 
     var BrezEl = { //* @typedef chart-object
         label: "Брезенхем для эллипса",
         data: data[5],
-        borderColor: 'orange'
+        borderColor: 'orange',
+        tension: 0.4
     };
 
     var CanEl = { //* @typedef chart-object
         label: "Каноническое уравнение для эллипса",
         data: data[6],
-        borderColor: 'violet'
+        borderColor: 'violet',
+        tension: 0.4
     };
 
     var ParEl = { //* @typedef chart-object
         label: "Параметрическое уравнение для эллипса",
         data: data[7],
-        borderColor: 'brown'
+        borderColor: 'brown',
+        tension: 0.4
     };
 
     var speedData = { //* @typedef chart-object
@@ -175,22 +183,37 @@ function PlotGraph(data) {
         data: speedData,
         options: {
             scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Затраченное время'
-                    }
-                }],
                 xAxes: [{
                     scaleLabel: {
                         display: true,
                         labelString: 'Радиус'
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Затраченное время'
                     }
                 }]
             }
         }
     });
 }
+
+/*y: {
+    display: true,
+    title: {
+        display: true,
+        text: 'Затраченное время'
+    }
+},
+x: {
+    display: true,
+    title: {
+        display: true,
+        text: 'Радиус'
+    }
+}*/
 
 
 PlotGraph([

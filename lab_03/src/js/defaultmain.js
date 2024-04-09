@@ -33,7 +33,7 @@ function PlotLine(xn, yn, xk, yk, color, option_value, backgroudcolor) {
     refresh_graph(layer, xAxis, yAxis);
     stage.getContainer().style.backgroundColor = backgroudcolor;
 
-    SwitchAlgorithm(option_value, xn, yn, xk, yk, color, layer, width, height);
+    SwitchAlgorithm(option_value, xn, yn, xk, yk, color, layer);
 }
 
 

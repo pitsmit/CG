@@ -20,7 +20,6 @@ addButton("collect-data-for-figure");
  * @param {number} a 
  * @param {number} b 
  * @param {string} fig_option название фигуры
- * @returns 
  */
 function PlotFigure(x, y, color, backcolor, alg_option, r, a, b, fig_option) {
     if (r <= 0 || a <= 0 || b <= 0) {
