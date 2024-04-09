@@ -3,16 +3,18 @@ import Konva from "konva";
 window.width = window.innerWidth;
 window.height = window.innerHeight;
 
-export var CatGroup = new Konva.Group({
-    stroke: 'black',
-    strokeWidth: 4,
-    fill: NaN,
-    x: width / 2,
-    y: height / 2,
-    scaleX: 1,
-    scaleY: 1,
-    rotation: 0,
-});
+function create_obj_rect(x, y, width, height, fill, opacity = 1) {
+    var rect = new Konva.Rect({ //* @typedef konva-object
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        fill: fill,
+        opacity: opacity
+    });
+
+    return rect
+}
 
 var layer = new Konva.Layer();
 
@@ -22,56 +24,6 @@ var stage = new Konva.Stage({
     height: height,
     draggable: true,
 });
-
-
-/**
- * создание объекта круга
- * @param {number} x 
- * @param {number} y 
- * @param {number} radius 
- * @param {string} fill цвет круга
- * @param {string} stroke цвет обводки
- * @param {number} strokeWidth ширина обводки
- * @returns объект круг
- */
-function create_obj_circle(x, y, radius, fill, stroke="", strokeWidth=1){
-    var circle = new Konva.Circle({
-        x: x,
-        y: y,
-        radius: radius,
-        fill: fill,
-        stroke: stroke,
-        strokeWidth: strokeWidth,
-    });
-
-    return circle
-}
-
-
-/**
- * создание объекта эллипса
- * @param {*} x_rad размер по х
- * @param {*} y_rad размер по у
- * @param {*} x 
- * @param {*} y 
- * @param {string} stroke цвет обводки
- * @param {number} strokeWidth ширина обводки
- * @returns объект эллипса
- */
-function create_obj_ellipse(x_rad, y_rad, x, y, stroke, strokeWidth){
-    var ellipse = new Konva.Ellipse({
-        radius : {
-          x : x_rad,
-          y : y_rad
-        },
-        x: x,
-        y: y,
-        stroke: stroke,
-        strokeWidth: strokeWidth,
-      });
-    
-    return ellipse;
-}
 
 
 /**
@@ -99,72 +51,137 @@ export var obj = {layer: layer, stage: stage, xAxis: xAxis, yAxis: yAxis};
 
 
 /**
- * рисование сетки
- * @param {konva-object} layer канвас
+ * перерисовка канваса
  */
-export function setka(layer) {
-    for (var i = stage.height() / 2; i > -14312; i-=50){
-        var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
-        layer.add(line);
-    }
-
-    for (var i = stage.height() / 2; i < 14312; i+=50){
-        var line = create_obj_line([-999999999, i, 999999999, i], 'grey', 1)
-        layer.add(line);
-    }
-
-    for (var i = stage.width() / 2; i > -14324; i-=50){
-        var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
-        layer.add(line);
-    }
-
-    for (var i = stage.width() / 2; i < 14324; i+=50){
-        var line = create_obj_line([i, -999999999, i, 9999999999], 'grey', 1)
-        layer.add(line);
-    }
+export function refresh_graph() {
+    obj.layer.destroyChildren();
+    obj.layer.add(obj.xAxis);
+    obj.layer.add(obj.yAxis);
 }
 
 
-/**
- * перерисовка канваса
- */
-function refresh_graph(obj) {
-    obj.layer.add(obj.xAxis);
-    obj.layer.add(obj.yAxis);
-    setka(obj.layer);
+export var CatGroup = {head: NaN, left_eye: NaN, right_eye: NaN, 
+    body: NaN, mustache_1: NaN, mustache_2: NaN, mustache_3: NaN, 
+    left_leg_high: NaN, left_leg_low: NaN, right_leg_high: NaN, right_leg_low: NaN
+};
+
+
+export function CatPlot(){
+    ParamEllipse(CatGroup.head.x, CatGroup.head.y, CatGroup.head.radiusa, CatGroup.head.radiusb, CatGroup.head.angle, CatGroup.head.rotX, CatGroup.head.rotY);
+    ParamEllipse(CatGroup.left_eye.x, CatGroup.left_eye.y, CatGroup.left_eye.radiusa, CatGroup.left_eye.radiusb, CatGroup.left_eye.angle, CatGroup.left_eye.rotX, CatGroup.left_eye.rotY);
+    ParamEllipse(CatGroup.right_eye.x, CatGroup.right_eye.y, CatGroup.right_eye.radiusa, CatGroup.right_eye.radiusb, CatGroup.right_eye.angle, CatGroup.right_eye.rotX, CatGroup.right_eye.rotY);
+    ParamEllipse(CatGroup.body.x, CatGroup.body.y, CatGroup.body.radiusa, CatGroup.body.radiusb, CatGroup.body.angle, CatGroup.body.rotX, CatGroup.body.rotY);
+
+    CDA(CatGroup.mustache_1.xn, CatGroup.mustache_1.yn, CatGroup.mustache_1.xk, CatGroup.mustache_1.yk);
+    CDA(CatGroup.mustache_2.xn, CatGroup.mustache_2.yn, CatGroup.mustache_2.xk, CatGroup.mustache_2.yk);
+    CDA(CatGroup.mustache_3.xn, CatGroup.mustache_3.yn, CatGroup.mustache_3.xk, CatGroup.mustache_3.yk);
+
+    CDA(CatGroup.left_leg_high.xn, CatGroup.left_leg_high.yn, CatGroup.left_leg_high.xk, CatGroup.left_leg_high.yk);
+    CDA(CatGroup.left_leg_low.xn, CatGroup.left_leg_low.yn, CatGroup.left_leg_low.xk, CatGroup.left_leg_low.yk);
+
+    CDA(CatGroup.right_leg_high.xn, CatGroup.right_leg_high.yn, CatGroup.right_leg_high.xk, CatGroup.right_leg_high.yk);
+    CDA(CatGroup.right_leg_low.xn, CatGroup.right_leg_low.yn, CatGroup.right_leg_low.xk, CatGroup.right_leg_low.yk);
 }
 
 
 /**
  * инициализация кота
- * @param {konva-object} Group группа объектов кот
- * @param {konva-object} layer канвас
  */
 export function CatInit(){
-    var head = create_obj_circle(-200, 0, 100, NaN, "black", 4);
-    var left_eye = create_obj_circle(head.x() - 50, head.y() - 50, 10, "black", "black", 4);
-    var right_eye = create_obj_circle(head.x() + 50, head.y() - 50, 10, "black", "black", 4);
-    var mustache_1 = create_obj_line([head.x() - 10, head.y() - 20, head.x() + 10, head.y() + 20], 'black', 4);
-    var mustache_2 = create_obj_line([head.x() - 20, head.y(), head.x() + 20, head.y()], 'black', 4);
-    var mustache_3 = create_obj_line([head.x() - 10, head.y() + 20, head.x() + 10, head.y() - 20], 'black', 4);
-    var body = create_obj_ellipse(head.radius() * 2, head.radius() + 10, head.x() + head.radius() * 3, head.y(), 'black', 4);
-    var left_leg_high = create_obj_line([body.x() - 40, body.y() + 200, body.x() - 40, body.y() + 110], 'black', 4);
-    var left_leg_low = create_obj_line([left_leg_high.points()[0], left_leg_high.points()[1], left_leg_high.points()[0] - 30, left_leg_high.points()[1]], 'black', 4);
-    var right_leg_high = create_obj_line([left_leg_high.points()[0] + 80, left_leg_high.points()[1], left_leg_high.points()[0] + 80, left_leg_high.points()[3]], 'black', 4);
-    var right_leg_low = create_obj_line([right_leg_high.points()[2] + 30, left_leg_high.points()[1], right_leg_high.points()[2], left_leg_high.points()[1]], 'black', 4);
+    var head = {x: -200, y: 0, radiusa: 100, radiusb: 100, angle: 0, rotX: 0, rotY: 0};
+    var left_eye = {x: head.x - 50, y: head.y + 50, radiusa: 10, radiusb: 10, angle: 0, rotX: 0, rotY: 0};
+    var right_eye = {x: head.x + 50, y: head.y + 50, radiusa: 10, radiusb: 10, angle: 0, rotX: 0, rotY: 0};
+    var body = {x: head.x + head.radiusa * 3, y: head.y, radiusa: head.radiusa * 2, radiusb: head.radiusa * 2, scaleX: 1, scaleY: 1, angle: 0, rotX: 0, rotY: 0};
+    var mustache_1 = {xn: head.x - 10, yn: head.y - 20, xk: head.x + 10, yk: head.y + 20};
+    var mustache_2 = {xn: head.x - 20, yn: head.y, xk: head.x + 20, yk: head.y};
+    var mustache_3 = {xn: head.x - 10, yn: head.y + 20, xk: head.x + 10, yk: head.y - 20};
+    var left_leg_high = {xn: body.x - 40, yn: body.y - 200, xk: body.x - 40, yk: body.y - 300};
+    var left_leg_low = {xn: body.x - 80, yn: body.y - 300, xk: body.x - 40, yk: body.y - 300};
+    var right_leg_high = {xn: body.x + 40, yn: body.y - 200, xk: body.x + 40, yk: body.y - 300};
+    var right_leg_low = {xn: body.x + 80, yn: body.y - 300, xk: body.x + 40, yk: body.y - 300};
 
-    CatGroup.add(head);
-    CatGroup.add(body);
-    CatGroup.add(left_leg_high);
-    CatGroup.add(right_leg_high);
-    CatGroup.add(left_leg_low);
-    CatGroup.add(right_leg_low);
-    CatGroup.add(left_eye);
-    CatGroup.add(right_eye);
-    CatGroup.add(mustache_1);
-    CatGroup.add(mustache_2);
-    CatGroup.add(mustache_3);
-    layer.add(CatGroup);
+    CatGroup.head = head;
+    CatGroup.left_eye = left_eye;
+    CatGroup.right_eye = right_eye;
+    CatGroup.body = body;
+    CatGroup.mustache_1 = mustache_1;
+    CatGroup.mustache_2 = mustache_2;
+    CatGroup.mustache_3 = mustache_3;
+    CatGroup.left_leg_high = left_leg_high;
+    CatGroup.left_leg_low = left_leg_low;
+    CatGroup.right_leg_high = right_leg_high;
+    CatGroup.right_leg_low = right_leg_low;
+
+    CatPlot();
+}
+
+
+function DrawSymPoints(xn, x, yn, y) {
+    var rect = create_obj_rect((xn + x) + width / 2, height / 2 - (yn + y), 1, 1, "black");
+    layer.add(rect);
+
+    rect = create_obj_rect((-xn + x) + width / 2, height / 2 - (yn + y), 1, 1, "black");
+    layer.add(rect);
+
+    rect = create_obj_rect((xn + x) + width / 2, height / 2 + (yn - y), 1, 1, "black");
+    layer.add(rect);
+
+    rect = create_obj_rect((-xn + x) + width / 2, height / 2 + (yn - y), 1, 1, "black");
+    layer.add(rect);
+}
+
+
+function ParamEllipse(x, y, a, b, q, X, Y) {
+    //var pa = {x: x + a / 2, y: y};
+    /*var pb = {x: x - a, y: y};
+    var pc = {x: x, y: y + b};
+    var want_x = X + (pb.x - X) * Math.cos(q * Math.PI / 180) + (pb.y - Y) * Math.sin(q * Math.PI / 180);
+    var want_y = Y - (pb.x - X) * Math.sin(q * Math.PI / 180) + (pb.y - Y) * Math.cos(q * Math.PI / 180);
+    pb.x = want_x;
+    pb.y = want_y;
+    want_x = X + (pc.x - X) * Math.cos(q * Math.PI / 180) + (pc.y - Y) * Math.sin(q * Math.PI / 180);
+    want_y = Y - (pc.x - X) * Math.sin(q * Math.PI / 180) + (pc.y - Y) * Math.cos(q * Math.PI / 180);
+    pc.x = want_x;
+    pc.y = want_y;
+    console.log(pb, pc);
+    console.log(a, b, x, y);*/
+
+    if (a <= 0 || b <= 0)
+        return;
+    var step = a > b ? 1 / a : 1 / b; //* @typedef number
+    var xn; //* @typedef number
+    var yn; //* @typedef number
+
+    var n = Math.PI / 2 + step
+    for (var i = 0; i <= n; i += step) {
+        xn = x + Math.round(a * Math.cos(i));
+        yn = y + Math.round(b * Math.sin(i));
+
+       // xn = Math.round(x + (pc.x - x) * Math.cos(i * 2 * Math.PI / n) + (pb.x - x) * Math.sin(i * 2 * Math.PI / n));
+        //yn = Math.round(y + (pc.y - y) * Math.cos(i * 2 * Math.PI / n) + (pb.y - y) * Math.sin(i * 2 * Math.PI / n));
+        DrawSymPoints(xn - x, x, yn - y, y);
+    }
+}
+
+
+function CDA(xn, yn, xk, yk) {
+    var x = xn;
+    var y = yn;
+
+    var delta_x = xk - xn;
+    var delta_y = yk - yn;
+
+    var l = Math.abs(delta_x) > Math.abs(delta_y) ? Math.abs(delta_x) : Math.abs(delta_y);
+
+    delta_x /= l;
+    delta_y /= l;
+
+    for (var i = 0; i <= l + 1; i++) {
+        var rect = create_obj_rect(Math.round(x + width / 2), Math.round(height / 2 - y), 1, 1, "black");
+        layer.add(rect);
+        x += delta_x;
+        y += delta_y;
+    }
 }
 
 
@@ -173,8 +190,17 @@ function addlayertostage(obj){
 }
 
 
+/**
+ * возврат к исходному состоянию объекта
+ */
+export function Reset(){
+    refresh_graph();
+    CatInit();
+}
+
+
 export function GeometricalPad(FuncNumber){
-    var arrfunc = [refresh_graph, addlayertostage];
+    var arrfunc = [refresh_graph, addlayertostage, Reset];
 
     return arrfunc[FuncNumber - 1](obj);
 }

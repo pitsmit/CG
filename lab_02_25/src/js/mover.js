@@ -1,19 +1,31 @@
-import { StackPush } from './stack.js';
+/**
+ * получение данных от пользователя
+ * @param {string} ID id html элемента для забора данных 
+ * @returns dx, dy
+ */
+function GetMoverData(ID){
+    var el = document.getElementById(ID);
+    var dx = Number(el.dx.value);
+    var dy = Number(el.dy.value);
+
+    return [dx, dy];
+}
 
 /**
  * перемещение объекта
  * @param {konva-object} Group объект
  */
 export function MakeMove(Group) {
-    var el = document.getElementById('mover');
-    var dx = Number(el.dx.value);
-    var dy = Number(el.dy.value);
+    var [dx, dy] = GetMoverData('mover');
 
-    var n_x = Group.getAttr('x');
-    var n_y = Group.getAttr('y');
+    for (var key in Group) {
+        Group[key].x += dx;
+        Group[key].y += dy;
 
-    Group.setAttr('x', dx + n_x);
-    Group.setAttr('y', dy + n_y);
+        Group[key].xn += dx;
+        Group[key].yn += dy;
 
-    StackPush(Group);
+        Group[key].xk += dx;
+        Group[key].yk += dy;
+    }
 }

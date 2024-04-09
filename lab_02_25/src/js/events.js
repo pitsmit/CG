@@ -2,12 +2,12 @@ import { MakeMove } from './mover.js';
 import { MakeScale } from './scaler.js';
 import { MakeRotate } from './rotator.js';
 import { Info, Task, Instruction } from './info-functions.js';
-import { obj } from './geometrical_objects.js';
+import { obj, Reset, CatGroup, CatPlot, refresh_graph } from './geometrical_objects.js';
 
 /**
  * зумирование канваса при прокрутке колёсика
  */
-export function addWheel(){
+function addWheel(){
     const scaleBy = 1.05;
     obj.stage.on('wheel', (e) => {
         e.evt.preventDefault();
@@ -50,28 +50,22 @@ export function addWheel(){
 
 /**
  * добавление действий на кнопки
- * @param {function} DelFromStack 
- * @param {function} StackReset 
- * @param {konva-object} CatGroup 
  */
-export function addButton(DelFromStack, StackReset, CatGroup){
+function addButton(){
     document.getElementById("info").addEventListener("click", Info);
     document.getElementById("task").addEventListener("click", Task);
     document.getElementById("instruction").addEventListener("click", Instruction);
+    document.getElementById('mover').addEventListener("submit", function(){MakeMove(CatGroup);refresh_graph();CatPlot();});
+    document.getElementById('scaling').addEventListener("submit", function(){MakeScale(CatGroup);refresh_graph();CatPlot();});
+    document.getElementById('rotator').addEventListener("submit", function(){MakeRotate(CatGroup);refresh_graph();CatPlot();});
+    document.getElementById('reset-button').addEventListener("click", function(){Reset();});
+}
 
-    document.getElementById('mover').addEventListener("submit", function(){
-        MakeMove(CatGroup);
-    });
-    document.getElementById('scaling').addEventListener("submit", function(){
-        MakeScale(CatGroup);
-    });
-    document.getElementById('rotator').addEventListener("submit", function(){
-        MakeRotate(CatGroup);
-    });
-    document.getElementById('back-button').addEventListener("click", function(){
-        DelFromStack(CatGroup);
-    });
-    document.getElementById('reset-button').addEventListener("click", function(){
-        StackReset(CatGroup);
-    });
+
+/**
+ * точка входа в модуль
+ */
+export function EventsPad(){
+    addWheel();
+    addButton();
 }
