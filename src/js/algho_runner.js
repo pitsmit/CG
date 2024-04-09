@@ -138,10 +138,6 @@ async function pltpixls(res){
     }
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
 
 function figure_fill_by_edge(obj)
 {
@@ -201,41 +197,7 @@ function figure_fill_by_edge(obj)
             stop = (obj.y * s1 - s2) / s3;
 
             var res = GetDataForPixels(obj, min_x, stop, col_fill);
-            //console.log(res);
-           // setInterval(() => {  pltpixls(res); }, 10);
             pltpixls(res).then(obj.y++);
-
-            //var res = GetDataForPixels(obj, min_x, stop, col_fill);
-           // GetDataForPixels(obj, min_x, stop, col_fill).then(pltpixls);
-
-           /* let promise = new Promise((resolve, reject) => {
-
-                setTimeout(() => {
-                  // переведёт промис в состояние fulfilled с результатом "result"
-                  resolve(GetDataForPixels(obj, min_x, stop, col_fill));
-                }, 1000);
-              
-              });
-              
-              // promise.then навешивает обработчики на успешный результат или ошибку
-              promise
-                .then(
-                  result => {
-                    // первая функция-обработчик - запустится при вызове resolve
-                    pltpixls(result); // result - аргумент resolve
-                  }
-                );*/
-           // sleep(10).then(() => { pltpixls(res); obj.y++;});
-            //sleep(2000).then(() => { obj.y++; });
-
-            //console.log(res);
-
-            //(async () => {
-            //    var res = GetDataForPixels(obj, min_x, stop, col_fill);
-           //     pltpixls(res);
-           //   })();
-
-            //obj.y++;
         }
     }
 
