@@ -13,7 +13,6 @@ function addWheel(stage) {
         e.evt.preventDefault();
 
         var oldScale = stage.scaleX(); //* @typedef number
-
         var pointer = stage.getPointerPosition(); //* @typedef konva-object
 
         var mousePointTo = {
@@ -22,26 +21,15 @@ function addWheel(stage) {
         };
 
         let direction = e.evt.deltaY > 0 ? -1 : 1; //* @typedef number
-
-        if (e.evt.ctrlKey)
-            direction = -direction;
-
-        if (oldScale >= 5 && direction > 0)
-            return;
-        if (oldScale <= 1 && direction < 0)
+        direction = e.evt.ctrlKey ? -direction : direction;
+        if ((oldScale >= 2 && direction > 0) || (oldScale <= 1 && direction < 0))
             return;
 
         var newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy; //* @typedef number
 
-        stage.scale({
-            x: newScale,
-            y: newScale
-        });
+        stage.scale({x: newScale, y: newScale});
 
-        var newPos = {
-            x: pointer.x - mousePointTo.x * newScale,
-            y: pointer.y - mousePointTo.y * newScale,
-        };
+        var newPos = {x: pointer.x - mousePointTo.x * newScale, y: pointer.y - mousePointTo.y * newScale,};
         stage.position(newPos);
         stage.batchDraw();
     });
@@ -76,8 +64,8 @@ function addButton(Info, Task, Instruction) {
         var el = document.getElementById('collect-data'); //* @typedef html-object
         var obj = create_obj(); //* @typedef user-js-object(c-struct analog)
         [obj.x, obj.y] = [parseFloat(el.x.value), parseFloat(el.y.value)];
-        //if (!obj.x || !obj.y)
-        //    return;
+        if ((!obj.x && obj.x != 0) || (!obj.y && obj.y != 0))
+            return;
 
         TablePad(obj, 2);       // add line to table
         MainPad(obj, 1);        // push cords to cords arr

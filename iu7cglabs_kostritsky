@@ -9,7 +9,7 @@ format :
 		rm tmp.txt || true
 
 release :
-		#npm install > tmp.txt  || true
+		npm install > tmp.txt  || true
 		npx webpack --mode production > tmp.txt || true
 		cp ./*.html ./out/ > tmp.txt || true
 		rm ./out/*.js.LICENSE.txt > tmp.txt || true
@@ -32,6 +32,7 @@ report-unittesting-latest.txt:
 
 .PHONY: report-functesting-latest.txt
 report-functesting-latest.txt: release
+		npx playwright install > tmp.txt || true
 		npm install > tmp.txt || true
 		touch report-functesting-latest.txt > tmp.txt || true
 		mkdir -p results

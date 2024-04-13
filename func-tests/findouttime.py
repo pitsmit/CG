@@ -13,9 +13,9 @@ def run(filename):
 
     with open('report-functesting-latest.txt', 'r+', encoding='UTF8') as f:
         f.seek(0, 2)
-        f.write(str(len(res)) + ' Теста\n')
+        f.write(str(len(res)) + ' Тестов\n')
         for i in range(len(res)):
-            f.write(str(i) + "  " + str(round(float(res[i]), 4)) + ' мс\n')
+            f.write(str(i + 1) + "  " + str(round(float(res[i]), 4)) + ' мс\n')
                 
 
 

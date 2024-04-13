@@ -3,3 +3,4 @@ lizard.exe
 *.exe
 node_modules
 out
+results
