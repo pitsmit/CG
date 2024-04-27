@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№6</title>
+</head>
+
+<body>
+    <canvas id="container"></canvas>
+
+    <div class="menu">
+        <button class="buttons" id="info">Информация об авторе</button>
+        <button class="buttons" id="task">Условие задачи</button>
+        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+        <button class="buttons" id="clear">Очистить экран</button>
+
+        <form id="collect-data" method="dialog" autocomplete="off">
+            <label for="zatravka">Выберите цвет затравки</label>
+            <input type="color" id="zatravka" name="zatravka"/><br>
+            <label for="edgecolor">Выберите цвет ребра</label>
+            <input type="color" id="edgecolor" name="edgecolor"/><br>
+
+            <label>------------------------------------------</label><br>
+
+            <label>Координаты затравочного пикселя:</label><br>
+            <label for="xzat">X:</label>
+            <input type="text" name="xzat" required pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+            <label for="yzat">Y:</label>
+            <input type="text" name="yzat" required pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+            <button class="buttons" id="addzat">Добавить</button>
+
+            <label>------------------------------------------</label><br>
+
+            <label for="delay">Время задержки(в мс):</label>
+            <input type="text" name="delay" required pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+
+            <label>------------------------------------------</label><br>
+
+            <label>Координаты вершины:</label><br>
+            <label for="x">X:</label>
+            <input type="text" name="x" pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="y">Y:</label>
+            <input type="text" name="y" pattern="^(?:-?\d+(.\d+)?)$"><br>
+
+            <button class="buttons" id="add">Добавить точку</button>
+
+            <label>------------------------------------------</label><br>
+
+            <label>Координаты центра окружности:</label><br>
+            <label for="xcir">X:</label>
+            <input type="text" name="xcir" pattern="^(?:-?\d+(.\d+)?)$"><br>
+            <label for="ycir">Y:</label>
+            <input type="text" name="ycir" pattern="^(?:-?\d+(.\d+)?)$"><br>
+
+            <label>Радиус окружности:</label><br>
+            <label for="rcir">R:</label>
+            <input type="text" name="rcir" pattern="^(?:-?\d+(.\d+)?)$"><br>
+
+            <button class="buttons" id="plot-circle">Построить окружность</button>
+
+            <label>------------------------------------------</label><br>
+
+            <button id="submit">Закрасить</button><br><br>
+            
+            <label>------------------------------------------</label><br>
+
+            <table class="Tables" id="tops" contenteditable="false">
+                <caption contenteditable="false">Вершины фигуры</caption>
+                <tr>
+                    <th contenteditable="false">x</th>
+                    <th contenteditable="false">y</th>
+                </tr>
+            </table>
+        </form>
+
+        <div id="loader"></div>
+    </div>
+
+    <script type="module" src="./src/js/defaultmain.js"></script>
+</body>
+
+</html>
