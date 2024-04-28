@@ -8,7 +8,6 @@ var BUFCUTTER = {xleft: NaN, xright: NaN, ylow: NaN, yhigh: NaN, color: "", amou
 
 function pushline(obj){DOTS.push(Line(obj.xn, obj.yn, obj.xk, obj.yk));}
 function cleardots(){DOTS = [];}
-function Point(x, y){return {x: x, y: y};}
 function Line(xn, yn, xk, yk){return {xn: xn, yn: yn, xk: xk, yk: yk};}
 
 
@@ -53,38 +52,10 @@ function pushcutter(obj){
 }
 
 /**
- * проверка данных для закраски перед началом алгоритма
- * @param {user-js struct} obj объект с данными для отрисовки
- * @returns код завершения функции
- */
-function CheckPlotData(obj){
-    if (obj.border_colour == obj.color){
-        alert("Ошибка! Цвет границы и цвет закраски не должны совпадать!");
-        return -1;
-    }
-    if (obj.border_colour == "#ffffff"){
-        alert("Ошибка! Цвет границы и цвет фона не должны совпадать!");
-        return -1;
-    }
-    if ("#ffffff" == obj.color){
-        alert("Ошибка! Цвет фона и цвет закраски не должны совпадать!");
-        return -1;
-    }
-    if (!ZATRAVKA.x && ZATRAVKA.x != 0){
-        alert("Ошибка! нет затравочного пикселя!");
-        return -1;
-    }
-
-    return 0;
-}
-
-/**
  * весь цикл зарисовки после нажатия на кнопку закрасить
  * @param {user-js object} obj данные для рисования 
  */
-function FILL(obj){
-    //if (CheckPlotData(obj) != 0)
-    //    return;
+async function FILL(obj){
     FillFigure(obj);
 
     FLAG = 1;
@@ -107,56 +78,8 @@ function ClearIfEmpty(){
     }
 }
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
 
-/**
- * получение цвета пикселя
- * @param {number} x 
- * @param {number} y 
- * @returns string цвет пикселя
- */
-function GetColorPixel(x, y){
-    const canvas = document.getElementById('container');
-    var ctx = canvas.getContext("2d");
-    var imageData = ctx.getImageData(x, y, 1, 1);
-    var data = imageData.data;
-
-    return "#" + componentToHex(data[0]) + componentToHex(data[1]) + componentToHex(data[2]);
-}
-
-
-/*function count_S(T){
-    return T.reduce((a, b) => a + b, 0)
-}
-
-
-function count_P(T1, T2){
-    var P = 0;
-    for (var i = 0; i < T1.length; i++)
-        P += (T1[i] * T2[i]);
-    return P;
-}
-
-
-function count_T(p, xl, xr, yd, yu){
-    var x = p[0];
-    var y = p[1];
-    var T = [0, 0, 0, 0];
-
-    T[0] = x < xl ? 1 : 0;
-    T[1] = x > xr ? 1 : 0;
-    T[2] = y < yd ? 1 : 0;
-    T[3] = y > yu ? 1 : 0;
-
-    return T;
-}
-
-
-
-function deepcopy(arr){
+function COPY(arr){
     var res = [];
 
     for (var i = 0; i < arr.length; i++)
@@ -165,169 +88,190 @@ function deepcopy(arr){
     return res;
 }
 
-
-function easy_cut(xl, xr, yd, yu, p1, p2){
-    var T1 = count_T(p1, xl, xr, yd, yu);
-    var T2 = count_T(p2, xl, xr, yd, yu);
-
-    var FL = 0;
-
-    var S1 = count_S(T1);
-    var S2 = count_S(T2);
-
-    var Q = p1;
-    var r1 = deepcopy(p1);
-    var r2 = deepcopy(p2);
-
-    if ((S1 == 0) && (S2 == 0))
-        return B_shtrih(FL, r1, r2);
-
-    var P = count_P(T1, T2);
-    if (P != 0)
-        return B(r1, r2);
-
-    if (S1 == 0){
-        r1 = deepcopy(p1);
-        Q = deepcopy(p2);
-        i = 2;
-        return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu, false);
-    }
-
-    if (S2 == 0){
-        r1 = deepcopy(p2);
-        Q = deepcopy(p1);
-        i = 2;
-        return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu, false);
-    }
-
-    var i = 0;
-    return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu);
-}
-
-function B_shtrih(FL, p1, p2){
-    if (FL == 0)
-        return [true, p1, p2];
-    else
-        return [false, p1, p2];
-}
-
-
-function B(p1, p2){
-    return B_shtrih(1, p1, p2);
-}
-
-function A_skip_1(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu, m){
-    if (m == 0)
-        return B(r1, r2);
-
-    if (Q[1] < yd){
-        var x = (yd - Q[1]) / m + Q[0];
-
-        if (xl <= x && x <= xr){
-            if (i == 1){
-                r1[0] = x;
-                r1[1] = yd;
-            }
-            else{
-                r2[0] = x;
-                r2[1] = yd;
-            }
-            return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu);
-        }
-    }
-
-    if (Q[1] > yu){
-        var x = (yu - Q[1]) / m + Q[0];
-
-        if (xl <= x && x <= xr){
-            if (i == 1){
-                r1[0] = x;
-                r1[1] = yu;
-            }
-            else{
-                r2[0] = x;
-                r2[1] = yu;
-            }
-            return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu);
-        }
-    }
-
-    return B(r1, r2);
-}
-
-function A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu, flag=true){
-    if (flag){
-        i += 1
-        if (i > 2)
-            return B_shtrih(FL, r1, r2)
-
-        Q = i == 1 ? p1 : p2;
-    }
-
-    if (p1[0] == p2[0])
-        return A_skip_1(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu, 99999);
-
-    var m = (p2[1] - p1[1]) / (p2[0] - p1[0]);
-
-    if (Q[0] < xl){
-        var y = m * (xl - Q[0]) + Q[1];
-
-        if (yd <= y && y <= yu){
-            if (i == 1){
-                r1[0] = xl;
-                r1[1] = y;
-            }
-            else{
-                r2[0] = xl;
-                r2[1] = y;
-            }
-            return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu);
-        }
-    }
-
-    if (Q[0] > xr){
-        var y = m * (xr - Q[0]) + Q[1];
-
-        if (yd <= y && y <= yu){
-            if (i == 1){
-                r1[0] = xr;
-                r1[1] = y;
-            }
-            else{
-                r2[0] = xr;
-                r2[1] = y;
-            }
-            return A(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu);
-        }
-    }
-
-    return A_skip_1(FL, i, Q, p1, p2, r1, r2, xl, xr, yd, yu, m);
-}*/
-
 /**
  * основной алгоритм отрисовки
  * @param {user-js object} obj данные для рисования 
  */
-function FillFigure(obj){
-    /*for (var i = 0; i < DOTS.length; i++){
-        var xl = CUTTER.xleft;
-        var xr = CUTTER.xright;
-        var yd = CUTTER.ylow;
-        var yu = CUTTER.yhigh;
-        var p1 = [DOTS[i].xn, DOTS[i].yn];
-        var p2 = [DOTS[i].xk, DOTS[i].yk];
-        yu, yd = yd, yu
+async function FillFigure(obj){
+    [CUTTER.ylow, CUTTER.yhigh] = [CUTTER.yhigh, CUTTER.ylow];
+    var BIG_STRUCT = {P1: [0, 0], P2: [0, 0], flag: 0, R1: [0, 0], R2: [0, 0], m: 99999999, I: 0, Pt: [0, 0]};
+    for (var i = 0; i < DOTS.length; i++){
+        BIG_STRUCT.P1 = [DOTS[i].xn, DOTS[i].yn];
+        BIG_STRUCT.P2 = [DOTS[i].xk, DOTS[i].yk];
 
-        var visible;
-        [visible, p1, p2] = easy_cut(xl, xr, yd, yu, p1, p2);
-        console.log(visible);
-        console.log(p1[0], p1[1]);
-        console.log(p2[0], p2[1]);
-        console.log(obj.rescolor);
-        CDA(p1[0], p1[1], p2[0], p2[1], obj.rescolor);
-       // if (visible)
-          //  CDA(DOTS[i].xn, DOTS[i].yn, DOTS[i].xk, DOTS[i].yk, obj.linecolor);
-    }*/
+        var code_1 = find_code(BIG_STRUCT.P1[0], BIG_STRUCT.P1[1]);
+        var code_2 = find_code(BIG_STRUCT.P2[0], BIG_STRUCT.P2[1]);
+
+        BIG_STRUCT.flag = 0;
+        BIG_STRUCT.R1 = COPY(BIG_STRUCT.P1);
+        BIG_STRUCT.R2 = COPY(BIG_STRUCT.P2);
+        BIG_STRUCT.m = 9999999999999;
+
+        var [s1, s2] = [find_sum(code_1), find_sum(code_2)];
+
+        if (!s1 && !s2){
+            CDA(BIG_STRUCT.R1[0], BIG_STRUCT.R1[1], BIG_STRUCT.R2[0], BIG_STRUCT.R2[1], obj.rescolor)
+        }
+
+        if (logic_and(code_1, code_2)){
+            BIG_STRUCT.flag = -1;
+            continue;
+        }
+
+        if (s1 == 0){
+            BIG_STRUCT.I = 2;
+            BIG_STRUCT.R1 = COPY(BIG_STRUCT.P1);
+            BIG_STRUCT.Pt = COPY(BIG_STRUCT.P2);
+            BIG_STRUCT = check_left_cross(BIG_STRUCT, obj);
+        }
+        if (s2 == 0){
+            console.log(BIG_STRUCT);
+            BIG_STRUCT.I = 2;
+            BIG_STRUCT.R1 = COPY(BIG_STRUCT.P2);
+            BIG_STRUCT.Pt = COPY(BIG_STRUCT.P1);
+            BIG_STRUCT = check_left_cross(BIG_STRUCT, obj);
+        }
+
+        BIG_STRUCT.I = 0;
+        BIG_STRUCT = next_point(BIG_STRUCT, obj);
+    }
+    [CUTTER.ylow, CUTTER.yhigh] = [CUTTER.yhigh, CUTTER.ylow];
+}
+
+
+function find_code(x, y){
+    var code = [0, 0, 0, 0];
+
+    if (x < CUTTER.xleft)
+        code[0] = 1;
+    if (x > CUTTER.xright)
+        code[1] = 1;
+    if (y < CUTTER.ylow)
+        code[2] = 1;
+    if (y > CUTTER.yhigh)
+        code[3] = 1;
+
+    return code
+}
+
+function find_sum(code){
+    var s = 0;
+    for (var i = 0; i < code.length; i++)
+        s += code[i];
+
+    return s;
+}
+
+function logic_and(code_1, code_2){
+    var s = 0;
+    for (var i = 0; i < code_1.length; i++)
+        s += code_1[i] * code_2[i];
+
+    return s;
+}
+
+function check_left_cross(BIG_STRUCT, obj){
+    if (BIG_STRUCT.P2[0] == BIG_STRUCT.P1[0])
+        BIG_STRUCT = check_up_cross(BIG_STRUCT, obj);
+    else{
+        BIG_STRUCT.m = (BIG_STRUCT.P2[1] - BIG_STRUCT.P1[1]) / (BIG_STRUCT.P2[0] - BIG_STRUCT.P1[0])
+
+        if (CUTTER.xleft < BIG_STRUCT.Pt[0])
+            BIG_STRUCT = check_right_cross(BIG_STRUCT, obj)
+        else{
+            var y = BIG_STRUCT.m * (CUTTER.xleft - BIG_STRUCT.Pt[0]) + BIG_STRUCT.Pt[1]
+
+            if (y > CUTTER.yhigh || y < CUTTER.ylow)
+                BIG_STRUCT = check_right_cross(BIG_STRUCT, obj)
+            else{
+                BIG_STRUCT.Pt = [CUTTER.xleft, y]
+                BIG_STRUCT = next_point(BIG_STRUCT, obj)
+            }
+        }
+    }
+
+    return BIG_STRUCT
+}
+
+function check_right_cross(BIG_STRUCT, obj){
+    if (CUTTER.xright > BIG_STRUCT.Pt[0])
+        BIG_STRUCT = check_up_cross(BIG_STRUCT, obj)
+    else{
+        var y = BIG_STRUCT.m * (CUTTER.xright - BIG_STRUCT.Pt[0]) + BIG_STRUCT.Pt[1]
+
+        if (y > CUTTER.yhigh || y < CUTTER.ylow)
+            BIG_STRUCT = check_up_cross(BIG_STRUCT, obj)
+        else{
+            BIG_STRUCT.Pt = [CUTTER.xright, y]
+
+            BIG_STRUCT = next_point(BIG_STRUCT, obj)
+        }
+    }
+
+    return BIG_STRUCT
+}
+
+function check_up_cross(BIG_STRUCT, obj){
+    if (BIG_STRUCT.m == 0)
+        BIG_STRUCT = next_point(BIG_STRUCT, obj)
+    else{
+        if (CUTTER.yhigh > BIG_STRUCT.Pt[1])
+            BIG_STRUCT = check_down_cross(BIG_STRUCT, obj)
+        else{
+            var x = BIG_STRUCT.Pt[0] + (CUTTER.yhigh - BIG_STRUCT.Pt[1]) / BIG_STRUCT.m
+
+            if (x < CUTTER.xleft || x > CUTTER.xright)
+                BIG_STRUCT = check_down_cross(BIG_STRUCT, obj)
+            else{
+                BIG_STRUCT.Pt = [x, CUTTER.yhigh]
+
+                BIG_STRUCT = next_point(BIG_STRUCT, obj)
+            }
+        }
+    }
+
+    return BIG_STRUCT
+}
+
+function check_down_cross(BIG_STRUCT, obj){
+    if (CUTTER.ylow < BIG_STRUCT.Pt[1])
+        return
+    var x = BIG_STRUCT.Pt[0] + (CUTTER.ylow - BIG_STRUCT.Pt[1]) / BIG_STRUCT.m
+
+    if (x < CUTTER.xleft || x > CUTTER.xright){
+        BIG_STRUCT.flag = -1
+        return
+    }
+    else{
+        BIG_STRUCT.Pt = [x, CUTTER.ylow]
+
+        BIG_STRUCT = next_point(BIG_STRUCT, obj)
+    }
+
+    return BIG_STRUCT
+}
+
+function next_point(BIG_STRUCT, obj){
+    if (BIG_STRUCT.I != 0){
+        if (BIG_STRUCT.I == 1)
+            BIG_STRUCT.R1 = COPY(BIG_STRUCT.Pt)
+        else
+            BIG_STRUCT.R2 = COPY(BIG_STRUCT.Pt)
+    }
+
+    BIG_STRUCT.I += 1
+    if (BIG_STRUCT.I > 2)
+        CDA(BIG_STRUCT.R1[0], BIG_STRUCT.R1[1], BIG_STRUCT.R2[0], BIG_STRUCT.R2[1], obj.rescolor)
+    else{
+        if (BIG_STRUCT.I == 1)
+            BIG_STRUCT.Pt = COPY(BIG_STRUCT.P1)
+        else
+            BIG_STRUCT.Pt = COPY(BIG_STRUCT.P2)
+
+        BIG_STRUCT = check_left_cross(BIG_STRUCT, obj)
+    }
+
+    return BIG_STRUCT
 }
 
 
