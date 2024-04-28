@@ -1,8 +1,14 @@
-function SetRect(color, x, y){
+/**
+ * закраска пикслея
+ * @param {number} x 
+ * @param {number} y 
+ * @param {string} color цвет
+ */
+export function SetRect(x, y, color, r=1){
     const canvas = document.getElementById('container');
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = color;
-    ctx.fillRect(Math.round(x + width / 2), Math.round(height / 2 - y), 1, 1);
+    ctx.fillRect(Math.round(x), Math.round(y), r, r);
 }
 
 
@@ -18,10 +24,10 @@ function DrawSymPoints(xn, x, yn, y, color) {
     const canvas = document.getElementById('container');
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = color;
-    ctx.fillRect(xn + x + width / 2, height / 2 - (yn + y), 1, 1);
-    ctx.fillRect(-xn + x + width / 2, height / 2 - (yn + y), 1, 1);
-    ctx.fillRect(xn + x + width / 2, height / 2 + yn - y, 1, 1);
-    ctx.fillRect(-xn + x + width / 2, height / 2 + yn - y, 1, 1);
+    ctx.fillRect(xn + x, (yn + y), 2, 2);
+    ctx.fillRect(-xn + x, (yn + y), 2, 2);
+    ctx.fillRect(xn + x, (-yn + y), 2, 2);
+    ctx.fillRect(-xn + x, (-yn + y), 2, 2);
 }
 
 
@@ -45,16 +51,10 @@ export function CDA(xn, yn, xk, yk, color) {
     delta_x /= l;
     delta_y /= l;
 
-    var prev_x = x;
-    var prev_y = y;
-
     for (var i = 0; i <= l + 1; i++) {
-        SetRect(color, x, y);
+        SetRect(x, y, color, 2);
         x += delta_x;
         y += delta_y;
-
-        prev_x = Math.round(x);
-        prev_y = Math.round(y);
     }
 }
 

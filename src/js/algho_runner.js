@@ -1,23 +1,28 @@
-import { CDA } from "./base_algo.js";
-import { TablePad } from "./tables.js";
+import { CDA, SetRect } from "./base_algo.js";
 
 var DOTS = []
 var FLAG = 0
 var ZATRAVKA = {x: NaN, y: NaN}
 
-
 function pushdot(obj){DOTS.push([obj.x, obj.y]);}
+function cleardots(){DOTS = [];}
+function Point(x, y){return {x: x, y: y};}
 
+/**
+ * установка затравочного пикселя
+ * @param {user-js struct} obj объект с данными для отрисовки
+ */
 function SetZatravka(obj){
     const canvas = document.getElementById('container');
     var ctx = canvas.getContext("2d");
-    ctx.clearRect(ZATRAVKA.x + width / 2, height / 2 - ZATRAVKA.y, 1, 1);
+    ctx.clearRect(ZATRAVKA.x, ZATRAVKA.y, 1, 1);
     [ZATRAVKA.x, ZATRAVKA.y] = [obj.x, obj.y];
 }
 
 
 /**
  * отрисовка ребра
+ * @param {user-js struct} obj объект с данными для отрисовки
  */
 function makeedge(obj){
     if (DOTS.length < 2)
@@ -27,50 +32,42 @@ function makeedge(obj){
 }
 
 
-function cleardots(){DOTS = [];}
-
-
-/**
- * проверка количества вершин фигуры перед построением
- * @returns number код завершения функции
- */
-function CheckDotsLength(){
-    if (DOTS.length < 3){
-        alert("Ошибка! Нужно ввести хотя бы 3 точки!");
-        return -1;
-    }
-    return 0;
-}
-
-
 /**
  * отрисовка последнего ребра перед закраской
- * @returns объект промиса(борьба с асинхроностью)
  */
 function PlotLastEdge(){
-    return new Promise(() => {
-        if (FLAG == 0){
-            var el = document.getElementById('collect-data'); //* @typedef html-object
-            var color = el.edgecolor.value;
-            CDA(DOTS[DOTS.length - 1][0], DOTS[DOTS.length - 1][1], DOTS[0][0], DOTS[0][1], color);
-        }
-    });
+    if (FLAG == 0 && DOTS.length != 0){
+        var el = document.getElementById('collect-data'); //* @typefunction html-object
+        var color = el.edgecolor.value;
+        CDA(DOTS[DOTS.length - 1][0], DOTS[DOTS.length - 1][1], DOTS[0][0], DOTS[0][1], color);
+    }
 }
 
 
 /**
- * изменение статуса отображения колёсика прогрузки
- * @param {string} state состояние для колёсика прогрузки
- * @returns объект Promise(в данном случае это необходимо для внедрения асинхроности процессов)
+ * проверка данных для закраски перед началом алгоритма
+ * @param {user-js struct} obj объект с данными для отрисовки
+ * @returns код завершения функции
  */
-function reverseLoader(state){
-    return new Promise((resolve) => {
-        document.getElementById("loader").style.display = state;
-        resolve();
-        setTimeout(() => {
-            resolve();
-        }, 1);
-    });
+function CheckPlotData(obj){
+    if (obj.border_colour == obj.color){
+        alert("Ошибка! Цвет границы и цвет закраски не должны совпадать!");
+        return -1;
+    }
+    if (obj.border_colour == "#ffffff"){
+        alert("Ошибка! Цвет границы и цвет фона не должны совпадать!");
+        return -1;
+    }
+    if ("#ffffff" == obj.color){
+        alert("Ошибка! Цвет фона и цвет закраски не должны совпадать!");
+        return -1;
+    }
+    if (!ZATRAVKA.x && ZATRAVKA.x != 0){
+        alert("Ошибка! нет затравочного пикселя!");
+        return -1;
+    }
+
+    return 0;
 }
 
 
@@ -79,20 +76,12 @@ function reverseLoader(state){
  * @param {user-js object} obj данные для рисования 
  */
 function FILL(obj){
-    var rc = CheckDotsLength(); //* @typedef number
-    if (rc != 0)
+    PlotLastEdge();
+    if (CheckPlotData(obj) != 0)
         return;
+    FillFigure(obj);
 
-    var summm = 0; //* @typedef number
-    reverseLoader("block").then(PlotLastEdge()).then(() => {
-        summm = FillFigure(obj);
-    }).then(() => {
-        setTimeout(function() {
-            reverseLoader("none");
-       }, summm);
-    })
-
-    FLAG = 1
+    FLAG = 1;
 }
 
 
@@ -104,167 +93,122 @@ function ClearIfEmpty(){
         const canvas = document.getElementById('container');
         var ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        TablePad(NaN, 1);
+        ctx.fillStyle = "white"; //* @typefunction string
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         cleardots(); 
         FLAG = 0;
+        [ZATRAVKA.x, ZATRAVKA.y] = [NaN, NaN];
     }
-}
-
-
-function draw_pixel(x, y, color){
-    const canvas = document.getElementById('container');
-    var ctx = canvas.getContext("2d");
-    ctx.fillStyle = color; //* @typedef string
-    ctx.fillRect(x + width / 2, height / 2 - y, 1, 1);
 }
 
 function componentToHex(c) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
-  }
-
-function rgbToHex(r, g, b) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-function get_pixel_color(x, y){
+
+/**
+ * получение цвета пикселя
+ * @param {number} x 
+ * @param {number} y 
+ * @returns string цвет пикселя
+ */
+function GetColorPixel(x, y){
     const canvas = document.getElementById('container');
     var ctx = canvas.getContext("2d");
-    var imageData = ctx.getImageData(x + width / 2, height / 2 - y, 1, 1);
+    var imageData = ctx.getImageData(x, y, 1, 1);
     var data = imageData.data;
-    
-    var red = data[0];
-    var green = data[1];
-    var blue = data[2];
 
-    return rgbToHex(data[0], data[1], data[2]);
+    return "#" + componentToHex(data[0]) + componentToHex(data[1]) + componentToHex(data[2]);
 }
 
-function Point(x, y){
-    var pp = {x: x, y: y};
 
-    return pp;
+/**
+ * добавление пикслей для следующих итераций
+ * @param {array of coordinates} stack 
+ * @param {number} xr 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {user-js object} obj данные для рисования 
+ */
+function SearchPixel(stack, xr, x, y, obj){
+    while (x <= xr){
+        var flag = false;
+        while (GetColorPixel(x, y) != obj.color && GetColorPixel(x, y) != obj.border_colour && x <= xr){
+            if (flag == false)
+                flag = true;
+            x += 1;
+        }
+        if (flag){
+            if (x == xr && (GetColorPixel(x, y) != obj.color) && (GetColorPixel(x, y) != obj.border_colour))
+                stack.push(Point(x, y));
+            else
+                stack.push(Point(x - 1, y));
+            flag = false;
+        }
+
+        var x_temp = x;
+        while (GetColorPixel(x, y) == obj.color || GetColorPixel(x, y) == obj.border_colour && x < xr)
+            x += 1;
+
+        if (x == x_temp)
+            x += 1;
+    }
 }
 
-function FillFigure(obj){
-    if (obj.border_colour == obj.color){
-        alert("Предупреждение! Цвет границы и цвет закраски не должны совпадать!")
-        return
-    }
-    if (obj.border_colour == "#ffffff"){
-        alert("Предупреждение! Цвет границы и цвет фона не должны совпадать!")
-        return
-    }
-    if ("#ffffff" == obj.color){
-        alert("Предупреждение! Цвет фона и цвет закраски не должны совпадать!")
-        return
-    }
-    if (!ZATRAVKA.x && ZATRAVKA.x != 0){
-        alert("Предупреждение! нет затравочного пикселя!")
-        return
-    }
-    
-    var fill_colour = obj.color;
-    var border_colour = obj.border_colour;
 
-    console.log(fill_colour, border_colour, ZATRAVKA);
+/**
+ * закраска пикслей справа от текущего при вызове
+ * @param {number} x 
+ * @param {number} y 
+ * @param {user-js object} obj данные для рисования 
+ * @returns новые координаты x
+ */
+function RunRight(x, y, obj){
+    while (GetColorPixel(Math.round(x), Math.round(y)) != obj.border_colour){
+        SetRect(x, y);
+        x += 1;
+    }
 
+    return x - 1;
+}
+
+
+/**
+ * закраска пикслей слева от текущего при вызове
+ * @param {number} x 
+ * @param {number} y 
+ * @param {user-js object} obj данные для рисования 
+ * @returns новые координаты x
+ */
+function RunLeft(x, y, obj){
+    while (GetColorPixel(Math.round(x), Math.round(y)) != obj.border_colour){
+        SetRect(x, y);
+        x -= 1;
+    }
+
+    return x + 1;
+}
+
+/**
+ * основной алгоритм отрисовки
+ * @param {user-js object} obj данные для рисования 
+ */
+async function FillFigure(obj){
     var stack = [ZATRAVKA];
+
     while (stack.length != 0){
-        var seed_pixel = stack.pop()
-        var x = Math.round(seed_pixel.x);
-        var y = Math.round(seed_pixel.y);
-        console.log(x, y);
-
-        draw_pixel(x, y, fill_colour)
-        var tx = x
-        var ty = y
-
-        x += 1
-
-        console.log(get_pixel_color(x, y), fill_colour, border_colour, x, width);
-        while (get_pixel_color(x, y) != fill_colour && get_pixel_color(x, y) != border_colour && x <  width){
-            draw_pixel(x, y, fill_colour)
-            x += 1
-        }
-
-        var xr = x - 1
-
-        x = tx - 1
-        while (get_pixel_color(x, y) != fill_colour && get_pixel_color(x, y) != border_colour && x > 0){
-            draw_pixel(x, y, fill_colour)
-            x -= 1
-        }
-
-        var xl = x + 1
-
-        x = xl
-        if (ty < height){
-            y = ty + 1
-
-            while (x <= xr){
-                var flag = false
-
-                while (get_pixel_color(x, y) != fill_colour && get_pixel_color(x, y) != border_colour && x <= xr){
-                    flag = true
-                    x += 1
-                }
-
-                if (flag){
-                    if (x == xr && get_pixel_color(x, y) != fill_colour && get_pixel_color(x, y) != border_colour){
-                        if (y < height)
-                            stack.push(Point(x, y))
-                    }
-                    else{
-                        if (y < height)
-                            stack.push(Point(x - 1, y))
-                    }
-
-                    flag = false
-                }
-                var x_in = x
-                while ((get_pixel_color(x, y) == fill_colour || get_pixel_color(x, y) == border_colour) && x < xr)
-                    x = x + 1
-
-                if (x == x_in)
-                    x += 1
-            }
-        }
-        x = xl
-        y = ty - 1
-
-        while (x <= xr){
-            var flag = false
-
-            while (get_pixel_color(x, y) != fill_colour && get_pixel_color(x, y) != border_colour && x <= xr){
-                flag = true
-                x += 1
-            }
-
-            if (flag) {
-                if (x == xr && get_pixel_color(x, y) != fill_colour && get_pixel_color(x, y) != border_colour){
-                    if (y > 0)
-                        stack.push(Point(x, y))
-                }
-                else{
-                    if (y > 0)
-                        stack.push(Point(x - 1, y))
-                }
-
-                flag = false
-            }
-
-            var x_in = x
-            while ((get_pixel_color(x, y) == fill_colour || get_pixel_color(x, y) == border_colour) && x < xr)
-                x = x + 1
-
-            if (x == x_in)
-                x += 1
-        }
-        //if delay:
-         //   canvas.update()
+        await new Promise(resolve => setTimeout(resolve, obj.delay));
+        var pt = stack.pop();
+        var [x, y] = [pt.x, pt.y];
+        SetRect(x, y, obj.color);
+        var xr = RunRight(x + 1, y, obj);
+        var xl = RunLeft(x - 1, y, obj);
+        SearchPixel(stack, xr, xl, y + 1, obj);
+        SearchPixel(stack, xr, xl, y - 1, obj);
     }
 }
+
 
 /**
  * прокладка/точка входа в модуль

@@ -4,7 +4,7 @@ var config = {
 };
 
 var index = Object.assign({}, config, {
-    entry: ['./src/js/defaultmain.js'],
+    entry: ['./src/js/index.js'],
     output: {
     path: path.resolve(__dirname, 'out'),
     filename: 'index.js',

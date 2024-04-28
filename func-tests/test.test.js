@@ -1,177 +1,257 @@
 import { test } from '@playwright/test';
 
-test('FillRect', async ({ page }) => {
+test('Рандомная абстракция', async ({ page }) => {
   var t0 = performance.now();
 
   await page.goto(`file://${__dirname}/../out/index.html`);
-  await page.locator('input[name="x"]').click();
-  await page.locator('input[name="x"]').fill('0');
-  await page.locator('input[name="y"]').click();
-  await page.locator('input[name="y"]').fill('0');
-  await page.getByRole('button', { name: 'Добавить точку' }).click();
-  await page.locator('input[name="y"]').click();
-  await page.locator('input[name="y"]').fill('100');
-  await page.getByRole('button', { name: 'Добавить точку' }).click();
-  await page.locator('input[name="x"]').click();
-  await page.locator('input[name="x"]').fill('100');
-  await page.getByRole('button', { name: 'Добавить точку' }).click();
-  await page.locator('input[name="y"]').click();
-  await page.locator('input[name="y"]').fill('0');
-  await page.getByRole('button', { name: 'Добавить точку' }).click();
+  await page.locator('input[name="xcir"]').click();
+  await page.locator('input[name="xcir"]').fill('0');
+  await page.locator('input[name="ycir"]').click();
+  await page.locator('input[name="ycir"]').fill('0');
+  await page.locator('input[name="rcir"]').click();
+  await page.locator('input[name="rcir"]').fill('200');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('#container').click({
+    position: {
+      x: 458,
+      y: 98
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 613,
+      y: 389
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 949,
+      y: 378
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 986,
+      y: 141
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 1008,
+      y: 414
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 756,
+      y: 565
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 482,
+      y: 546
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 485,
+      y: 360
+    }
+  });
+  await page.locator('#container').click({
+    button: 'right',
+    position: {
+      x: 642,
+      y: 463
+    }
+  });
   await page.getByRole('button', { name: 'Закрасить' }).click();
+
+  await new Promise(resolve => setTimeout(resolve, 9000));
 
   await page.screenshot({ path: './results/1.png', fullPage: true});
 
   var t1 = performance.now();
-  console.log(t1 - t0);
+  console.log(t1 - t0 - 9000);
 });
 
-
-test('почти круг', async ({ page }) => {
+test('Пчелиные соты', async ({ page }) => {
   var t0 = performance.now();
 
   await page.goto(`file://${__dirname}/../out/index.html`);
-  await page.locator('canvas').click({
+  await page.locator('input[name="xcir"]').click();
+  await page.locator('input[name="xcir"]').fill('0');
+  await page.locator('input[name="ycir"]').click();
+  await page.locator('input[name="ycir"]').fill('0');
+  await page.locator('input[name="rcir"]').click();
+  await page.locator('input[name="rcir"]').fill('50');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('input[name="xcir"]').click();
+  await page.locator('input[name="xcir"]').fill('100');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('input[name="xcir"]').click();
+  await page.locator('input[name="xcir"]').fill('200');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('input[name="ycir"]').click();
+  await page.locator('input[name="ycir"]').fill('100');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('input[name="xcir"]').click();
+  await page.locator('input[name="xcir"]').fill('100');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('input[name="xcir"]').click();
+  await page.locator('input[name="xcir"]').fill('0');
+  await page.getByRole('button', { name: 'Построить окружность' }).click();
+  await page.locator('input[name="x"]').click();
+  await page.locator('#container').click({
     position: {
-      x: 634,
-      y: 266
+      x: 491,
+      y: 122
     }
   });
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
     position: {
-      x: 617,
-      y: 281
+      x: 483,
+      y: 497
     }
   });
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
     position: {
-      x: 617,
-      y: 294
+      x: 1002,
+      y: 501
     }
   });
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
     position: {
-      x: 616,
-      y: 308
+      x: 976,
+      y: 112
     }
   });
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
+    button: 'right',
     position: {
-      x: 619,
-      y: 325
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 631,
-      y: 336
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 650,
-      y: 341
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 664,
-      y: 341
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 677,
-      y: 337
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 686,
-      y: 326
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 688,
-      y: 305
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 686,
-      y: 285
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 682,
-      y: 269
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 673,
-      y: 262
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 652,
-      y: 258
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 643,
-      y: 257
-    }
-  });
-  await page.locator('canvas').click({
-    position: {
-      x: 637,
-      y: 259
+      x: 520,
+      y: 256
     }
   });
   await page.getByRole('button', { name: 'Закрасить' }).click();
+
+  await new Promise(resolve => setTimeout(resolve, 9000));
+
   await page.screenshot({ path: './results/2.png', fullPage: true});
 
   var t1 = performance.now();
-  console.log(t1 - t0);
+  console.log(t1 - t0 - 9000);
 });
 
 
-test('Песочные часы или буква Z', async ({ page }) => {
+test('Динозавр', async ({ page }) => {
   var t0 = performance.now();
 
   await page.goto(`file://${__dirname}/../out/index.html`);
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
     position: {
-      x: 591,
-      y: 253
+      x: 443,
+      y: 562
     }
   });
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
     position: {
-      x: 696,
-      y: 252
+      x: 466,
+      y: 291
     }
   });
-  await page.locator('canvas').click({
+  await page.locator('#container').click({
     position: {
-      x: 586,
+      x: 483,
+      y: 347
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 538,
+      y: 182
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 534,
+      y: 315
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 646,
+      y: 125
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 610,
+      y: 255
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 724,
+      y: 101
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 701,
+      y: 237
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 791,
+      y: 157
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 746,
+      y: 287
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 829,
+      y: 240
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 763,
+      y: 392
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 848,
+      y: 358
+    }
+  });
+  await page.locator('#container').click({
+    position: {
+      x: 735,
+      y: 499
+    }
+  });
+  await page.locator('#container').click({
+    button: 'right',
+    position: {
+      x: 607,
       y: 352
     }
   });
-  await page.locator('canvas').click({
-    position: {
-      x: 692,
-      y: 361
-    }
-  });
+  await page.locator('#container').click();
   await page.getByRole('button', { name: 'Закрасить' }).click();
+
+  await new Promise(resolve => setTimeout(resolve, 9000));
   await page.screenshot({ path: './results/3.png', fullPage: true});
 
   var t1 = performance.now();
-  console.log(t1 - t0);
+  console.log(t1 - t0 - 9000);
 });

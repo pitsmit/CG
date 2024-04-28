@@ -12,14 +12,14 @@
     <canvas id="container"></canvas>
 
     <div class="menu">
-        <button class="buttons" id="info">Информация об авторе</button>
-        <button class="buttons" id="task">Условие задачи</button>
-        <button class="buttons" id="instruction">Инструкция по работе с программой</button>
+        <button class="buttons" id="info" onclick="alert('Смирнов Пётр, ИУ7-45Б')">Информация об авторе</button>
+        <button class="buttons" id="task" onclick="alert('Реализация и исследование алгоритма затравки')">Условие задачи</button>
+        <button class="buttons" id="instruction" onclick="alert('Для добавления кривых - зажмите ЛКМ и водите по экрану. Для добавления затравочного пикселя можно воспользоваться меню или ПКМ. Учтите, что затравочный пиксель может быть только один. При попытке добавления второго первый будет стираться.')">Инструкция по работе с программой</button>
         <button class="buttons" id="clear">Очистить экран</button>
 
         <form id="collect-data" method="dialog" autocomplete="off">
             <label for="zatravka">Выберите цвет затравки</label>
-            <input type="color" id="zatravka" name="zatravka"/><br>
+            <input type="color" id="zatravka" name="zatravka" value="#E32636"/><br>
             <label for="edgecolor">Выберите цвет ребра</label>
             <input type="color" id="edgecolor" name="edgecolor"/><br>
 
@@ -64,22 +64,10 @@
             <label>------------------------------------------</label><br>
 
             <button id="submit">Закрасить</button><br><br>
-            
-            <label>------------------------------------------</label><br>
-
-            <table class="Tables" id="tops" contenteditable="false">
-                <caption contenteditable="false">Вершины фигуры</caption>
-                <tr>
-                    <th contenteditable="false">x</th>
-                    <th contenteditable="false">y</th>
-                </tr>
-            </table>
         </form>
-
-        <div id="loader"></div>
     </div>
 
-    <script type="module" src="./src/js/defaultmain.js"></script>
+    <script type="module" src="./src/js/index.js"></script>
 </body>
 
 </html>
