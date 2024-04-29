@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№7</title>
+</head>
+
+<body>
+    <canvas id="container"></canvas>
+
+    <div class="menu">
+        <button class="buttons" id="info" onclick="alert('Смирнов Пётр, ИУ7-45Б')">Информация об авторе</button>
+        <button class="buttons" id="task" onclick="alert('Реализация и исследование алгоритма простого отсечения')">Условие задачи</button>
+        <button class="buttons" id="instruction" onclick="alert('Отсекатель можно задавать либо кликом ПКМ или в меню слева. Отрезки задавать можно либо кликом ЛКМ либо в меню слева')">Инструкция по работе с программой</button>
+        <button class="buttons" id="clear">Очистить экран</button>
+
+        <form id="collect-data" method="dialog" autocomplete="off">
+            <label for="linecolor">Выберите цвет отрезков</label>
+            <input type="color" id="linecolor" name="linecolor" value="#E32636" /><br>
+            <label for="cuttercolor">Выберите цвет отсекателя</label>
+            <input type="color" id="cuttercolor" name="cuttercolor" value="#32CD32" /><br>
+            <label for="rescolor">Выберите цвет результата</label>
+            <input type="color" id="rescolor" name="rescolor" /><br>
+
+            <label>------------------------------------------</label><br>
+
+            <label>Ввод параметров отсекателя:</label><br>
+            <label for="xleft">X л:</label>
+            <input type="text" name="xleft" required pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+            <label for="ylow">Y н:</label>
+            <input type="text" name="ylow" required pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+            <label for="xright">X п:</label>
+            <input type="text" name="xright" required pattern="^(?:-?\d+(.\d+)?)$" value="100"><br>
+            <label for="yhigh">Y в:</label>
+            <input type="text" name="yhigh" required pattern="^(?:-?\d+(.\d+)?)$" value="200"><br>
+
+            <button class="buttons" id="viewcutter">Показать отсекатель</button>
+
+            <label>------------------------------------------</label><br>
+
+            <label>Ввод параметров отрезков:</label><br>
+            <label for="xn">X н:</label>
+            <input type="text" name="xn" pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+            <label for="yn">Y н:</label>
+            <input type="text" name="yn" pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+
+            <label for="xk">X к:</label>
+            <input type="text" name="xk" pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+            <label for="yk">Y к:</label>
+            <input type="text" name="yk" pattern="^(?:-?\d+(.\d+)?)$" value="0"><br>
+
+            <button class="buttons" id="add">Добавить отрезок</button>
+
+            <label>------------------------------------------</label><br>
+
+            <button id="submit">Отсечь</button><br><br>
+        </form>
+    </div>
+
+    <script type="module" src="./src/js/index.js"></script>
+</body>
+
+</html>
