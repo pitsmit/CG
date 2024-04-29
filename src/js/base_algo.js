@@ -4,7 +4,7 @@
  * @param {number} y 
  * @param {string} color цвет
  */
-export function SetRect(x, y, color, r=1){
+function SetRect(x, y, color, r=1){
     const canvas = document.getElementById('container');
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = color;

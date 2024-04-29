@@ -17,7 +17,7 @@ function create_obj(){return {
     linecolor: "", 
     cuttercolor: "",
     rescolor: "",
-    };}
+};}
 
 
 /**
@@ -64,7 +64,7 @@ function addButton() {
 
 function convertToCanvas(canvas, x, y) {
 	const canvasElement  = canvas.getBoundingClientRect();
-    return [(x- canvasElement.left)*(canvas.width  / canvasElement.width), (y - canvasElement.top)*(canvas.height / canvasElement.height)];
+    return [(x - canvasElement.left) * (canvas.width  / canvasElement.width), (y - canvasElement.top) * (canvas.height / canvasElement.height)];
 }
 
 /**
@@ -83,12 +83,10 @@ function addPixelToCanvas(){
 
         ctx.fillStyle = e.button == 2 ? el.cuttercolor.value : el.linecolor.value;
 
-        if (e.button == 0){
+        if (e.button == 0)
             MainPad(obj, 5); // push dot
-        }
-        else{
+        else
             MainPad(obj, 7);
-        }
         ctx.fillRect(x, y, 1, 1);
       });
 }
