@@ -14,7 +14,6 @@
     <div class="menu">
         <button class="buttons" id="info" onclick="alert('Смирнов Пётр, ИУ7-45Б')">Информация об авторе</button>
         <button class="buttons" id="task" onclick="alert('изучение и программная реализация алгоритма Плавающего горизонта построения трехмерных поверхностей.')">Условие задачи</button>
-        <button class="buttons" id="instruction" onclick="alert('затычка')">Инструкция по работе с программой</button>
         <button class="buttons" id="clear">Очистить экран</button>
 
         <form id="collect-data" method="dialog" autocomplete="off">
@@ -24,10 +23,16 @@
             <label for="functionlist">Выбрать функцию отрисовки:</label>
             <div id="functionlist" style="width:200px; height:100px; overflow:auto; border:solid 2px #000000;">
                 <input type="radio" id="function-1" checked="true" name="function" class="functionradio">
-                <label for="function-1" class="functionname">cos(x^3 + 3)</label><br>
+                <label for="function-1" class="functionname">cos(x * z)</label><br>
 
                 <input type="radio" id="function-2" name="function" class="functionradio">
-                <label for="function-2" class="functionname">x^2</label><br>
+                <label for="function-2" class="functionname">sin(x) * cos(z)</label><br>
+
+                <input type="radio" id="function-3" name="function" class="functionradio">
+                <label for="function-3" class="functionname">log(x) * log(z)</label><br>
+
+                <input type="radio" id="function-4" name="function" class="functionradio">
+                <label for="function-4" class="functionname">sin(x + z)</label><br>
             </div><br>
 
             <label style="font-weight: 900;">X</label><br>

@@ -13,6 +13,7 @@ function create_obj(){return {
     toz: 0,
     stepz: 0,
     funcid: 0,
+    grad: 0,
 };}
 
 
@@ -27,18 +28,20 @@ function addButton() {
     document.getElementById("submit").addEventListener("click", (function() {
         let el = document.getElementById('collect-data'); //* @typedef html-object
         obj.rescolor = el.rescolor.value;
-        obj.fromx = el.fromx.value;
-        obj.tox = el.tox.value;
-        obj.stepx = el.stepx.value;
+        obj.fromx = parseFloat(el.fromx.value);
+        obj.tox = parseFloat(el.tox.value);
+        obj.stepx = parseFloat(el.stepx.value);
 
-        obj.fromz = el.fromz.value;
-        obj.toz = el.toz.value;
-        obj.stepz = el.stepz.value;
+        obj.fromz = parseFloat(el.fromz.value);
+        obj.toz = parseFloat(el.toz.value);
+        obj.stepz = parseFloat(el.stepz.value);
 
         let rb = el.getElementsByClassName("functionradio");
         for (let i = 0; i < rb.length; i++)
             if (rb[i].checked)
                 obj.funcid = i;
+
+        MainPad(obj, 1);
 
     }));
     document.getElementById("clear").addEventListener("click", (function() {
@@ -46,16 +49,16 @@ function addButton() {
     }));
 
     document.getElementById("rotatex").addEventListener("click", (function() {
-        let grad = parseFloat(document.getElementById("xrot").value);
-        //rotatex
+        obj.grad = parseFloat(document.getElementById("xrot").value);
+        MainPad(obj, 2);
     }));
     document.getElementById("rotatey").addEventListener("click", (function() {
-        let grad = parseFloat(document.getElementById("yrot").value);
-        //rotatey
+        obj.grad = parseFloat(document.getElementById("yrot").value);
+        MainPad(obj, 3);
     }));
     document.getElementById("rotatez").addEventListener("click", (function() {
-        let grad = parseFloat(document.getElementById("zrot").value);
-        //rotatez
+        obj.grad = parseFloat(document.getElementById("zrot").value);
+        MainPad(obj, 4);
     }));
     
 }
