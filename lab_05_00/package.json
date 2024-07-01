@@ -1,0 +1,22 @@
+{
+  "name": "lab_05",
+  "main": "index.js",
+  "scripts": {
+    "cock": "npx webpack --mode production",
+    "aa": "python3 lizard.exe -Eduplicate ./src/js/*.js",
+    "codegen": "npx playwright codegen ./out/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "konva": "^9.3.6",
+    "moment": "^2.30.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.30",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}

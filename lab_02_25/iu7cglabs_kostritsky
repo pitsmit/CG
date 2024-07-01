@@ -1,0 +1,55 @@
+run :
+		start ./out/index.html || true
+
+format :
+		npm -g install js-beautify > tmp.txt || true
+		js-beautify -r ./src/*.js > tmp.txt || true
+		js-beautify -r *.html > tmp.txt || true
+		js-beautify -r ./src/css/*.css > tmp.txt || true
+		rm tmp.txt || true
+
+release :
+		npm install > tmp.txt  || true
+		npx webpack --mode production > tmp.txt || true
+		cp ./*.html ./out/ > tmp.txt || true
+		rm ./out/*.js.LICENSE.txt > tmp.txt || true
+		mkdir -p ./out/src/css > tmp.txt || true
+		cp ./src/css/styles.css ./out/src/css/styles.css > tmp.txt || true
+		python3 replacepath.py > tmp.txt || true
+		rm tmp.txt || true
+
+
+checkall:
+		python3 lizard.exe -Eduplicate ./src/js/*.js
+
+clean:
+		rm -r node_modules &> tmp.txt || true
+		rm tmp.txt || true
+
+.PHONY: report-unittesting-latest.txt
+report-unittesting-latest.txt:
+		touch report-unittesting-latest.txt > tmp.txt || true
+		echo " 00.00 " > report-unittesting-latest.txt || true
+		rm tmp.txt || true
+
+.PHONY: report-functesting-latest.txt
+report-functesting-latest.txt: release
+		npx playwright install > tmp.txt || true
+		npm install > tmp.txt || true
+		touch report-functesting-latest.txt > tmp.txt || true
+		mkdir -p results
+		echo " 00.00 " > report-functesting-latest.txt || true
+		touch func-tests/testres.txt > tmp.txt || true
+		npx playwright test > func-tests/testres.txt || true
+		python3 ./func-tests/findouttime.py
+		./func-tests/helpfunc.sh > tmp.txt || true
+		rm func-tests/testres.txt || true
+		rm -r test-results &> tmp.txt || true
+		rm -r playwright-report &> tmp.txt || true
+		rm tmp.txt || true
+
+saveolds:
+		touch report-functesting-old.txt || true
+		cat report-functesting-latest.txt > report-functesting-old.txt || true
+		touch report-unittesting-old.txt || true
+		cat report-unittesting-latest.txt > report-unittesting-old.txt || true

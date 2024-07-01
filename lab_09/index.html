@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№9</title>
+</head>
+
+<body>
+    <canvas id="container"></canvas>
+
+    <div class="menu">
+        <button class="buttons" id="info" onclick="alert('Смирнов Пётр, ИУ7-45Б')">Информация об авторе</button>
+        <button class="buttons" id="task" onclick="alert('Изучение и программная реализация алгоритма Сазерленда-Ходжмена отсечения многоугольников.')">Условие задачи</button>
+        <button class="buttons" id="instruction" onclick="alert('Отсекатель можно задавать кликами ПКМ. Отсекаемый многоульник можно задавать ЛКМ')">Инструкция по работе с программой</button>
+        <button class="buttons" id="clear">Очистить экран</button>
+
+        <form id="collect-data" method="dialog" autocomplete="off">
+            <label for="linecolor">Выберите цвет отсекаемого</label>
+            <input type="color" id="linecolor" name="linecolor" value="#E32636" /><br>
+            <label for="cuttercolor">Выберите цвет отсекателя</label>
+            <input type="color" id="cuttercolor" name="cuttercolor" value="#32CD32" /><br>
+            <label for="rescolor">Выберите цвет результата</label>
+            <input type="color" id="rescolor" name="rescolor" /><br>
+
+            <button id="submit">Отсечь</button><br><br>
+        </form>
+    </div>
+
+    <script type="module" src="./src/js/index.js"></script>
+</body>
+
+</html>

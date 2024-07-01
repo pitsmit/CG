@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смирнов Пётр ИУ7-45Б ЛР№10</title>
+</head>
+
+<body>
+    <canvas id="container"></canvas>
+
+    <div class="menu">
+        <button class="buttons" id="info" onclick="alert('Смирнов Пётр, ИУ7-45Б')">Информация об авторе</button>
+        <button class="buttons" id="task" onclick="alert('изучение и программная реализация алгоритма Плавающего горизонта построения трехмерных поверхностей.')">Условие задачи</button>
+        <button class="buttons" id="clear">Очистить экран</button>
+
+        <form id="collect-data" method="dialog" autocomplete="off">
+            <label for="rescolor">Выберите цвет результата</label>
+            <input type="color" id="rescolor" name="rescolor" /><br>
+
+            <label for="functionlist">Выбрать функцию отрисовки:</label>
+            <div id="functionlist" style="width:200px; height:100px; overflow:auto; border:solid 2px #000000;">
+                <input type="radio" id="function-1" checked="true" name="function" class="functionradio">
+                <label for="function-1" class="functionname">cos(x * z)</label><br>
+
+                <input type="radio" id="function-2" name="function" class="functionradio">
+                <label for="function-2" class="functionname">sin(x) * cos(z)</label><br>
+
+                <input type="radio" id="function-3" name="function" class="functionradio">
+                <label for="function-3" class="functionname">log(x) * log(z)</label><br>
+
+                <input type="radio" id="function-4" name="function" class="functionradio">
+                <label for="function-4" class="functionname">sin(x + z)</label><br>
+            </div><br>
+
+            <label style="font-weight: 900;">X</label><br>
+            <label for="fromx">От:</label>
+            <input type="text" name="fromx" id="fromx" required pattern="^(?:-?\d+(.\d+)?)$" value="-10"><br>
+            <label for="tox">До:</label>
+            <input type="text" name="tox" id="tox" required pattern="^(?:-?\d+(.\d+)?)$" value="10"><br>
+            <label for="stepx">Шаг:</label>
+            <input type="text" name="stepx" id="stepx" required pattern="^(?:-?\d+(.\d+)?)$" value="0.1"><br>
+
+            <label style="font-weight: 900;">Z</label><br>
+            <label for="fromz">От:</label>
+            <input type="text" name="fromz" id="fromz" required pattern="^(?:-?\d+(.\d+)?)$" value="-10"><br>
+            <label for="toz">До:</label>
+            <input type="text" name="toz" id="toz" required pattern="^(?:-?\d+(.\d+)?)$" value="10"><br>
+            <label for="stepz">Шаг:</label>
+            <input type="text" name="stepz" id="stepz" required pattern="^(?:-?\d+(.\d+)?)$" value="0.1"><br>
+
+            <label style="font-weight: 900;">Вращение</label><br>
+            <label for="xrot">X:</label>
+            <input type="text" name="xrot" id="xrot" required pattern="^(?:-?\d+(.\d+)?)$" value="10"><button id="rotatex">Повернуть</button><br>
+            <label for="yrot">Y:</label>
+            <input type="text" name="yrot" id="yrot" required pattern="^(?:-?\d+(.\d+)?)$" value="10"><button id="rotatey">Повернуть</button><br>
+            <label for="zrot">Z:</label>
+            <input type="text" name="zrot" id="zrot" required pattern="^(?:-?\d+(.\d+)?)$" value="10"><button id="rotatez">Повернуть</button><br>
+
+
+            <button id="submit">Построить</button><br><br>
+        </form>
+    </div>
+
+    <script type="module" src="./src/js/index.js"></script>
+</body>
+
+</html>

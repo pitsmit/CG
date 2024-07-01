@@ -1,0 +1,11 @@
+touch "./results/1.txt"
+touch "./results/2.txt"
+touch "./results/3.txt"
+touch "./results/4.txt"
+touch "./results/5.txt"
+
+echo "Проверка перемещения" > "./results/1.txt"
+echo "Масштабирование сначала в 2 раза больше, потом в 2 раза меньше(картинка не должна поменяться)" > "./results/2.txt"
+echo "Переворот картинки с помощью масштабирования" > "./results/3.txt"
+echo "36 раз вращаю по 10 градусов" > "./results/4.txt"
+echo "сначала масштабирую потом вращаю 10 раз по 36 градусов" > "./results/5.txt"
